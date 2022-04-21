@@ -228,7 +228,7 @@ public class ExcelCellValueApi
                 return true;
             }
 
-            // no style?
+            // no style found?
             if(styleIndex <0)
             {
                 // set the string value
@@ -250,18 +250,13 @@ public class ExcelCellValueApi
         ExcelCellFormat cellFormatOther2;
         int styleIndexOther2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.General, ExcelCellCountryCurrency.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatOther2);
 
-        // a style exists?
-        if (styleIndexOther2 > -1)
-        {
-            // 3.1/ a style exists, so use it
-            cell.StyleIndex = (uint)styleIndexOther2;
-        }
-        else
-        {
+        // no style found?
+        if (styleIndexOther2 < 0)
             // 3.2/ no style found, so have to create a new one, with existing formats
             styleIndexOther2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.General, ExcelCellCountryCurrency.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
-            cell.StyleIndex = (uint)styleIndexOther2;
-        }
+
+        // 3.1/ a style exists, so use it  and 3.2 case
+        cell.StyleIndex = (uint)styleIndexOther2;
 
         // set the string value
         OxExcelCellValueApi.SetCellSharedString(excelSheet.WorkbookPart, cell, value);
@@ -279,8 +274,10 @@ public class ExcelCellValueApi
     ///             Can have a style or not, it's not important.
     ///             
     ///     -3/ cell exists, not the same value format
-    ///         3.1/ a same style exists, use it
-    ///         3.2/ no style exists, create a new one
+    ///         3.1/ no style index, no cellformat, type is a general/standard
+    //          3.2/ a same style exists, use it
+    ///         3.3/ no style exists, create a new one
+    ///         
     /// </summary>
     /// <param name="excelSheet"></param>
     /// <param name="cellAddress"></param>
@@ -308,30 +305,80 @@ public class ExcelCellValueApi
 
             // find a style with the same value format: general, and other format set
             ExcelCellFormat cellFormatOther;
-            int styleIndexOther2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, out cellFormatOther);
+            int styleIndexOther = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, out cellFormatOther);
 
-            // a style exists?
-            if (styleIndexOther2 > -1)
-            {
-                // 3.1/ a style exists, so use it
-                newCell.StyleIndex = (uint)styleIndexOther2;
-            }
-            else
-            {
-                // 3.2/ no style found, so have to create a new one, with existing formats
-                styleIndexOther2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
-                newCell.StyleIndex = (uint)styleIndexOther2;
-            }
+            // no style found
+            if (styleIndexOther < 0)
+                styleIndexOther = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
+
+            // a style exists, so use it
+            newCell.StyleIndex = (uint)styleIndexOther;
 
             // ok job done
             return true;
         }
 
+        // get the style,  in the some cases can be null/-1: generic cell value
+        int styleIndex = OxExcelCellValueApi.GetCellStyleIndex(cell);
+
+        // get the cell format style
+        ExcelCellFormat cellFormat = null;
+        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
+            cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
+
         //--2/ cell exists, same value format: Number
-        // todo:
+        if(cellFormat!=null && cellFormat.Code== ExcelCellFormatCode.Number)
+        {
+            // change the cell value
+            cell.CellValue = new CellValue(value);
+            return true;
+        }
 
+        //--3/ cell exists, not the same value format
+        //--3.1/ no style index, no cellformat, type is a general/standard
+        if(styleIndex<0)
+        {
+            int sharedStringItemId = OXExcelSharedStringApi.GetSharedStringId(cell);
 
-        return false;
+            // clear the shared string in the cell
+            cell.DataType = null;
+            cell.CellValue.Remove();
+
+            // remove the shared string
+            OXExcelSharedStringApi.RemoveSharedStringItem(excelSheet.WorkbookPart, sharedStringItemId);
+
+            // change the cell value
+            cell.CellValue = new CellValue(value);
+
+            // Find a style with the same cell format: Number, other formar not set
+            ExcelCellFormat cellFormatSameAs;
+            int styleIndexSameAs = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0, out cellFormatSameAs);
+            if (styleIndexSameAs < 0)
+                styleIndexSameAs = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
+            
+            // a style exists, so use it
+            cell.StyleIndex = (uint)styleIndexSameAs;
+
+            return true;
+        }
+
+        // cell exists, has a style
+
+        // set the new cell value
+        cell.CellValue = new CellValue(value);
+
+        // find a similar style 
+        ExcelCellFormat cellFormatSameAs2;
+        int styleIndexSameAs2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatSameAs2);
+
+        //--3.3/ no style exists, create a new one
+        if(styleIndexSameAs2 <0)
+            styleIndexSameAs2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
+
+        // a style exists, so use it
+        cell.StyleIndex = (uint)styleIndexSameAs2;
+
+        return true;
     }
 
     #endregion

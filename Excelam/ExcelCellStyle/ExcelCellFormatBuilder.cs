@@ -36,6 +36,7 @@ public class ExcelCellFormatBuilder
 
         // save the new cellFormat 
         stylesheet.CellFormats.Append(cellFormat);
+        stylesheet.CellFormats.Count++;
         stylesheet.Save();
 
         // create a higu-level ExcelCellFormat object
@@ -50,11 +51,11 @@ public class ExcelCellFormatBuilder
         excelCellFormat.ExcelCellFill = excelCellStyles.ListExcelFill.FirstOrDefault(b => b.Id == fillId);
         excelCellFormat.FontId = fillId;
         excelCellFormat.ExcelCellFont = excelCellStyles.ListExcelFont.FirstOrDefault(b => b.Id == fontId);
-        excelCellFormat.StyleIndex = (int)(uint)stylesheet.CellFormats.Count;
+        excelCellFormat.StyleIndex = (int)(uint)stylesheet.CellFormats.Count-1;
 
         // save in the list the new style
         excelCellStyles.DictStyleIndexExcelStyleIndex.Add(excelCellFormat.StyleIndex, excelCellFormat);
 
-        return (int)(uint)stylesheet.CellFormats.Count;
+        return excelCellFormat.StyleIndex;
     }
 }

@@ -11,6 +11,29 @@ namespace Excelam.OpenXmlLayer;
 public class OXExcelSharedStringApi
 {
     /// <summary>
+    /// Return the shared string id from the cell.
+    /// If its not a shared string, return -1.
+    /// </summary>
+    /// <param name="cell"></param>
+    /// <returns></returns>
+    public static int GetSharedStringId(Cell cell)
+    {
+        if (cell == null) return -1;
+
+        if(cell.CellValue==null)return -1;
+
+        string textIndexStr = cell.CellValue.InnerXml;
+
+        int textIndex;
+        if(Int32.TryParse(textIndexStr, out textIndex))
+            return textIndex;
+
+        return - 1;
+
+    }
+
+
+    /// <summary>
     /// is the cell value a shared string? return it.
     /// </summary>
     /// <param name="workbookPart"></param>
@@ -26,8 +49,11 @@ public class OXExcelSharedStringApi
 
         if (cell.DataType.Value != CellValues.SharedString) return false;
 
-        SharedStringTablePart stringTablePart = workbookPart.SharedStringTablePart;
+        if (cell.CellValue == null) return false;
+
         string value = cell.CellValue.InnerXml;
+
+        SharedStringTablePart stringTablePart = workbookPart.SharedStringTablePart;
         sharedString = stringTablePart.SharedStringTable.ChildElements[Int32.Parse(value)].InnerText;
         return true;
     }
@@ -49,8 +75,7 @@ public class OXExcelSharedStringApi
             return -1;
 
         // get the current sharedstring id
-        string textIndexStr = cell.CellValue.InnerXml;
-        int textIndex = Int32.Parse(textIndexStr);
+        int textIndex = GetSharedStringId(cell);
 
         // create a new shared string and replace it in the cell
         int newTextIndex = OXExcelSharedStringApi.InsertSharedStringItem(workbookPart.SharedStringTablePart, newText);
@@ -122,13 +147,20 @@ public class OXExcelSharedStringApi
             foreach (var cell in worksheet.GetFirstChild<SheetData>().Descendants<Cell>())
             {
                 // Verify if other cells in the document reference the item.
-                if (cell.DataType != null &&
-                    cell.DataType.Value == CellValues.SharedString &&
-                    cell.CellValue.Text == shareStringId.ToString())
-                {
+                string sharedStringIdFound;
+                if (!IsValueSharedString(workbookPart, cell, out sharedStringIdFound))
+                    continue;
+                // the cell contains a shared string
+                if (shareStringId.ToString().Equals(sharedStringIdFound, StringComparison.CurrentCultureIgnoreCase))
                     // Other cells in the document still reference the item. Do not remove the item.
                     return false;
-                }
+                //if (cell.DataType != null &&
+                //    cell.DataType.Value == CellValues.SharedString &&
+                //    cell.CellValue.Text == shareStringId.ToString())
+                //{
+                    // Other cells in the document still reference the item. Do not remove the item.
+                //    return false;
+                //}
             }
         }
 
@@ -145,9 +177,11 @@ public class OXExcelSharedStringApi
             Worksheet worksheet = part.Worksheet;
             foreach (var cell in worksheet.GetFirstChild<SheetData>().Descendants<Cell>())
             {
-                if (cell.DataType != null &&
-                    cell.DataType.Value == CellValues.SharedString)
+                if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
                 {
+                    if (cell.CellValue == null)
+                        continue;
+
                     int itemIndex = int.Parse(cell.CellValue.Text);
                     if (itemIndex > shareStringId)
                     {

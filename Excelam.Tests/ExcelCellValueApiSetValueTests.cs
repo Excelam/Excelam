@@ -98,13 +98,46 @@ public class ExcelCellValueApiSetValueTests
         res=excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B13", out cellValB13);
         Assert.AreEqual(12, cellValB13);
 
-        //--B15, replace number, set number=567 
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B15", 34);
+        //--B15, replace number, set number=567, same cell format 
+        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B15", 567);
         Assert.IsTrue(res);
 
         int cellValB15;
         res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B15", out cellValB15);
-        Assert.AreEqual(34, cellValB15);
+        Assert.AreEqual(567, cellValB15);
+
+        //--B17, replace general, set number=55
+        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B17", 55);
+        Assert.IsTrue(res);
+
+        int cellValB17;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B17", out cellValB17);
+        Assert.AreEqual(55, cellValB17);
+
+        //--B19, replace dateShort, set number =67
+        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B19", 67);
+        Assert.IsTrue(res);
+
+        int cellValB19;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B19", out cellValB19);
+        Assert.AreEqual(67, cellValB19);
+
+        //--B21, replace general with fill, style exists, by number=754
+        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B21", 754);
+        Assert.IsTrue(res);
+
+        int cellValB21;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B21", out cellValB21);
+        Assert.AreEqual(754, cellValB21);
+
+        //--B23, replace accounting with fill and border, style doesn't exists, by number=890
+        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B23", 890);
+        Assert.IsTrue(res);
+
+        int cellValB23;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B23", out cellValB23);
+        Assert.AreEqual(890, cellValB23);
+        // TODO:
 
         //--TODO: faire SetCellValueDecimal()newCell
 
