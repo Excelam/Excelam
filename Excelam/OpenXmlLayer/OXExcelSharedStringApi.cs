@@ -40,7 +40,7 @@ public class OXExcelSharedStringApi
     /// <param name="cell"></param>
     /// <param name="sharedString"></param>
     /// <returns></returns>
-    public static bool IsValueSharedString(WorkbookPart workbookPart, Cell cell, out string sharedString)
+    public static bool GetCellSharedStringValue(WorkbookPart workbookPart, Cell cell, out string sharedString)
     {
         sharedString = string.Empty;
 
@@ -147,11 +147,13 @@ public class OXExcelSharedStringApi
             foreach (var cell in worksheet.GetFirstChild<SheetData>().Descendants<Cell>())
             {
                 // Verify if other cells in the document reference the item.
-                string sharedStringIdFound;
-                if (!IsValueSharedString(workbookPart, cell, out sharedStringIdFound))
+                int sharedStringIdFound = GetSharedStringId(cell);
+                if (sharedStringIdFound < 0)
+                    // not a shared string
                     continue;
-                // the cell contains a shared string
-                if (shareStringId.ToString().Equals(sharedStringIdFound, StringComparison.CurrentCultureIgnoreCase))
+
+                // the cell contains a shared string, so compare it
+                if (shareStringId== sharedStringIdFound)
                     // Other cells in the document still reference the item. Do not remove the item.
                     return false;
                 //if (cell.DataType != null &&

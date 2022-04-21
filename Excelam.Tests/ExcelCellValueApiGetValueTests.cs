@@ -62,12 +62,13 @@ public class ExcelCellValueApiGetValueTests
         Assert.AreEqual("SUM(E5:E6)", cellFormatE7.Formula);
 
         Assert.AreEqual(ExcelCellFormatCode.Decimal, cellFormatE7.Code);
-        string valE7 = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "E7");
-        Assert.AreEqual("45.6", valE7);
-        // TODO: AsDecimal
+        string valE7Str = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "E7");
+        Assert.AreEqual("45.6", valE7Str);
+        double valE7;
+        excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "E7", out valE7);
+        Assert.AreEqual(45.6, valE7);
 
 
-        //--todo: GetCellValueAsDecimal()
 
         //--todo: GetCellValueAsDateShort()
 

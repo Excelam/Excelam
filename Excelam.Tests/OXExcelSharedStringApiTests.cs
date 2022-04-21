@@ -57,7 +57,7 @@ public class OXExcelSharedStringApiTests
 
         // remove the shared string if the cell is a text
         res = OXExcelSharedStringApi.RemoveSharedStringItem(sheet.WorkbookPart, sharedStringId);
-        // not removed, used many times
+        // not removed, used 3 times
         Assert.IsFalse(res);
 
         // get now the count of shared string count 

@@ -137,6 +137,15 @@ public class ExcelCellValueApiSetValueTests
         int cellValB23;
         res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B23", out cellValB23);
         Assert.AreEqual(890, cellValB23);
+
+        //--B25, set cell decimal, cell doesn't exists, by decimal=12.34
+        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
+        Assert.IsTrue(res);
+
+        double cellValB25;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellValB25);
+        Assert.AreEqual(12.34, cellValB25);
+
         // TODO:
 
         //--TODO: faire SetCellValueDecimal()
