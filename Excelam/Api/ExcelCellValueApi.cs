@@ -296,23 +296,7 @@ public class ExcelCellValueApi
         //--1/ the cell doesn't exists
         if (cell == null)
         {
-            // insert an empty cell
-            Cell? newCell = OxExcelCellValueApi.InsertCell(excelSheet.Worksheet, colName, rowIndex);
-
-            // Set the value of cell
-            newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
-            newCell.CellValue = new CellValue(value);
-
-            // find a style with the same value format: general, and other format set
-            ExcelCellFormat cellFormatOther;
-            int styleIndexOther = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, out cellFormatOther);
-
-            // no style found
-            if (styleIndexOther < 0)
-                styleIndexOther = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
-
-            // a style exists, so use it
-            newCell.StyleIndex = (uint)styleIndexOther;
+            CreateCell(excelSheet, colName, rowIndex, ExcelCellFormatCode.Number, new CellValue(value));
 
             // ok job done
             return true;
@@ -322,7 +306,7 @@ public class ExcelCellValueApi
         int styleIndex = OxExcelCellValueApi.GetCellStyleIndex(cell);
 
         // get the cell format style
-        ExcelCellFormat cellFormat = null;
+        ExcelCellFormat? cellFormat = null;
         if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
             cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
 
@@ -338,26 +322,27 @@ public class ExcelCellValueApi
         //--3.1/ no style index, no cellformat, type is a general/standard
         if(styleIndex<0)
         {
-            int sharedStringItemId = OXExcelSharedStringApi.GetSharedStringId(cell);
+            ReplaceCellContentGeneral(excelSheet, cell, ExcelCellFormatCode.Number, new CellValue(value));
+            //int sharedStringItemId = OXExcelSharedStringApi.GetSharedStringId(cell);
 
-            // clear the shared string in the cell
-            cell.DataType = null;
-            cell.CellValue.Remove();
+            //// clear the shared string in the cell
+            //cell.DataType = null;
+            //cell.CellValue.Remove();
 
-            // remove the shared string
-            OXExcelSharedStringApi.RemoveSharedStringItem(excelSheet.WorkbookPart, sharedStringItemId);
+            //// remove the shared string
+            //OXExcelSharedStringApi.RemoveSharedStringItem(excelSheet.WorkbookPart, sharedStringItemId);
 
-            // change the cell value
-            cell.CellValue = new CellValue(value);
+            //// change the cell value
+            //cell.CellValue = new CellValue(value);
 
-            // Find a style with the same cell format: Number, other formar not set
-            ExcelCellFormat cellFormatSameAs;
-            int styleIndexSameAs = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0, out cellFormatSameAs);
-            if (styleIndexSameAs < 0)
-                styleIndexSameAs = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
+            //// Find a style with the same cell format: Number, other formar not set
+            //ExcelCellFormat cellFormatSameAs;
+            //int styleIndexSameAs = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0, out cellFormatSameAs);
+            //if (styleIndexSameAs < 0)
+            //    styleIndexSameAs = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
             
-            // a style exists, so use it
-            cell.StyleIndex = (uint)styleIndexSameAs;
+            //// a style exists, so use it
+            //cell.StyleIndex = (uint)styleIndexSameAs;
 
             return true;
         }
@@ -409,6 +394,72 @@ public class ExcelCellValueApi
     #endregion
 
     #region Private  methods.
+
+    /// <summary>
+    /// Create a new cell, set a value.
+    /// Not a shared string!
+    /// </summary>
+    /// <param name="excelWorkbook"></param>
+    /// <param name="worksheet"></param>
+    /// <param name="colName"></param>
+    /// <param name="rowIndex"></param>
+    /// <param name="cellValue"></param>
+    /// <returns></returns>
+    private Cell CreateCell(ExcelSheet excelSheet, string colName, int rowIndex, ExcelCellFormatCode cellFormatCode, CellValue cellValue)
+    {
+
+        // insert an empty cell
+        Cell? newCell = OxExcelCellValueApi.InsertCell(excelSheet.Worksheet, colName, rowIndex);
+
+        // Set the value of cell
+        //newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
+        newCell.CellValue = cellValue;
+
+        // find a style with the same value format: general, and other format set
+        int styleIndexOther = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatCode, ExcelCellCountryCurrency.Undefined, out _);
+
+        // no style found
+        if (styleIndexOther< 0)
+            styleIndexOther = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
+
+        // a style exists, so use it
+        newCell.StyleIndex = (uint) styleIndexOther;
+        return newCell;
+    }
+
+    /// <summary>
+    /// replace the cell content which type is general by another type.
+    /// The cell type must be general, shared string!
+    /// </summary>
+    /// <param name="excelSheet"></param>
+    /// <param name="cell"></param>
+    /// <param name="cellFormatCode"></param>
+    /// <param name="cellValue"></param>
+    /// <returns></returns>
+    private bool ReplaceCellContentGeneral(ExcelSheet excelSheet, Cell cell, ExcelCellFormatCode cellFormatCode, CellValue cellValue)
+    {
+        int sharedStringItemId = OXExcelSharedStringApi.GetSharedStringId(cell);
+
+        // clear the shared string in the cell
+        cell.DataType = null;
+        cell.CellValue.Remove();
+
+        // remove the shared string
+        OXExcelSharedStringApi.RemoveSharedStringItem(excelSheet.WorkbookPart, sharedStringItemId);
+
+        // change the cell value
+        cell.CellValue = cellValue;
+
+        // Find a style with the same cell format: Number, other formar not set
+        ExcelCellFormat cellFormatSameAs;
+        int styleIndexSameAs = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatCode, ExcelCellCountryCurrency.Undefined, 0, 0, 0, out cellFormatSameAs);
+        if (styleIndexSameAs< 0)
+            styleIndexSameAs = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCountryCurrency.Undefined, 0, 0, 0);
+            
+        // a style exists, so use it
+        cell.StyleIndex = (uint) styleIndexSameAs;
+        return true;
+    }
 
     #endregion
 }

@@ -139,7 +139,7 @@ public class ExcelCellValueApiSetValueTests
         Assert.AreEqual(890, cellValB23);
         // TODO:
 
-        //--TODO: faire SetCellValueDecimal()newCell
+        //--TODO: faire SetCellValueDecimal()
 
         //--TODO: faire SetCellValueDateShort()
 
