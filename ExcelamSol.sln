@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevApp", "DevApp\DevApp.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excelam", "Excelam\Excelam.csproj", "{4B3D80AB-ECF5-4D4E-B8EE-95FAFEC51B85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excelam.Tests", "Excelam.Tests\Excelam.Tests.csproj", "{73608D59-C270-4C34-8297-55F79092A635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excelam.Tests", "Excelam.Tests\Excelam.Tests.csproj", "{73608D59-C270-4C34-8297-55F79092A635}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14DDB380-4E0D-4B9B-B045-C8F31DFC9BE3}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
