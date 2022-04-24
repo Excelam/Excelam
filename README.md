@@ -15,6 +15,36 @@ Next stages will be to manage others types: date, time, fraction, percentage, sc
 
 # Start using the library
 
+## create a new excel file
+
+Create an Excel file, provide the filename and the name of the first sheet.
+
+```csharp
+ExcelApi excelApi = new ExcelApi();
+string fileName = @"Files\NewExcel.xlsx";
+
+ExcelWorkbook excelWorkbook;
+ExcelError error;
+bool res = excelApi.ExcelFileApi.CreateExcelFile(fileName, excelApi.ExcelFileApi.DefaultFirstSheetName, out excelWorkbook, out error);
+
+// save and close the file
+res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
+```
+
+## Open an existing excel file
+
+```csharp
+ExcelApi excelApi = new ExcelApi();
+string fileName = @"Files\MyExcel.xlsx";
+
+ExcelWorkbook excelWorkbook;
+ExcelError error;
+bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out excelWorkbook, out error);
+
+// save and close the file
+res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
+```
+
 ## Set a cell string value
 
 Set a string value in a cell, the corresponding Excel type is General. 
