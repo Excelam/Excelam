@@ -54,7 +54,7 @@ string cellValB1= excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
 ```csharp
 // get the cell value as an integer (number in Excel)
 int cellValB23;
-res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B23", out cellValB23);
+bool res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B23", out cellValB23);
 
 // get the cell value as a double (decimal in Excel)
 double cellValB25;
@@ -65,7 +65,7 @@ res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellVal
 
 ```csharp
 // set an int in a cell
-res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B23", 890);
+bool res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B23", 890);
 
 // set a double in a cell
 res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
@@ -83,7 +83,7 @@ string cellAddress = ExcelCellAddressApi.ConvertAddress(col, row);
 //--decode, split an excel cell address
 string colRowName="B12";
 string colName;
-bool res= ExcelCellAddressApi.SplitCellAddress(string colRowName, out string colName, out int col, out int row);
+bool res= ExcelCellAddressApi.SplitCellAddress(colRowName, out colName, out col, out row);
 // result: colName: "B", col:2, row:12
 ```
 
