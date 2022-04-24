@@ -11,6 +11,8 @@ To have code samples, see the tests project: Excelam.Tests.
 A nuget package has been published:
 https://www.nuget.org/packages/Excelam/0.0.1
 
+Next stages will be to manage others types: date, time, fraction, percentage, scientific and all currencies.
+
 # Start using the library
 
 ## Set a cell string value
