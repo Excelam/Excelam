@@ -20,17 +20,18 @@ void CreateExcelFile()
     ExcelApi excelApi = new ExcelApi();
 
     string fileName = @"Files\NewExcel.xlsx";
-    ExcelWorkbook excelDoc;
+    ExcelWorkbook excelWorkbook;
     ExcelError error;
 
     // if file exists, remove it
     if (File.Exists(fileName))
         File.Delete(fileName);
 
-    bool res = excelApi.ExcelFileApi.CreateExcelFile(fileName, excelApi.ExcelFileApi.DefaultFirstSheetName, out excelDoc, out error);
+    bool res = excelApi.ExcelFileApi.CreateExcelFile(fileName, excelApi.ExcelFileApi.DefaultFirstSheetName, out excelWorkbook, out error);
     DisplayRes("Create NewFile:", res);
 
-    res= excelApi.ExcelFileApi.CloseExcelFile(excelDoc, out error);
+    // save and close the file
+    res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
     DisplayRes("Close File:", res);
 }
 
@@ -42,7 +43,7 @@ void OpenEmptyExcelFile()
     ExcelApi excelApi = new ExcelApi();
 
     string fileName = @"Files\ExcelFromTempl.xlsx";
-    ExcelWorkbook excelDoc;
+    ExcelWorkbook excelWorkbook;
     ExcelError error;
 
     // if file exists, remove it
@@ -52,10 +53,10 @@ void OpenEmptyExcelFile()
     string fileNameTempl = @"Files\ExcelEmpty.xlsx";
     File.Copy(fileNameTempl, fileName);
 
-    bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out excelDoc, out error);
+    bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out excelWorkbook, out error);
     DisplayRes("Open File:", res);
 
-    res = excelApi.ExcelFileApi.CloseExcelFile(excelDoc, out error);
+    res = excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
     DisplayRes("Close File:", res);
 }
 
