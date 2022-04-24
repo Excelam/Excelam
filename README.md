@@ -1,7 +1,10 @@
 # What is Excelam?
 
 Excelam is a .NET library over OpenXml to use Excel easily.
-The library is writen in C# .NET6.
+The library is writen in C# dotnet6.
+
+The only dependency is DocumentFormat.OpenXml (Open XML SDK), the official Microsoft library to work with Word, Excel and PowerPoint documents.
+use the last version: 2.16.0.
 
 To have code samples, see the tests project: Excelam.Tests.
 
