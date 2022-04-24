@@ -17,7 +17,7 @@ https://www.nuget.org/packages/Excelam/0.0.1
 
 Set a string value in a cell, the corresponding Excel type is General. 
 
-```
+```csharp
 // create the api to work with an Excel file
 ExcelApi excelApi = new ExcelApi();
 
