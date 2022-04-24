@@ -13,6 +13,10 @@ https://www.nuget.org/packages/Excelam/0.0.1
 
 # Start using the library
 
+## Open an Excel set and get a value
+
+Set a string value in a cell, the corresponding Excel type is General. 
+
 ```
 // create the api to work with an Excel file
 ExcelApi excelApi = new ExcelApi();
