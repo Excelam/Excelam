@@ -43,13 +43,13 @@ excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
 
 Get a cell value as a string even is the type is different.
 
-```
+```csharp
 string cellValB1= excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
 ```
 
 ## Get a cell as an int and double
 
-```
+```csharp
 // get the cell value as an integer (number in Excel)
 int cellValB23;
 res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B23", out cellValB23);
@@ -61,7 +61,7 @@ res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellVal
 
 ## Set an int or a double value in a cell 
 
-```
+```csharp
 // set an int in a cell
 res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B23", 890);
 
@@ -71,7 +71,7 @@ res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
 
 ## Convert and split an Excel cell address 
 
-```
+```csharp
 //--convert a col and a row int values into an excel address
 int col=2;
 int row=12;
