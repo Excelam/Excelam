@@ -61,12 +61,27 @@ res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellVal
 
 ## Set an int or a double value in a cell 
 
-
 ```
 // set an int in a cell
 res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B23", 890);
 
 // set a double in a cell
 res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
- ```
+```
+
+## Convert and split an Excel cell address 
+
+```
+//--convert a col and a row int values into an excel address
+int col=2;
+int row=12;
+string cellAddress = ExcelCellAddressApi.ConvertAddress(col, row);
+// result: cellAddress: B12
+
+//--decode, split an excel cell address
+string colRowName="B12";
+string colName;
+bool res= ExcelCellAddressApi.SplitCellAddress(string colRowName, out string colName, out int col, out int row);
+// result: colName: "B", col:2, row:12
+```
 
