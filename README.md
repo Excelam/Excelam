@@ -41,6 +41,8 @@ ExcelWorkbook excelWorkbook;
 ExcelError error;
 bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out excelWorkbook, out error);
 
+// do something in the excel file...
+
 // save and close the file
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
