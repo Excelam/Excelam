@@ -67,12 +67,16 @@ public class ExcelCellFormat
     /// </summary>
     public Protection? Protection { get; set; } = null;
 
-    public string Formula { get; set; } = String.Empty;
+    //public string Formula { get; set; } = String.Empty;
 
-    public bool IsFormula
-    {
-        get {  if(string.IsNullOrEmpty(Formula)) return false; return true; } 
-    }
+
+    /// <summary>
+    /// Return true if the cell contains a formula.
+    /// </summary>
+    public bool IsFormula { get; set; } = false;
+    //{
+    //    get {  if(string.IsNullOrEmpty(Formula)) return false; return true; } 
+    //}
 
     /// <summary>
     /// Has no other format than value?

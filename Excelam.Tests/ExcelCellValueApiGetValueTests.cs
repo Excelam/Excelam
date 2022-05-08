@@ -59,7 +59,7 @@ public class ExcelCellValueApiGetValueTests
         //--E7: 45.60 - decimal - Formula
         ExcelCellFormat cellFormatE7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "E7");
         Assert.IsTrue(cellFormatE7.IsFormula);
-        Assert.AreEqual("SUM(E5:E6)", cellFormatE7.Formula);
+        Assert.AreEqual("SUM(E5:E6)", excelApi.ExcelCellValueApi.GetCellFormula(sheet, "E7"));
 
         Assert.AreEqual(ExcelCellFormatCode.Decimal, cellFormatE7.Code);
         string valE7Str = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "E7");

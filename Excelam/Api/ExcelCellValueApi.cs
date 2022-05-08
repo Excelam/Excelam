@@ -51,7 +51,7 @@ public class ExcelCellValueApi
             string formula;
             if(OxExcelCellValueApi.IsCellFormula(excelSheet.WorkbookPart,cell, out formula))
             {
-                excelCellFormat.Formula = formula;
+                excelCellFormat.IsFormula = true;
             }
             return excelCellFormat;
         }
@@ -65,13 +65,42 @@ public class ExcelCellValueApi
             string formula;
             if (OxExcelCellValueApi.IsCellFormula(excelSheet.WorkbookPart, cell, out formula))
             {
-                excelCellFormat.Formula = formula;
+                excelCellFormat.IsFormula = true;
             }
 
             return excelCellFormat;
         }
 
         return null;
+    }
+
+    public string? GetCellFormula(ExcelSheet excelSheet, int col, int row)
+    {
+        return GetCellValueAsString(excelSheet, ExcelCellAddressApi.ConvertAddress(col, row));
+    }
+
+    /// <summary>
+    /// Return the formula of the cell if exists.
+    /// If not return an empty string.
+    /// </summary>
+    /// <param name="excelSheet"></param>
+    /// <param name="cellAddress"></param>
+    /// <returns></returns>
+    public string? GetCellFormula(ExcelSheet excelSheet, string cellAddress)
+    {
+        Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
+
+
+        // the cell contains nothing? no value, no border, no fill,...
+        if (cell == null)
+            return null;
+
+        string formula;
+        if (OxExcelCellValueApi.IsCellFormula(excelSheet.WorkbookPart, cell, out formula))
+        {
+            return formula;
+        }
+        return string.Empty;
     }
 
     public string? GetCellValueAsString(ExcelSheet excelSheet, int col, int row)

@@ -1,7 +1,7 @@
 # What is Excelam?
 
-Excelam is a .NET library over OpenXml to use Excel easily.
-The library is writen in C# dotnet6.
+Excelam is a open-source .NET library over OpenXml to use Excel easily.
+The library is writen in C#/net6.
 
 The only dependency is DocumentFormat.OpenXml (Open XML SDK), the official Microsoft library to work with Word, Excel and PowerPoint documents.
 use the last version: 2.16.0.
@@ -111,6 +111,16 @@ bool res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B23", 890);
 
 // set a double in a cell
 res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
+```
+
+## Get the cell formula
+
+```csharp
+// set an int in a cell
+ExcelCellFormat cellFormatE7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "E7");
+if(cellFormatE7.IsFormula)
+    // SUM(E5:E6)
+    Console.WriteLine("E7 Formula: " + excelApi.ExcelCellValueApi.GetCellFormula(sheet, "E7"));
 ```
 
 ## Convert and split an Excel cell address 

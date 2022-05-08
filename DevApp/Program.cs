@@ -94,33 +94,6 @@ void OpenExcelFileBasicBuiltInCellFormat()
     ExcelCellFormat cellFormatB2 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B2");
     string valB2 = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B2");
 
-    //XXXXXXXXXXXXXXXXXXX-reflexion, GetCell:
-
-    //--recup cell avec seulement son format value (et pas le reste, pour aller plus vite)
-    //ExcelCell cellB4 = excelApi.ExcelCellContentApi.GetCellOnlyFormatValue(sheet, "B4");
-
-
-    // get the value of the cell:
-    // string valB4=excelApi.ExcelCellContentApi.GetCellValueAsString(sheet, cellB4);
-
-    // get the value of the cell:
-    // passer un param pour indiquer quoi récuperer sur la cell
-    // enum CellFormatSelection: Value, Border, Fill, Font, Alignement, Protection
-    // ExcelCell cell= GetCell(sheet, "B1", CellFormatSelection)
-
-    //--recup cell avec tout: format value, border, fill, font, Alignement and Protection
-    // ExcelCell cell= GetCell(sheet, "B1")
-
-    //XXXXXXXXXXXXXXXXXXX:
-
-
-
-
-    // write cell value in format
-    //excelApi.ExcelCellContentApi.SetCellDateLarge(excelSheet, "D4", DateTime value);
-    // TODO: penser a plus+tard, set autre format: border, fill, font...
-    // passer par ExcelCell
-
     excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "G2", 12);
    
     //--close the file
