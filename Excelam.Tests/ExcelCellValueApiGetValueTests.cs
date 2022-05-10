@@ -1,5 +1,6 @@
 using Excelam.System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Excelam.Tests;
 
@@ -56,6 +57,41 @@ public class ExcelCellValueApiGetValueTests
         Assert.IsTrue(res);
         Assert.AreEqual(12, valB3);
 
+        //--B15: 15/02/2021 - Short date
+        ExcelCellFormat cellFormatB15 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B15");
+        Assert.AreEqual(ExcelCellFormatCode.DateShort, cellFormatB15.Code);
+        DateTime valB15;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B15", out valB15);
+        Assert.IsTrue(res);
+        DateTime dtB15 = new DateTime(2021, 02, 15);
+        Assert.AreEqual(dtB15, valB15);
+
+        //--B16: vendredi 19 septembre 1969 - date large
+        ExcelCellFormat cellFormatB16 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B16");
+        Assert.AreEqual(ExcelCellFormatCode.DateLarge, cellFormatB16.Code);
+        DateTime valB16;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B16", out valB16);
+        Assert.IsTrue(res);
+        DateTime dtB16 = new DateTime(1969, 09, 19);
+        Assert.AreEqual(dtB16, valB16);
+
+        //--B17: 13:45:00 - time
+        ExcelCellFormat cellFormatB17 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B17");
+        Assert.AreEqual(ExcelCellFormatCode.Time, cellFormatB17.Code);
+        TimeSpan valB17;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsTimeSpan(sheet, "B17", out valB17);
+        Assert.IsTrue(res);
+        TimeSpan dtB17 = new TimeSpan(13, 45,0);
+        Assert.AreEqual(dtB16, valB16);
+
+        //--B21: 45,21 €  - accounting
+
+        //--B22: 88,22 € - currency-euro
+
+        //--B23: $91,25 - currency-dollarUS
+
+
+
         //--E7: 45.60 - decimal - Formula
         ExcelCellFormat cellFormatE7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "E7");
         Assert.IsTrue(cellFormatE7.IsFormula);
@@ -69,8 +105,6 @@ public class ExcelCellValueApiGetValueTests
         Assert.AreEqual(45.6, valE7);
 
 
-
-        //--todo: GetCellValueAsDateShort()
 
 
         //--todo: faire autres cas: built-in: fraction, percetange, scientific,...

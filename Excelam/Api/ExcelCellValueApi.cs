@@ -122,6 +122,21 @@ public class ExcelCellValueApi
         // the cell doesn't exists
         if (cell == null)return null;
 
+        return GetCellValueAsString(excelSheet, cell);
+    }
+
+    /// <summary>
+    /// Return the cell value as a string.
+    /// If the cell doesn't exists, return null
+    /// </summary>
+    /// <param name="sheet"></param>
+    /// <param name="cellAddress"></param>
+    /// <returns></returns>
+    public string? GetCellValueAsString(ExcelSheet excelSheet, Cell cell)
+    {
+        // the cell doesn't exists
+        if (cell == null) return null;
+
         // is the cell value a shared string?
         string value;
         if (OXExcelSharedStringApi.GetCellSharedStringValue(excelSheet.ExcelWorkbook.SpreadsheetDocument.WorkbookPart, cell, out value))
@@ -161,7 +176,19 @@ public class ExcelCellValueApi
     public bool GetCellValueAsDecimal(ExcelSheet excelSheet, string cellAddress, out double value)
     {
         value = 0;
-        string? valueStr = GetCellValueAsString(excelSheet, cellAddress);
+
+        Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
+
+        // the cell doesn't exists
+        if (cell == null) return false;
+
+        return GetCellValueAsDecimal(excelSheet, cell, out value); 
+    }
+
+    public bool GetCellValueAsDecimal(ExcelSheet excelSheet, Cell cell, out double value)
+    {
+        value = 0;
+        string? valueStr = GetCellValueAsString(excelSheet, cell);
         if (string.IsNullOrWhiteSpace(valueStr)) return false;
 
         // exp: 10.5 -> 10,5
@@ -175,6 +202,77 @@ public class ExcelCellValueApi
 
         // error
         return false;
+    }
+
+    /// <summary>
+    /// Return the cell value as a dateTime, can be a short or a large date.
+    /// </summary>
+    /// <param name="excelSheet"></param>
+    /// <param name="cellAddress"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public bool GetCellValueAsDateTime(ExcelSheet excelSheet, string cellAddress, out DateTime value)
+    {
+        value = DateTime.Now;
+
+        Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
+        if (cell == null) return false;
+
+        // case 1, dataType is null
+        if (cell.DataType == null || cell.DataType == CellValues.Number)
+        {
+            double oaDate;
+            GetCellValueAsDecimal(excelSheet, cell, out oaDate);
+
+            if (oaDate == 0)
+            {
+                value = DateTime.Now;
+                return false;
+            }
+
+            value = DateTime.FromOADate(oaDate);
+            return true;
+        }
+
+        // case 2, dataType is set: date or string
+        if (cell.DataType == CellValues.Date || cell.DataType == CellValues.SharedString)
+        {
+            try
+            {
+                value = Convert.ToDateTime(GetCellValueAsString(excelSheet, cell));
+                return true;
+            }
+            catch
+            {
+                value = DateTime.Now;
+                // date format is wrong
+                return false;
+            }
+        }
+
+        // not the expected type
+        value = DateTime.Now;
+        return false;
+
+    }
+
+    public bool GetCellValueAsTimeSpan(ExcelSheet excelSheet, string cellAddress, out TimeSpan value)
+    {
+        value = TimeSpan.Zero;
+
+        Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
+        if (cell == null) return false;
+        if (cell.CellValue == null) return false;
+
+        //double valueDbl;
+        //GetCellValueAsDecimal(excelSheet, cell, out valueDbl);
+        //value= TimeSpan.Parse(valueDbl);
+
+        // TODO: mettre un try-catch
+        string val=GetCellValueAsString(excelSheet, cell);
+        value= TimeSpan.Parse(val);
+        //value=(TimeSpan)cell.CellValue.Text;
+        return true;
     }
 
     #endregion
