@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -24,6 +24,9 @@
   <ItemGroup>
     <None Update="Files\Cells\DeleteCell.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\Cells\GetManyCellFormatValues.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Files\Cells\GetManyCellTypes.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

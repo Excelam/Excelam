@@ -205,7 +205,7 @@ public class ExcelCellValueApi
     }
 
     /// <summary>
-    /// Return the cell value as a dateTime, can be a short or a large date.
+    /// Return the cell value as a dateTime, can be a short, a large date, or a time.
     /// </summary>
     /// <param name="excelSheet"></param>
     /// <param name="cellAddress"></param>
@@ -256,24 +256,6 @@ public class ExcelCellValueApi
 
     }
 
-    public bool GetCellValueAsTimeSpan(ExcelSheet excelSheet, string cellAddress, out TimeSpan value)
-    {
-        value = TimeSpan.Zero;
-
-        Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
-        if (cell == null) return false;
-        if (cell.CellValue == null) return false;
-
-        //double valueDbl;
-        //GetCellValueAsDecimal(excelSheet, cell, out valueDbl);
-        //value= TimeSpan.Parse(valueDbl);
-
-        // TODO: mettre un try-catch
-        string val=GetCellValueAsString(excelSheet, cell);
-        value= TimeSpan.Parse(val);
-        //value=(TimeSpan)cell.CellValue.Text;
-        return true;
-    }
 
     #endregion
 
