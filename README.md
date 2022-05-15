@@ -135,10 +135,10 @@ Console.WriteLine("cellFormatB21.CurrencyCode: " + excelApicellFormatB21.Currenc
 
 For now, only these cell value formats are managed by the library.
 
-currency     | country 
+Code      | Currency     | country 
 :--       | :--: |
-euro   | -
-UnitedStatesDollar    | US 
+Euro      | Euro | -
+UnitedStatesDollar    | $-Dollar |  USA
 
 
 
