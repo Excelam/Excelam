@@ -57,7 +57,7 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
-## 2.3. get a sheet par index or by name
+## 2.3. Get a sheet par index or by name
 
 ```csharp
 
