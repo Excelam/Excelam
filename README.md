@@ -13,7 +13,7 @@ To have code samples, see the tests project: Excelam.Tests.
 A nuget package has been published:
 https://www.nuget.org/packages/Excelam/0.0.1
 
-Next stages will be to manage others types: date, time, fraction, percentage, scientific and currencies (Euro, Dollar and others).
+Next stages will be to manage more types: fraction, percentage, scientific and more currencies.
 
 # 2. Create or open an Excel file
 
