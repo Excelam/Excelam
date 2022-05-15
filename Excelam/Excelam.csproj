@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	<TargetFramework>net6.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
 	<PackageId>Excelam</PackageId>
-    <Version>0.0.1</Version>
-    <Authors>Excelam project</Authors>
-    <Company>Excelam project</Company>
+	<Version>0.0.1</Version>
+	<Authors>Excelam project</Authors>
+	<Company>Excelam project</Company>
 	<PackageTags>Excel;OpenXml</PackageTags>
-	<Description>Excelam is a .NET library over OpenXml to use Excel easily. The library is writen in C# .NET6.
-The goal is to get cell value format and also to set cell value in different formats very easily.</Description>
+	<Description>Excelam is a open-source .NET library over OpenXml to use Excel easily. The library is writen in C# net6.
+The goal is to get cell value format, get cell value and to set cell value in different formats very easily.</Description>
 	<AssemblyVersion>0.0.1</AssemblyVersion>
 	<FileVersion>0.0.1</FileVersion>
 	<RepositoryUrl>https://github.com/Excelam/Excelam</RepositoryUrl>
@@ -20,19 +20,19 @@ The goal is to get cell value format and also to set cell value in different for
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resx\Excelam_icon.png" />
+	<None Remove="Resx\Excelam_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resx\Excelam_icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+	<EmbeddedResource Include="Resx\Excelam_icon.png">
+	  <Pack>True</Pack>
+	  <PackagePath>\</PackagePath>
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
+	<PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
   </ItemGroup>
 
 </Project>
