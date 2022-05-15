@@ -178,6 +178,17 @@ double cellValB25;
 res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellValB25);
 ```
 
+## 6.3. Get a cell value dateShort, dateLarge and time
+
+Is a cell value format is DateShort, DateLarge or time, you have to use GetCellValueAsDateTime() to read the value.
+For these excel types, the value will be a DateTime.
+
+```csharp
+DateTime valB17;        
+res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B17", out valB17);
+```
+
+
 ## 6.3. Get a cell value currency 
 
 To get a cell value which is currency, get it as decimal (double).
