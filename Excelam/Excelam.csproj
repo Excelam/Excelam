@@ -5,14 +5,16 @@
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
 	<PackageId>Excelam</PackageId>
-	<Version>0.0.1</Version>
+	<Version>0.0.2</Version>
 	<Authors>Excelam project</Authors>
 	<Company>Excelam project</Company>
-	<PackageTags>Excel;OpenXml</PackageTags>
+	  <Title>Open-source library over OpenXml to use Excel easily.</Title>
+	<PackageTags>DocumentFormat;Office;Excel;OpenXml;Workbook;Worksheet;sheet;Spreadsheet;cell;net6</PackageTags>
 	<Description>Excelam is a open-source .NET library over OpenXml to use Excel easily. The library is writen in C# net6.
 The goal is to get cell value format, get cell value and to set cell value in different formats very easily.</Description>
-	<AssemblyVersion>0.0.1</AssemblyVersion>
-	<FileVersion>0.0.1</FileVersion>
+	  <ReleaseNotes>added more types</ReleaseNotes>
+	  <AssemblyVersion>0.0.2</AssemblyVersion>
+	<FileVersion>0.0.2</FileVersion>
 	<RepositoryUrl>https://github.com/Excelam/Excelam</RepositoryUrl>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageIcon>Excelam_icon.png</PackageIcon>
