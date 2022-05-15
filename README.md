@@ -15,9 +15,9 @@ https://www.nuget.org/packages/Excelam/0.0.1
 
 Next stages will be to manage others types: date, time, fraction, percentage, scientific and currencies (Euro, Dollar and others).
 
-# 2/ Create or open an Excel file
+# 2. Create or open an Excel file
 
-## create a new excel file
+## 2.1. Create a new excel file
 
 Create an Excel file, provide the filename and the name of the first sheet.
 
@@ -29,11 +29,16 @@ ExcelWorkbook excelWorkbook;
 ExcelError error;
 bool res = excelApi.ExcelFileApi.CreateExcelFile(fileName, excelApi.ExcelFileApi.DefaultFirstSheetName, out excelWorkbook, out error);
 
+// get the first sheet
+var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
+
+// do something in the excel file...
+
 // save and close the file
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
-## Open an existing excel file
+## 2.2. Open an existing excel file
 
 ```csharp
 ExcelApi excelApi = new ExcelApi();
@@ -43,15 +48,18 @@ ExcelWorkbook excelWorkbook;
 ExcelError error;
 bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out excelWorkbook, out error);
 
+// get the first sheet
+var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
+
 // do something in the excel file...
 
 // save and close the file
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
-# 3/ Get cell value format
+# 3. Get cell value format
 
-## Get the cell value format
+## 3.1. Get the cell value format
 
 Get the cell value format, can be: </br>
 General (string), Number (integer), Decimal (double), DateShort (DateTime), Currency (double),...
@@ -75,9 +83,9 @@ if(cellFormatE7.IsFormula)
     Console.WriteLine("E7 Formula: " + excelApi.ExcelCellValueApi.GetCellFormula(sheet, "E7"));
 ```
 
-# 4/ Get cell value
+# 4. Get cell value
 
-## Get a cell value as a string
+## 4.1. Get a cell value as a string
 
 Get a cell value as a string even is the type is different.
 
@@ -85,7 +93,7 @@ Get a cell value as a string even is the type is different.
 string cellValB1= excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
 ```
 
-## Get a cell as an int and double
+## 4.2. Get a cell as an int and double
 
 ```csharp
 // get the cell value as an integer (number in Excel)
@@ -97,10 +105,20 @@ double cellValB25;
 res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellValB25);
 ```
 
+## 4.2. Get a cell value currency 
 
-# 5/ Set a cell value
+To get a cell value which is currency, get it as decimal (double).
 
-## Set a cell string value
+```csharp
+//--$91,25 - currency-dollarUS - get the cell value currency as a double
+double cellVal34;
+res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B34", out cellValB34);
+```
+
+
+# 5. Set a cell value
+
+## 5.1. Set a cell string value
 
 Set a string value in a cell, the corresponding Excel type is General. 
 
@@ -124,7 +142,7 @@ excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
 ```
 
 
-## Set an int or a double value in a cell 
+## 5.2. Set an int or a double value in a cell 
 
 ```csharp
 // set an int in a cell
@@ -135,7 +153,7 @@ res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
 ```
 
 
-# 6/ Convert and split an Excel cell address 
+# 6. Convert and split an Excel cell address 
 
 ```csharp
 //--convert a col and a row int values into an excel address
