@@ -57,15 +57,23 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
+## 2.3. get a sheet par index or by name
+
+```csharp
+
+// 1. get the first sheet by index
+var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
+
+// 2. get the sheet by name
+var sheet2 = excelApi.ExcelSheetApi.GetSheetByName(excelWorkbook, "MySheet");
+```
+
 # 3. Get cell value format
 
+The GetCellFormat() function read the cell value format. It return an object ExcelCellFormat containing an enum value for the format: ExcelCellFormatCode.
+If the format is not reconized (not implemented), the enum value is: Undefined.
+
 ## 3.1. Get the cell value format
-
-Get the cell value format, can be: </br>
-General (string), Number (integer), Decimal (double), DateShort (DateTime), Currency (double),...
-
-For now, only General, Number and Decimal format are managed by the library.
-
 
 ```csharp
 // get the A1 cell value format
@@ -73,7 +81,17 @@ ExcelCellFormat cellFormatA1= excelApi.ExcelCellValueApi.GetCellFormat(excelShee
 // the result: cellFormatA1.Code=ExcelCellFormatCode.General
 ```
 
-## Is the cell a formula?
+## 3.2. List of managed cell value format 
+
+Get the cell value format, can be: </br>
+General (string), Number (integer), Decimal (double), DateShort (DateTime), Currency (double),...
+
+For now, only General, Number and Decimal format are managed by the library.
+
+
+## 3.3. Is the cell a formula?
+
+The GetCellFormat() function return also is the cell contains a formula.
 
 ```csharp
 // set an int in a cell
