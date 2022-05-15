@@ -88,11 +88,11 @@ General (string), Number (integer), Decimal (double), DateShort (DateTime), Curr
 
 For now, only General, Number and Decimal format are managed by the library.
 
-dog | bird | cat
-:-- | :--: | --:
-foo | foo  | foo
-bar | bar  | bar
-baz | baz  | baz
+format | 
+:-- | 
+foo | 
+bar | 
+baz | 
 
 ## 3.3. Is the cell a formula?
 
