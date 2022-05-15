@@ -73,7 +73,7 @@ var sheet2 = excelApi.ExcelSheetApi.GetSheetByName(excelWorkbook, "MySheet");
 The GetCellFormat() function read the cell value format. It return an object ExcelCellFormat containing an enum value for the format: ExcelCellFormatCode.
 If the format is not reconized (not implemented), the enum value is: Undefined.
 
-## 3.1. Get the cell value format
+## 3.1. Get the cell value format: general case
 
 ```csharp
 // get the A1 cell value format
@@ -85,7 +85,7 @@ ExcelCellFormat cellFormatA1= excelApi.ExcelCellValueApi.GetCellFormat(excelShee
 
 Get the cell value format.
 
-For now, only these cell value format are managed y th library.
+For now, only these cell value format are managed by the library.
 
 Excel     | C# 
 :--       | :--: |
@@ -97,7 +97,54 @@ DateLarge | DateTime
 Time      | DateTime
 Currency  | double
 
-## 3.3. Is the cell a formula?
+# 4. Get cell value format : currency case
+
+## 4.1. Is the cell a currency?
+
+Is a cell value format is currency, then ExcelCellFormat.Code (type is ExcelCellFormatCode) will be set to currency.
+The other property ExcelCellFormat.CurrencyCode will be set by the exact currency code.
+
+```csharp
+//--B23: $91,25 - currency-dollarUS
+ExcelCellFormat cellFormatB23 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B23");
+
+// will display:  Currency
+Console.WriteLine("cellFormatB23.Code: " + excelApicellFormatB23.Code);
+
+// will display:  UnitedStatesDollar
+Console.WriteLine("cellFormatB23.CurrencyCode: " + excelApicellFormatB23.CurrencyCode);
+```
+
+## 4.2. Is the cell a accounting?
+
+Excel have a special cell format: accounting which is a in fact a formatted currency value.
+
+```csharp
+//--B21: 45,21 €  - accounting
+ExcelCellFormat cellFormatB21 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B21");
+
+// will display:  Accounting
+Console.WriteLine("cellFormatB21.Code: " + excelApicellFormatB21.Code);
+
+// will display:  Euro
+Console.WriteLine("cellFormatB21.CurrencyCode: " + excelApicellFormatB21.CurrencyCode);
+```
+
+
+## 4.3. List of managed cell value currency format  
+
+For now, only these cell value formats are managed by the library.
+
+currency     | country 
+:--       | :--: |
+euro   | -
+UnitedStatesDollar    | US 
+
+
+
+# 5. Get cell value format : formula case
+
+## 5.1. Is the cell a formula?
 
 The GetCellFormat() function return also is the cell contains a formula.
 
@@ -109,9 +156,9 @@ if(cellFormatE7.IsFormula)
     Console.WriteLine("E7 Formula: " + excelApi.ExcelCellValueApi.GetCellFormula(sheet, "E7"));
 ```
 
-# 4. Get cell value
+# 6. Get cell value
 
-## 4.1. Get a cell value as a string
+## 6.1. Get a cell value as a string
 
 Get a cell value as a string even is the type is different.
 
@@ -119,7 +166,7 @@ Get a cell value as a string even is the type is different.
 string cellValB1= excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
 ```
 
-## 4.2. Get a cell as an int and double
+## 6.2. Get a cell as an int and double
 
 ```csharp
 // get the cell value as an integer (number in Excel)
@@ -131,7 +178,7 @@ double cellValB25;
 res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellValB25);
 ```
 
-## 4.2. Get a cell value currency 
+## 6.3. Get a cell value currency 
 
 To get a cell value which is currency, get it as decimal (double).
 
@@ -142,9 +189,9 @@ res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B34", out cellVal
 ```
 
 
-# 5. Set a cell value
+# 7. Set a cell value
 
-## 5.1. Set a cell string value
+## 7.1. Set a cell string value
 
 Set a string value in a cell, the corresponding Excel type is General. 
 
@@ -168,7 +215,7 @@ excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
 ```
 
 
-## 5.2. Set an int or a double value in a cell 
+## 7.2. Set an int or a double value in a cell 
 
 ```csharp
 // set an int in a cell
@@ -179,7 +226,7 @@ res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
 ```
 
 
-# 6. Convert and split an Excel cell address 
+# 8. Convert and split an Excel cell address 
 
 ```csharp
 //--convert a col and a row int values into an excel address
