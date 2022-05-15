@@ -83,16 +83,19 @@ ExcelCellFormat cellFormatA1= excelApi.ExcelCellValueApi.GetCellFormat(excelShee
 
 ## 3.2. List of managed cell value format 
 
-Get the cell value format, can be: </br>
-General (string), Number (integer), Decimal (double), DateShort (DateTime), Currency (double),...
+Get the cell value format.
 
-For now, only General, Number and Decimal format are managed by the library.
+For now, only these cell value format are managed y th library.
 
-format | 
-:-- | 
-foo | 
-bar | 
-baz | 
+Excel     | C# 
+:--       | :--: |
+General   | string
+Number    | int 
+Decimal   | double
+DateShort | DateTime
+DateLarge | DateTime
+Time      | DateTime
+Currency  | double
 
 ## 3.3. Is the cell a formula?
 
