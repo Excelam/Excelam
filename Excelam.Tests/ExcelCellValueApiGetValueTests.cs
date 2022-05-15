@@ -67,8 +67,7 @@ public class ExcelCellValueApiGetValueTests
         Assert.AreEqual(dtB16, valB16);
 
         //--B17: 13:45:00 - time
-        DateTime valB17;
-        
+        DateTime valB17;        
         res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B17", out valB17);
         Assert.IsTrue(res);
         // ! for an excel cell time value, check only hour, min and sec.
@@ -76,8 +75,16 @@ public class ExcelCellValueApiGetValueTests
         Assert.AreEqual(dtB17, valB17);
 
         //--B21: 45,21 €  - accounting
+        double valB21;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B21", out valB21);
+        Assert.IsTrue(res);
+        Assert.AreEqual(45.21, valB21);
 
         //--B22: 88,22 € - currency-euro
+        double valB22;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B22", out valB22);
+        Assert.IsTrue(res);
+        Assert.AreEqual(88.22, valB22);
 
         //--B23: $91,25 - currency-dollarUS
 

@@ -26,36 +26,35 @@ public class OxExcelCellFormatValueDecoder
 				excelNumberingFormat.FormatCode = string.Empty;
 
 			ExcelCellFormatCode code;
-			ExcelCellCountryCurrency countryCurrency;
-			DecodeNumberingFormat(excelNumberingFormat.Id, excelNumberingFormat.FormatCode, out code, out countryCurrency);
+			ExcelCellCurrencyCode currencyCode;
+			DecodeNumberingFormat(excelNumberingFormat.Id, excelNumberingFormat.FormatCode, out code, out currencyCode);
 			// set the decoded code
 			excelNumberingFormat.Code = code;
-			excelNumberingFormat.CountryCurrency = countryCurrency;
+			excelNumberingFormat.CurrencyCode = currencyCode;
 		});  
 	}
 
 
-	public static void DecodeNumberingFormat(int numberFormatId, string format, out ExcelCellFormatCode code, out ExcelCellCountryCurrency countryCurrency)
+	public static void DecodeNumberingFormat(int numberFormatId, string format, out ExcelCellFormatCode code, out ExcelCellCurrencyCode countryCurrency)
 	{
-		countryCurrency = ExcelCellCountryCurrency.Undefined;
+		countryCurrency = ExcelCellCurrencyCode.Undefined;
 		// decode standard/default cases
 		if (DecodeStandardCases(numberFormatId, out code))
 			return;
 
 		if(DecodeDateAndTimeCases(numberFormatId, format, out code))
 			return;
-
-		if (DecodeAccounting44Case(numberFormatId, format, out code))
-			return;
-
-		if (DecodeCurrencySpecialCase(numberFormatId, format, out code))
+		if (DecodeAccounting44Case(numberFormatId, format, out code, out countryCurrency))
 			return;
 
 		if (DecodeCurrencyCases(numberFormatId, format, out code, out countryCurrency))
 			return;
 
+		if (DecodeCurrencySpecialCase(numberFormatId, format, out code))
+			return;
+
 		// decode special math cases: fraction and percentage
-		if (DecodeMathSpecialCases(numberFormatId, format, out code)) ;
+		DecodeMathSpecialCases(numberFormatId, format, out code);
 	}
 
 	private static bool DecodeStandardCases(int numberFormatId, out ExcelCellFormatCode code)
@@ -157,27 +156,25 @@ public class OxExcelCellFormatValueDecoder
 	/// <summary>
 	/// Decode accounting case, numberFormatId=44.
 	/// It's a special case, find the currency symbol.
+	/// exp with Euro: : "_-* #,##0.00\\ \"€\"_-;\\-* #,##0.00\\ \"€\"_-;_-* \"-\"??\\ \"€\"_-;_-@_-"
 	/// </summary>
 	/// <param name="numberFormatId"></param>
 	/// <param name="formatCode"></param>
 	/// <param name="code"></param>
 	/// <returns></returns>
-	private static bool DecodeAccounting44Case(int numberFormatId, string formatCode, out ExcelCellFormatCode code)
+	private static bool DecodeAccounting44Case(int numberFormatId, string formatCode, out ExcelCellFormatCode code, out ExcelCellCurrencyCode currencyCode)
 	{
 		code = ExcelCellFormatCode.Undefined;
+		currencyCode = ExcelCellCurrencyCode.Undefined;
 
 		// not the case
 		if (numberFormatId != 44)
 			return false;
 
-		// special case: numberFormatId=44: "_-* #,##0.00\\ \"€\"_-;\\-* #,##0.00\\ \"€\"_-;_-* \"-\"??\\ \"€\"_-;_-@_-"
-		if (DecodeCurrencySymbol(formatCode, out code))
-		{
-			return true;
-		}
+		DecodeCurrencyCode(formatCode, out currencyCode);
 
-		return false;
-
+		code = ExcelCellFormatCode.Accounting;
+		return true;
 	}
 
 	/// <summary>
@@ -190,125 +187,43 @@ public class OxExcelCellFormatValueDecoder
 	/// <returns></returns>
 	private static bool DecodeCurrencySpecialCase(int numberFormatId, string formatCode, out ExcelCellFormatCode code)
 	{
+		// TODO: undefined! rework it!
 		code = ExcelCellFormatCode.Undefined;
 
 		// doesn't contains [xxx]
 		if (formatCode.Contains("[") || formatCode.Contains("]"))
 			return false;
 
-		if (DecodeCurrencySymbol(formatCode, out code))
-		{
-			return true;
-		}
+		ExcelCellCurrencyCode currencyCode;
+		if (!DecodeCurrencyCode(formatCode, out currencyCode))
+			return false;
 
 		return false;
 	}
-	private static bool DecodeCurrencyCases(int numberFormatId, string formatCode, out ExcelCellFormatCode code, out ExcelCellCountryCurrency countryCurrency)
+
+	/// <summary>
+	/// decode currency casees.
+	/// based on ISO 4217.
+	/// </summary>
+	/// <param name="numberFormatId"></param>
+	/// <param name="formatCode"></param>
+	/// <param name="code"></param>
+	/// <param name="countryCurrency"></param>
+	/// <returns></returns>
+	private static bool DecodeCurrencyCases(int numberFormatId, string formatCode, out ExcelCellFormatCode code, out ExcelCellCurrencyCode countryCurrency)
 	{
 		code = ExcelCellFormatCode.Undefined;
-		countryCurrency = ExcelCellCountryCurrency.Undefined;
+		countryCurrency = ExcelCellCurrencyCode.Undefined;
 
 		if (numberFormatId < 164)
 			// its a built-in format, bye
 			return false;
 
-		// dollar US
-		if (formatCode.Contains("[$$-409]"))
-		{
-			code = ExcelCellFormatCode.CurrencyDollar;
-			countryCurrency = ExcelCellCountryCurrency.Usa;
-			return true;
-		}
+		if (!DecodeCurrencyCode(formatCode, out countryCurrency))
+			return false;
 
-		// [$$-C09]
-		if (formatCode.Contains("[$$-C09]"))
-		{
-			code = ExcelCellFormatCode.CurrencyDollar;
-			countryCurrency = ExcelCellCountryCurrency.Australia;
-			return true;
-		}
-
-		if (formatCode.Contains("[$$-1009]"))
-		{
-			code = ExcelCellFormatCode.CurrencyDollar;
-			countryCurrency = ExcelCellCountryCurrency.Canada;
-			return true;
-		}
-
-
-		// [$£-809] pound, 
-		if (formatCode.Contains("[$£-809]"))
-		{
-			code = ExcelCellFormatCode.CurrencyPound;
-			countryCurrency = ExcelCellCountryCurrency.UnitedKingdom;
-			return true;
-		}
-
-		// #,##0.00\\ [$?-422]		Ukraine
-		if (formatCode.Contains("-422]"))
-		{
-			code = ExcelCellFormatCode.CurrencyUkranian;
-			countryCurrency = ExcelCellCountryCurrency.Ukraine;
-			return true;
-		}
-
-
-		// [$¥-411]#,##0.00		Japonais
-		if (formatCode.Contains("-411]"))
-		{
-			code = ExcelCellFormatCode.CurrencyYen;
-			countryCurrency = ExcelCellCountryCurrency.Japan;
-			return true;
-		}
-
-		// #,##0.00\\ [$?-419] Russian
-		if (formatCode.Contains("-419]"))
-		{
-			code = ExcelCellFormatCode.CurrencyRussian;
-			countryCurrency = ExcelCellCountryCurrency.Russia;
-			return true;
-		}
-
-		// [$$-1004]#,##0.00 Chinese - Singapore
-		if (formatCode.Contains("-1004]"))
-		{
-			code = ExcelCellFormatCode.CurrencyDollar;
-			countryCurrency = ExcelCellCountryCurrency.Singapore;
-			return true;
-		}
-
-		// [$¥-804]#,##0.00  Chinese - China
-		if (formatCode.Contains("-804]"))
-		{
-			code = ExcelCellFormatCode.CurrencyChinese;
-			countryCurrency = ExcelCellCountryCurrency.China;
-			return true;
-		}
-
-		// [$¥-478]#,##0.00 Chinese - China, diff avec 804??
-		if (formatCode.Contains("-478]"))
-		{
-			code = ExcelCellFormatCode.CurrencyChinese;
-			countryCurrency = ExcelCellCountryCurrency.China;
-			return true;
-		}
-
-		// [$₿]\\ #,##0.000000, bitcoin 
-		if (formatCode.StartsWith("[$₿]"))
-		{
-			code = ExcelCellFormatCode.CurrencyBitcoin;
-			countryCurrency = ExcelCellCountryCurrency.Undefined;
-			return true;
-		}
-
-		if (formatCode.Contains("[$$-"))
-		{
-			code = ExcelCellFormatCode.CurrencyDollar;
-			countryCurrency = ExcelCellCountryCurrency.Unknown;
-			return true;
-		}
-
-		return false;
+		code = ExcelCellFormatCode.Currency;
+		return true;
 	}
 
 	/// <summary>
@@ -352,47 +267,107 @@ public class OxExcelCellFormatValueDecoder
 
 	}
 
-	private static bool DecodeCurrencySymbol(string valueFormat, out ExcelCellFormatCode code)
+	/// <summary>
+	/// Decode the currency code.
+	/// </summary>
+	/// <param name="formatCode"></param>
+	/// <param name="currencyCode"></param>
+	/// <returns></returns>
+	private static bool DecodeCurrencyCode(string formatCode, out ExcelCellCurrencyCode currencyCode)
 	{
-
-		if (valueFormat.Contains("€"))
+		
+		// euro
+		if (formatCode.Contains("\"€"))
 		{
-			code = ExcelCellFormatCode.CurrencyEuro;
+			currencyCode = ExcelCellCurrencyCode.Euro;
 			return true;
 		}
 
-		if (valueFormat.Contains("$"))
+		// dollar US
+		if (formatCode.Contains("[$$-409]"))
 		{
-			code = ExcelCellFormatCode.CurrencyDollar;
+			currencyCode = ExcelCellCurrencyCode.UnitedStatesDollar;
 			return true;
 		}
 
-		if (valueFormat.Contains("£"))
+		// [$$-C09]
+		if (formatCode.Contains("[$$-C09]"))
 		{
-			code = ExcelCellFormatCode.CurrencyPound;
+			currencyCode = ExcelCellCurrencyCode.AustralianDollar;
 			return true;
 		}
 
-		// yen/yuan, japanese or china!!
-		if (valueFormat.Contains("¥"))
+		if (formatCode.Contains("[$$-1009]"))
 		{
-			code = ExcelCellFormatCode.CurrencyYen;
+			currencyCode = ExcelCellCurrencyCode.CanadianDollar;
 			return true;
 		}
 
-		// south korea
-		if (valueFormat.Contains("₩"))
+		// [$£-809] pound, 
+		if (formatCode.Contains("[$£-809]"))
 		{
-			code = ExcelCellFormatCode.CurrencyWon;
+			currencyCode = ExcelCellCurrencyCode.PoundSterling;
 			return true;
 		}
 
-		if (valueFormat.Contains("₿"))
+		// #,##0.00\\ [$?-422]		Ukraine
+		if (formatCode.Contains("-422]"))
 		{
-			code = ExcelCellFormatCode.CurrencyBitcoin;
+			currencyCode = ExcelCellCurrencyCode.UkrainianHryvnia;
 			return true;
 		}
-		code = ExcelCellFormatCode.Undefined;
+
+
+		// [$¥-411]#,##0.00		Japonais
+		if (formatCode.Contains("-411]"))
+		{
+			currencyCode = ExcelCellCurrencyCode.JapaneseYen;
+			return true;
+		}
+
+		// #,##0.00\\ [$?-419] Russian
+		if (formatCode.Contains("-419]"))
+		{
+			currencyCode = ExcelCellCurrencyCode.RussianRuble;
+			return true;
+		}
+
+		// [$$-1004]#,##0.00 Chinese - Singapore
+		if (formatCode.Contains("-1004]"))
+		{
+			currencyCode = ExcelCellCurrencyCode.SingaporeDollar;
+			return true;
+		}
+
+		// [$¥-804]#,##0.00  Chinese - China
+		if (formatCode.Contains("-804]"))
+		{
+			currencyCode = ExcelCellCurrencyCode.China;
+			return true;
+		}
+
+		// [$¥-478]#,##0.00 Chinese - China, diff avec 804??
+		if (formatCode.Contains("-478]"))
+		{
+			currencyCode = ExcelCellCurrencyCode.China;
+			return true;
+		}
+
+		// [$₿]\\ #,##0.000000, bitcoin 
+		if (formatCode.StartsWith("[$₿]"))
+		{
+			currencyCode = ExcelCellCurrencyCode.Bitcoin;
+			return true;
+		}
+
+		if (formatCode.Contains("[$$-"))
+		{
+			// dollar, not managed
+			currencyCode = ExcelCellCurrencyCode.Unknown;
+			return true;
+		}
+
+		currencyCode = ExcelCellCurrencyCode.Undefined;
 		return false;
 	}
 }

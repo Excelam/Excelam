@@ -28,7 +28,7 @@ public class ExcelNumberingFormat
     /// <summary>
     /// Set when the code is a currency in some case.
     /// </summary>
-    public ExcelCellCountryCurrency CountryCurrency { get; set; } = ExcelCellCountryCurrency.Undefined;
+    public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Undefined;
 
     /// <summary>
     /// The original excel openXml object.

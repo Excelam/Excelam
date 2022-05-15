@@ -60,10 +60,38 @@ public class ExcelGetCellFormatTests
         Assert.AreEqual(ExcelCellFormatCode.Time, cellFormatB17.Code);
 
         //--B21: 45,21 €  - accounting
+        ExcelCellFormat cellFormatB21 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B21");
+        Assert.AreEqual(ExcelCellFormatCode.Accounting, cellFormatB21.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB21.CurrencyCode);
 
         //--B22: 88,22 € - currency-euro
+        ExcelCellFormat cellFormatB22 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B22");
+        Assert.AreEqual(ExcelCellFormatCode.Currency, cellFormatB22.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB21.CurrencyCode);
 
         //--B23: $91,25 - currency-dollarUS
+        ExcelCellFormat cellFormatB23 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B23");
+        Assert.AreEqual(ExcelCellFormatCode.Currency, cellFormatB23.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.UnitedStatesDollar, cellFormatB23.CurrencyCode);
+
+
+        //XXXXXXXXXXXX
+        // TODO: tester les différents type euro.
+
+        //--B25: € 1,2 - accounting - € euro
+        ExcelCellFormat cellFormatB25 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B25");
+        Assert.AreEqual(ExcelCellFormatCode.Accounting, cellFormatB25.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB25.CurrencyCode);
+
+        //--B26: € 2,3 - accounting - € Anglais Irlande
+        ExcelCellFormat cellFormatB26 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B26");
+        Assert.AreEqual(ExcelCellFormatCode.Accounting, cellFormatB26.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB26.CurrencyCode);
+
+        //--B27: € 4,12 - accounting $ anglais - canada
+        ExcelCellFormat cellFormatB27 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B27");
+        Assert.AreEqual(ExcelCellFormatCode.Currency, cellFormatB27.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.CanadianDollar, cellFormatB27.CurrencyCode);
 
 
 

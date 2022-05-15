@@ -105,34 +105,39 @@ public enum ExcelCellFormatCode
     /// </summary>
     Text,
 
-    CurrencyEuro,
-    CurrencyDollar,
-    CurrencyPound,
-
     /// <summary>
-    /// ¥
-    /// japanese, yen
-    /// 
-    /// todo: pb meme symbole que china!
+    /// see the other enum defined the currency.
     /// </summary>
-    CurrencyYen,
+    Currency,
 
-    /// <summary>
-    /// yuan (china)
-    /// renminbi , chinese
-    /// 
-    /// JP¥50 and CN¥50 when disambiguation is needed. 
-    /// </summary>
-    CurrencyChinese,
+    //CurrencyEuro,
+    //CurrencyDollar,
+    //CurrencyPound,
 
-    /// <summary>
-    /// South Korean
-    /// </summary>
-    CurrencyWon,
+    ///// <summary>
+    ///// ¥
+    ///// japanese, yen
+    ///// 
+    ///// todo: pb meme symbole que china!
+    ///// </summary>
+    //CurrencyYen,
 
-    CurrencyUkranian,
-    CurrencyRussian,
+    ///// <summary>
+    ///// yuan (china)
+    ///// renminbi , chinese
+    ///// 
+    ///// JP¥50 and CN¥50 when disambiguation is needed. 
+    ///// </summary>
+    //CurrencyChinese,
+
+    ///// <summary>
+    ///// South Korean
+    ///// </summary>
+    //CurrencyWon,
+
+    //CurrencyUkranian,
+    //CurrencyRussian,
 
 
-    CurrencyBitcoin,
+    //CurrencyBitcoin,
 }

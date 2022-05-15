@@ -48,15 +48,15 @@ public class ExcelCellStyles
     /// </summary>
     /// <param name="cell"></param>
     /// <returns></returns>
-    public int FindStyle(ExcelCellFormatCode code, ExcelCellCountryCurrency countryCurrency, out ExcelCellFormat cellFormat)
+    public int FindStyle(ExcelCellFormatCode code, ExcelCellCurrencyCode countryCurrency, out ExcelCellFormat cellFormat)
     {
         return FindStyle(code, countryCurrency, 0, 0, 0, out cellFormat);
     }
 
-    public int FindStyle(ExcelCellFormatCode code, ExcelCellCountryCurrency countryCurrency, int borderId, int fillId, int fontId, out ExcelCellFormat cellFormat)
+    public int FindStyle(ExcelCellFormatCode code, ExcelCellCurrencyCode countryCurrency, int borderId, int fillId, int fontId, out ExcelCellFormat cellFormat)
     {
         // todo: ajouter alignment et protection? +compliqué!
-        KeyValuePair<int, ExcelCellFormat> res = DictStyleIndexExcelStyleIndex.FirstOrDefault(cf => cf.Value.Code == code && cf.Value.CountryCurrency == countryCurrency && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
+        KeyValuePair<int, ExcelCellFormat> res = DictStyleIndexExcelStyleIndex.FirstOrDefault(cf => cf.Value.Code == code && cf.Value.CurrencyCode == countryCurrency && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
 
         cellFormat = null;
         if (res.Value == null)

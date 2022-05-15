@@ -75,9 +75,7 @@ public static class ExcelStylesManager
             // convert all ExcelNumberingFormat into ExcelCellFormatValue
             OxExcelCellFormatValueDecoder.Decode(excelCellStyles.ListExcelNumberingFormat);
 
-
             int styleIndex = 0;
-
 
             //--scan each existing cellFormat and decode it: value, border, fill, font, Alignment and protection
             foreach (CellFormat cellFormat in cellFormats)
@@ -87,8 +85,8 @@ public static class ExcelStylesManager
                 if (cellFormat.NumberFormatId != null) numberFormatId = cellFormat.NumberFormatId;
 
                 var excelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == (int)numberFormatId);
-                ExcelCellCountryCurrency countryCurrency;
-                ExcelCellFormatCode code = DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat, out countryCurrency);
+                ExcelCellCurrencyCode currencyCode;
+                ExcelCellFormatCode code = DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat, out currencyCode);
 
 
                 uint borderId = 0;
@@ -106,7 +104,7 @@ public static class ExcelStylesManager
                     StyleIndex = styleIndex,
                     NumberFormatId = (int)numberFormatId,
                     Code = code,
-                    CountryCurrency = countryCurrency,
+                    CurrencyCode = currencyCode,
                     ExcelNumberingFormat = excelNumberingFormat,
                     // todo: besoin de ce champ?
                     BorderId = (int)borderId,
@@ -205,13 +203,16 @@ public static class ExcelStylesManager
 
     #region Private methods.
 
-    private static ExcelCellFormatCode DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat, out ExcelCellCountryCurrency countryCurrency)
+    private static ExcelCellFormatCode DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat, out ExcelCellCurrencyCode countryCurrency)
     {
-        countryCurrency = ExcelCellCountryCurrency.Undefined;
+        countryCurrency = ExcelCellCurrencyCode.Undefined;
 
         if (excelNumberingFormat != null)
+        {
             // already decoded
+            countryCurrency = excelNumberingFormat.CurrencyCode;
             return excelNumberingFormat.Code;
+        }
 
         // if null, its a builtin case, decode it to obtain the code
         ExcelCellFormatCode code;

@@ -33,7 +33,7 @@ public class ExcelCellFormat
     /// <summary>
     /// Set when code is a currency, in some case, when the country is identified.
     /// </summary>
-    public ExcelCellCountryCurrency CountryCurrency { get; set; } = ExcelCellCountryCurrency.Unknown;
+    public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Unknown;
 
     /// <summary>
     /// id, from OpenXml.

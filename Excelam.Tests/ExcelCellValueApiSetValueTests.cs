@@ -46,15 +46,6 @@ public class ExcelCellValueApiSetValueTests
         res= excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "bonjour");
         Assert.IsTrue(res);
 
-        // check
-        ExcelCellFormat cellFormatB1= excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
-        Assert.AreEqual(ExcelCellFormatCode.General, cellFormatB1.Code);
-        // no style for a general string
-        Assert.AreEqual(-1, cellFormatB1.StyleIndex);
-
-        string cellValB1= excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
-        Assert.AreEqual("bonjour", cellValB1);
-
         //--B3, replace 'salut' by 'coucou' - general
         res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B3", "coucou");
         Assert.IsTrue(res);
@@ -147,10 +138,11 @@ public class ExcelCellValueApiSetValueTests
         Assert.AreEqual(12.34, cellValB25);
 
         // TODO:
+        // SetCellValueDateShort()
+        // SetCellValueDateLarge()
+        // SetCellValueTime()
 
-        //--TODO: faire SetCellValueDecimal()
-
-        //--TODO: faire SetCellValueDateShort()
+        //--TODO: 
 
         //--TODO: faire SetCellValueText()
 
