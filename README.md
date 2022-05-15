@@ -68,7 +68,7 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 var sheet2 = excelApi.ExcelSheetApi.GetSheetByName(excelWorkbook, "MySheet");
 ```
 
-# 3. Get cell value format
+# 3. Get cell value format : current cases
 
 The GetCellFormat() function read the cell value format. It return an object ExcelCellFormat containing an enum value for the format: ExcelCellFormatCode.
 If the format is not reconized (not implemented), the enum value is: Undefined.
