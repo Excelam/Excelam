@@ -1,7 +1,9 @@
-# What is Excelam?
+# 1/ What is Excelam?
 
 Excelam is a open-source .NET library over OpenXml to use Excel easily.
 The library is writen in C#/net6.
+
+The goal is to get cell value format, get cell value and set cell value, in different formats: general, number, decimal, date, currency,...
 
 The only dependency is DocumentFormat.OpenXml (Open XML SDK), the official Microsoft library to work with Word, Excel and PowerPoint documents.
 use the last version: 2.16.0.
@@ -13,7 +15,7 @@ https://www.nuget.org/packages/Excelam/0.0.1
 
 Next stages will be to manage others types: date, time, fraction, percentage, scientific and currencies (Euro, Dollar and others).
 
-# Start using the library
+# 2/ Create or open an Excel file
 
 ## create a new excel file
 
@@ -47,6 +49,57 @@ bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out excelWorkbook, out 
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
+# 3/ Get cell value format
+
+## Get the cell value format
+
+Get the cell value format, can be: </br>
+General (string), Number (integer), Decimal (double), DateShort (DateTime), Currency (double),...
+
+For now, only General, Number and Decimal format are managed by the library.
+
+
+```csharp
+// get the A1 cell value format
+ExcelCellFormat cellFormatA1= excelApi.ExcelCellValueApi.GetCellFormat(excelSheet, "A1");
+// the result: cellFormatA1.Code=ExcelCellFormatCode.General
+```
+
+## Is the cell a formula?
+
+```csharp
+// set an int in a cell
+ExcelCellFormat cellFormatE7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "E7");
+if(cellFormatE7.IsFormula)
+    // SUM(E5:E6)
+    Console.WriteLine("E7 Formula: " + excelApi.ExcelCellValueApi.GetCellFormula(sheet, "E7"));
+```
+
+# 4/ Get cell value
+
+## Get a cell value as a string
+
+Get a cell value as a string even is the type is different.
+
+```csharp
+string cellValB1= excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+```
+
+## Get a cell as an int and double
+
+```csharp
+// get the cell value as an integer (number in Excel)
+int cellValB23;
+bool res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B23", out cellValB23);
+
+// get the cell value as a double (decimal in Excel)
+double cellValB25;
+res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellValB25);
+```
+
+
+# 5/ Set a cell value
+
 ## Set a cell string value
 
 Set a string value in a cell, the corresponding Excel type is General. 
@@ -69,39 +122,7 @@ excelApi.ExcelCellValueApi.SetCellValueGeneral(excelSheet, "A1", "hello");
 // save and close the excel file
 excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
 ```
-## Get the cell value format
 
-Get the cell value format, can be: </br>
-General (string), Number (integer), Decimal (double), DateShort (DateTime), Currency (double),...
-
-For now, only General, Number and Decimal format are managed by the library.
-
-
-```csharp
-// get the A1 cell value format
-ExcelCellFormat cellFormatA1= excelApi.ExcelCellValueApi.GetCellFormat(excelSheet, "A1");
-// the result: cellFormatA1.Code=ExcelCellFormatCode.General
-```
-
-## Get a cell value as a string
-
-Get a cell value as a string even is the type is different.
-
-```csharp
-string cellValB1= excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
-```
-
-## Get a cell as an int and double
-
-```csharp
-// get the cell value as an integer (number in Excel)
-int cellValB23;
-bool res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B23", out cellValB23);
-
-// get the cell value as a double (decimal in Excel)
-double cellValB25;
-res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellValB25);
-```
 
 ## Set an int or a double value in a cell 
 
@@ -113,17 +134,8 @@ bool res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B23", 890);
 res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B25", 12.34);
 ```
 
-## Get the cell formula
 
-```csharp
-// set an int in a cell
-ExcelCellFormat cellFormatE7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "E7");
-if(cellFormatE7.IsFormula)
-    // SUM(E5:E6)
-    Console.WriteLine("E7 Formula: " + excelApi.ExcelCellValueApi.GetCellFormula(sheet, "E7"));
-```
-
-## Convert and split an Excel cell address 
+# 6/ Convert and split an Excel cell address 
 
 ```csharp
 //--convert a col and a row int values into an excel address
