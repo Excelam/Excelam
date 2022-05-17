@@ -95,21 +95,21 @@ public class OXExcelSharedStringApi
     /// and inserts it into the SharedStringTablePart. 
     /// If the item already exists, returns its index.
     /// </summary>
-    /// <param name="shareStringPart"></param>
+    /// <param name="sharedStringTablePart"></param>
     /// <param name="text"></param>
     /// <returns></returns>
-    public static int InsertSharedStringItem(SharedStringTablePart shareStringPart, string text)
+    public static int InsertSharedStringItem(SharedStringTablePart sharedStringTablePart, string text)
     {
         // If the part does not contain a SharedStringTable, create one.
-        if (shareStringPart.SharedStringTable == null)
+        if (sharedStringTablePart.SharedStringTable == null)
         {
-            shareStringPart.SharedStringTable = new SharedStringTable();
+            sharedStringTablePart.SharedStringTable = new SharedStringTable();
         }
 
         int i = 0;
 
         // Iterate through all the items in the SharedStringTable. If the text already exists, return its index.
-        foreach (SharedStringItem item in shareStringPart.SharedStringTable.Elements<SharedStringItem>())
+        foreach (SharedStringItem item in sharedStringTablePart.SharedStringTable.Elements<SharedStringItem>())
         {
             if (item.InnerText == text)
             {
@@ -120,8 +120,8 @@ public class OXExcelSharedStringApi
         }
 
         // The text does not exist in the part. Create the SharedStringItem and return its index.
-        shareStringPart.SharedStringTable.AppendChild(new SharedStringItem(new Text(text)));
-        shareStringPart.SharedStringTable.Save();
+        sharedStringTablePart.SharedStringTable.AppendChild(new SharedStringItem(new Text(text)));
+        sharedStringTablePart.SharedStringTable.Save();
 
         return i;
     }

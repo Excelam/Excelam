@@ -504,6 +504,71 @@ public class ExcelCellValueApi
         return ReplaceCellValueAndStyle(excelSheet, cell, cellFormat, cellFormatCode, new CellValue(value));
     }
 
+    public bool SetCellValueDateShort(ExcelSheet excelSheet, int col, int row, DateTime value)
+    {
+        return SetCellValueDateShort(excelSheet, ExcelCellAddressApi.ConvertAddress(col, row), value);
+    }
+
+    /// <summary>
+    /// set a dateShort value into a cell.
+    /// </summary>
+    /// <param name="excelSheet"></param>
+    /// <param name="cellAddress"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public bool SetCellValueDateShort(ExcelSheet excelSheet, string cellAddress, DateTime value)
+    {
+        ExcelCellFormatCode cellFormatCode = ExcelCellFormatCode.DateShort;
+
+        // get the cell if it exists?
+        Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
+
+        string colName;
+        int rowIndex;
+        ExcelCellAddressApi.SplitCellAddress(cellAddress, out colName, out _, out rowIndex);
+
+        //--1/ the cell doesn't exists
+        if (cell == null)
+        {
+            CreateCell(excelSheet, colName, rowIndex, cellFormatCode, new CellValue(value.ToOADate()));
+            return true;
+        }
+
+        // get the style,  in the some cases can be null/-1: generic cell value
+        int styleIndex = OxExcelCellValueApi.GetCellStyleIndex(cell);
+
+        // get the cell format style
+        ExcelCellFormat? cellFormat = null;
+        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
+            cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
+
+        //--2/ cell exists, same value format: Number
+        if (cellFormat != null && cellFormat.Code == cellFormatCode)
+        {
+            // change the cell value
+            // todo: revoir, marche pas!!
+            //ici();
+            cell.CellValue = new CellValue(value.ToOADate());
+            return true;
+        }
+
+        //--3/ cell exists, not the same value format
+        //--3.1/ no style index, no cellformat, type is a general/standard
+        if (styleIndex < 0)
+        {
+            // todo: revoir, marche pas!!
+            //ici();
+
+            ReplaceCellContentGeneral(excelSheet, cell, cellFormatCode, new CellValue(value));
+            return true;
+        }
+
+        // cell exists, has a style
+        // todo: revoir, marche pas!!
+        //ici();
+        return ReplaceCellValueAndStyle(excelSheet, cell, cellFormat, cellFormatCode, new CellValue(value));
+    }
+
     #endregion
 
     #region DelCell methods.

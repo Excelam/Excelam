@@ -15,22 +15,63 @@ namespace Excelam.Tests;
 [TestClass]
 public class ExcelCellValueApiSetValueTests
 {
+    [TestMethod]
+    public void SetCellValuesEmpty()
+    {
+        string fileName = @"Files\Cells\SetCellValuesEmpty.xlsx";
+
+        ExcelApi excelApi = new ExcelApi();
+        ExcelWorkbook workbook;
+        ExcelError error;
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1 set 'bonjour' - general
+        res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "bonjour");
+        Assert.IsTrue(res);
+
+        // check
+        string cellValB1 = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.AreEqual("bonjour", cellValB1);
+
+        //--B3, set 12 - number 
+        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B3", 12);
+        Assert.IsTrue(res);
+
+        int cellValB3;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B3", out cellValB3);
+        Assert.AreEqual(12, cellValB3);
+
+        // TODO: 
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+
+    }
+
     /// <summary>
+    /// TODO: rework it!!
     /// Set cell value, many times with different type/value each time.
+    /// TODO: SetCellValuesSameFormat
     /// </summary>
     [TestMethod]
-    public void SetManyCellFormatValue()
+    public void SetCellValuesReplace()
     {
         // the template file
-        string fileNameTempl = @"Files\Cells\InitSetManyCellType.xlsx";
+        //string fileNameTempl = @"Files\Cells\InitSetManyCellType.xlsx";
 
-        string fileName = @"Files\Cells\SetManyCellType.xlsx";
+        string fileName = @"Files\Cells\SetCellValuesReplace.xlsx";
 
         // if file exists, remove it
-        if (File.Exists(fileName))
-            File.Delete(fileName);
+        //if (File.Exists(fileName))
+        //    File.Delete(fileName);
 
-        File.Copy(fileNameTempl, fileName);
+        //File.Copy(fileNameTempl, fileName);
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
@@ -137,7 +178,19 @@ public class ExcelCellValueApiSetValueTests
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B25", out cellValB25);
         Assert.AreEqual(12.34, cellValB25);
 
-        // TODO:
+        //--B27: cell empty, set dateShort : 16/05/2022
+        res = excelApi.ExcelCellValueApi.SetCellValueDateShort(sheet, "B27", new DateTime(2022,05,16));
+        Assert.IsTrue(res);
+
+        // check
+        ExcelCellFormat cellFormatB27 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B27");
+        Assert.AreEqual(ExcelCellFormatCode.DateShort, cellFormatB27.Code);
+        DateTime dtRes;
+        excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B27", out dtRes);
+        DateTime dtExpected = new DateTime(2022, 05, 16);
+        Assert.AreEqual(dtExpected, dtRes);
+
+        //XXXXXXTODO:
         // SetCellValueDateShort()
         // SetCellValueDateLarge()
         // SetCellValueTime()
