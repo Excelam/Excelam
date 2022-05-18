@@ -199,5 +199,26 @@ public class OXExcelSharedStringApi
         // ok, item removed
         return true;
     }
-    
+
+    /// <summary>
+    /// Create and add a SharedStringTablePart to the workbookpart.
+    /// </summary>
+    /// <param name="workbookPart"></param>
+    /// <returns></returns>
+    public static SharedStringTablePart? CreateSharedStringTablePart(WorkbookPart workbookPart)
+    {
+        if (workbookPart == null)
+            return null;
+
+        // check if not exists first
+        if (workbookPart.SharedStringTablePart != null)
+            return workbookPart.SharedStringTablePart;
+
+        // Shared string table
+        SharedStringTablePart sharedStringTablePart = workbookPart.AddNewPart<SharedStringTablePart>();
+        sharedStringTablePart.SharedStringTable = new SharedStringTable();
+        sharedStringTablePart.SharedStringTable.Save();
+
+        return sharedStringTablePart;
+    }
 }

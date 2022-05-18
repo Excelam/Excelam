@@ -44,9 +44,20 @@ public class ExcelCellValueApiSetValueTests
 
         int cellValB3;
         res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B3", out cellValB3);
+        Assert.IsTrue(res);
         Assert.AreEqual(12, cellValB3);
 
-        // TODO: 
+        //--B5, set 34.56 - decimal
+        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 34.56);
+        Assert.IsTrue(res);
+
+        double cellValB5;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out cellValB5);
+        Assert.IsTrue(res);
+        Assert.AreEqual(34.56, cellValB5);
+
+
+        // TODO: decimal, dateShort, DateLong, Time, currency,...
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
@@ -66,12 +77,6 @@ public class ExcelCellValueApiSetValueTests
         //string fileNameTempl = @"Files\Cells\InitSetManyCellType.xlsx";
 
         string fileName = @"Files\Cells\SetCellValuesReplace.xlsx";
-
-        // if file exists, remove it
-        //if (File.Exists(fileName))
-        //    File.Delete(fileName);
-
-        //File.Copy(fileNameTempl, fileName);
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;

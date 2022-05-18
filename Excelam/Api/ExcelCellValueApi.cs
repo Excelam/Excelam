@@ -286,6 +286,9 @@ public class ExcelCellValueApi
     /// <returns></returns>
     public bool SetCellValueGeneral(ExcelSheet excelSheet, string cellAddress, string value)
     {
+        // check or create the shared string table
+        OXExcelSharedStringApi.CreateSharedStringTablePart(excelSheet.WorkbookPart);
+
         // get the cell if it exists?
         Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
 

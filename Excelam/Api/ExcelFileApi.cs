@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Excelam.OpenXmlLayer;
 using Excelam.System;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ public class ExcelFileApi
             spreadsheetDocument.AddExtendedFilePropertiesPart();
             spreadsheetDocument.ExtendedFilePropertiesPart.Properties = new DocumentFormat.OpenXml.ExtendedProperties.Properties();
 
-            // todo:
+            // todo: create a class: ExcelFileParameters
             spreadsheetDocument.ExtendedFilePropertiesPart.Properties.Company = new DocumentFormat.OpenXml.ExtendedProperties.Company("My Company");
             spreadsheetDocument.PackageProperties.Creator = "Me";
 
@@ -61,9 +62,10 @@ public class ExcelFileApi
             worksheetPart.Worksheet.Save();
 
             // Shared string table
-            SharedStringTablePart sharedStringTablePart = spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
-            sharedStringTablePart.SharedStringTable = new SharedStringTable();
-            sharedStringTablePart.SharedStringTable.Save();
+            OXExcelSharedStringApi.CreateSharedStringTablePart(spreadsheetDocument.WorkbookPart);
+            //SharedStringTablePart sharedStringTablePart = spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
+            //sharedStringTablePart.SharedStringTable = new SharedStringTable();
+            //sharedStringTablePart.SharedStringTable.Save();
 
             // Add Sheets to the Workbook.
             Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
