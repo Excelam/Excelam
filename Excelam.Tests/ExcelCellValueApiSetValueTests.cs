@@ -15,6 +15,10 @@ namespace Excelam.Tests;
 [TestClass]
 public class ExcelCellValueApiSetValueTests
 {
+    /// <summary>
+    /// Start from an empty excel file.
+    /// set cell values, test all formats.
+    /// </summary>
     [TestMethod]
     public void SetCellValuesEmpty()
     {
@@ -57,12 +61,66 @@ public class ExcelCellValueApiSetValueTests
         Assert.AreEqual(34.56, cellValB5);
 
 
-        // TODO: decimal, dateShort, DateLong, Time, currency,...
+        //--B7, set 19/05/2022 - DateShort
+        res = excelApi.ExcelCellValueApi.SetCellValueDateShort(sheet, "B7", new DateTime(2022,05,19));
+        Assert.IsTrue(res);
+
+        DateTime cellValB7;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B7", out cellValB7);
+        Assert.IsTrue(res);
+        Assert.AreEqual(2022, cellValB7.Year);
+        Assert.AreEqual(5, cellValB7.Month);
+        Assert.AreEqual(19, cellValB7.Day);
+
+        //--B9, set xxx - Time
+        //res = excelApi.ExcelCellValueApi.SetCellValueTime(sheet, "B7", new DateTime(2022, 05, 19));
+        //Assert.IsTrue(res);
+
+        // TODO: DateLarge, Time, currency,...
+        //ici();
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+    }
+
+    
+    [TestMethod]
+    public void SetCellValuesSameFormat()
+    {
+        // todo: reprendre meme code que dessus!
+        // créer excel
+        string fileName = @"Files\Cells\SetCellValuesSameFormat.xlsx";
+
+        ExcelApi excelApi = new ExcelApi();
+        ExcelWorkbook workbook;
+        ExcelError error;
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        Assert.Fail("todo:");
+
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
         Assert.IsTrue(res);
 
+    }
+
+    [TestMethod]
+    public void SetCellValuesOtherFormatNoStyle()
+    {
+        Assert.Fail("todo:");
+    }
+
+    [TestMethod]
+    public void SetCellValuesOtherFormatWithStyle()
+    {
+        Assert.Fail("todo:");
     }
 
     /// <summary>

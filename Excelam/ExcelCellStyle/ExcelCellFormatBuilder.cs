@@ -39,7 +39,7 @@ public class ExcelCellFormatBuilder
         stylesheet.CellFormats.Count++;
         stylesheet.Save();
 
-        // create a higu-level ExcelCellFormat object
+        // create a high-level ExcelCellFormat object
         ExcelCellFormat excelCellFormat = new ExcelCellFormat();
         excelCellFormat.NumberFormatId = (int)(uint)cellFormat.NumberFormatId;
         excelCellFormat.ExcelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == cellFormat.NumberFormatId);

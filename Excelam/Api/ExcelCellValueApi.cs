@@ -559,17 +559,12 @@ public class ExcelCellValueApi
         //--3.1/ no style index, no cellformat, type is a general/standard
         if (styleIndex < 0)
         {
-            // todo: revoir, marche pas!!
-            //ici();
-
-            ReplaceCellContentGeneral(excelSheet, cell, cellFormatCode, new CellValue(value));
+            ReplaceCellContentGeneral(excelSheet, cell, cellFormatCode, new CellValue(value.ToOADate()));
             return true;
         }
 
         // cell exists, has a style
-        // todo: revoir, marche pas!!
-        //ici();
-        return ReplaceCellValueAndStyle(excelSheet, cell, cellFormat, cellFormatCode, new CellValue(value));
+        return ReplaceCellValueAndStyle(excelSheet, cell, cellFormat, cellFormatCode, new CellValue(value.ToOADate()));
     }
 
     #endregion

@@ -21,9 +21,9 @@ public class ExcelFileApi
         get { return "MySheet"; }
     }
 
-    public bool CreateExcelFile(string fileName, string sheetName, out ExcelWorkbook? excelDoc, out ExcelError? error)
+    public bool CreateExcelFile(string fileName, string sheetName, out ExcelWorkbook? excelWorkbook, out ExcelError? error)
     {
-        excelDoc = null;
+        excelWorkbook = null;
 
         if (!CheckFileName(fileName, true, out error))
             return false;
@@ -97,7 +97,7 @@ public class ExcelFileApi
                 return false;
 
             // create an excelDoc with all important data
-            excelDoc = new ExcelWorkbook(fileName, spreadsheetDocument, dictUriOpenXmlPart, excelCellStyles);
+            excelWorkbook = new ExcelWorkbook(fileName, spreadsheetDocument, dictUriOpenXmlPart, excelCellStyles);
 
 
             return true;
@@ -111,14 +111,14 @@ public class ExcelFileApi
         }
     }
 
-    public bool OpenExcelFile(string fileName, out ExcelWorkbook? excelDoc, out ExcelError? error)
+    public bool OpenExcelFile(string fileName, out ExcelWorkbook? excelWorkbook, out ExcelError? error)
     {
-        return OpenExcelFile(fileName, out excelDoc, out error, true);
+        return OpenExcelFile(fileName, out excelWorkbook, out error, true);
     }
 
-    public bool OpenExcelFileReadOnly(string fileName, out ExcelWorkbook? excelDoc, out ExcelError? error)
+    public bool OpenExcelFileReadOnly(string fileName, out ExcelWorkbook? excelWorkbook, out ExcelError? error)
     {
-        return OpenExcelFile(fileName, out excelDoc, out error, false);
+        return OpenExcelFile(fileName, out excelWorkbook, out error, false);
     }
 
     /// <summary>
@@ -130,9 +130,9 @@ public class ExcelFileApi
     /// <param name="fileName"></param>
     /// <param name="spreadsheetDocument"></param>
     /// <returns></returns>
-    public bool OpenExcelFile(string fileName, out ExcelWorkbook? excelDoc, out ExcelError? error, bool readWriteMode)
+    public bool OpenExcelFile(string fileName, out ExcelWorkbook? excelWorkbook, out ExcelError? error, bool readWriteMode)
     {
-        excelDoc = null;
+        excelWorkbook = null;
         try
         {
             var spreadsheetDocument = SpreadsheetDocument.Open(fileName, readWriteMode);
@@ -157,7 +157,7 @@ public class ExcelFileApi
             }
 
             // create an excelDoc with all important data
-            excelDoc = new ExcelWorkbook(fileName, spreadsheetDocument, dictUriOpenXmlPart, excelCellStyles);
+            excelWorkbook = new ExcelWorkbook(fileName, spreadsheetDocument, dictUriOpenXmlPart, excelCellStyles);
             return true;
         }
         catch (Exception e)
@@ -169,9 +169,9 @@ public class ExcelFileApi
         }
     }
 
-    public bool SaveExcelFile(ExcelWorkbook excelDoc, out ExcelError? error)
+    public bool SaveExcelFile(ExcelWorkbook excelWorkbook, out ExcelError? error)
     {
-        if (excelDoc == null)
+        if (excelWorkbook == null)
         {
             error = new ExcelError();
             error.Code = ExcelErrorCode.UnableToCloseExcelFile;
@@ -206,16 +206,16 @@ public class ExcelFileApi
     /// Close the opened excel file.
     /// </summary>
     /// <param name="spreadsheetDocument"></param>
-    public bool CloseExcelFile(ExcelWorkbook excelDoc, out ExcelError? excelError)
+    public bool CloseExcelFile(ExcelWorkbook excelWorkbook, out ExcelError? excelError)
     {
         excelError = null;
-        if (excelDoc == null) return false;
-        if (excelDoc.SpreadsheetDocument == null) return false;
+        if (excelWorkbook == null) return false;
+        if (excelWorkbook.SpreadsheetDocument == null) return false;
 
         try
         {
             // fermer le fichier excel
-            excelDoc.SpreadsheetDocument.Close();
+            excelWorkbook.SpreadsheetDocument.Close();
             return true;
         }
         catch (Exception e)
