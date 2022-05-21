@@ -43,7 +43,13 @@
     <None Update="Files\Cells\SetCellValuesEmpty.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\Cells\SetCellValuesOtherFormatNoStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\Cells\SetCellValuesReplace.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\Cells\SetCellValuesSameFormat.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Files\Cells\SharedString.xlsx">

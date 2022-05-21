@@ -680,11 +680,11 @@ public class ExcelCellValueApi
 
         // find a similar style 
         ExcelCellFormat cellFormatSameAs2;
-        int styleIndexSameAs2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatCode.Number, ExcelCellCurrencyCode.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatSameAs2);
+        int styleIndexSameAs2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatCode, ExcelCellCurrencyCode.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatSameAs2);
 
         //--3.3/ no style exists, create a new one
         if (styleIndexSameAs2 < 0)
-            styleIndexSameAs2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatCode.Number, ExcelCellCurrencyCode.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
+            styleIndexSameAs2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, cellFormatCode, ExcelCellCurrencyCode.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
 
         // a style exists, so use it
         cell.StyleIndex = (uint)styleIndexSameAs2;
