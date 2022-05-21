@@ -675,6 +675,19 @@ public class ExcelCellValueApi
         if (cell == null) return false;
         if (cellFormat == null) return false;
 
+        // if the current content of the cell is a shared string, remove it
+        if(OxExcelCellValueApi.IsValueSharedString(excelSheet.WorkbookPart, cell))
+        {
+            int sharedStringItemId = OXExcelSharedStringApi.GetSharedStringId(cell);
+
+            // clear the shared string in the cell
+            cell.DataType = null;
+            cell.CellValue.Remove();
+
+            // remove the shared string
+            OXExcelSharedStringApi.RemoveSharedStringItem(excelSheet.WorkbookPart, sharedStringItemId);
+        }
+
         // set the new cell value
         cell.CellValue = cellValue;
 

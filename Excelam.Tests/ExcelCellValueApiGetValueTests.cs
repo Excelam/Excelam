@@ -11,8 +11,12 @@ namespace Excelam.Tests;
 [TestClass]
 public class ExcelCellValueApiGetValueTests
 {
+    /// <summary>
+    /// TODO: refactor it, split in several methods.
+    /// GetCellValuesBuiltIn, ...
+    /// </summary>
     [TestMethod]
-    public void GetManyCellValue()
+    public void GetCellValues()
     {
         ExcelApi excelApi = new ExcelApi();
 
