@@ -18,36 +18,36 @@ public class ExcelCellFormatValueConverter
     /// </summary>
     /// <param name="code"></param>
     /// <returns></returns>
-    public static uint Convert(ExcelCellFormatCode code)
+    public static uint Convert(ExcelCellFormatMainCode code)
     {
-        if (code == ExcelCellFormatCode.General)
+        if (code == ExcelCellFormatMainCode.General)
             return (uint) ExcelCellBuiltInFormatCode.General;
 
-        if (code == ExcelCellFormatCode.Text)
+        if (code == ExcelCellFormatMainCode.Text)
             return (uint)ExcelCellBuiltInFormatCode.Text;
 
-        if (code == ExcelCellFormatCode.Number)
+        if (code == ExcelCellFormatMainCode.Number)
             return (uint)ExcelCellBuiltInFormatCode.Number;
 
-        if (code == ExcelCellFormatCode.Decimal)
+        if (code == ExcelCellFormatMainCode.Decimal)
             return (uint)ExcelCellBuiltInFormatCode.Decimal;
 
-        if (code == ExcelCellFormatCode.Percentage1)
+        if (code == ExcelCellFormatMainCode.Percentage1)
             return (uint)ExcelCellBuiltInFormatCode.PercentageInt;
 
-        if (code == ExcelCellFormatCode.Percentage2)
+        if (code == ExcelCellFormatMainCode.Percentage2)
             return (uint)ExcelCellBuiltInFormatCode.Percentage2Dec;
 
-        if (code == ExcelCellFormatCode.Scientific)
+        if (code == ExcelCellFormatMainCode.Scientific)
             return (uint)ExcelCellBuiltInFormatCode.Scientific;
 
-        if (code == ExcelCellFormatCode.Fraction)
+        if (code == ExcelCellFormatMainCode.Fraction)
             return (uint)ExcelCellBuiltInFormatCode.Fraction;
 
-        if (code == ExcelCellFormatCode.Fraction2Digit)
+        if (code == ExcelCellFormatMainCode.Fraction2Digit)
             return (uint)ExcelCellBuiltInFormatCode.Fraction2Digit;
 
-        if (code == ExcelCellFormatCode.DateShort)
+        if (code == ExcelCellFormatMainCode.DateShort)
             return (uint)ExcelCellBuiltInFormatCode.DateShort;
 
         // error

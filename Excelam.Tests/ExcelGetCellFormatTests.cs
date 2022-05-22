@@ -14,6 +14,11 @@ namespace Excelam.Tests;
 [TestClass]
 public class ExcelGetCellFormatTests
 {
+    /// <summary>
+    /// Get cell format values basic built-in.
+    /// TODO: rename, ne garder que: general, number, decimal et text.
+    /// 
+    /// </summary>
     [TestMethod]
     public void GetCellFormatValuesBuiltIn()
     {
@@ -38,28 +43,28 @@ public class ExcelGetCellFormatTests
 
         //--B3: bonjour - standard/general
         ExcelCellFormat cellFormatB3 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
-        Assert.AreEqual(ExcelCellFormatCode.General, cellFormatB3.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.General, cellFormatB3.StructCode.MainCode);
 
         //--B3: bonjour - standard/general  - col, row
         ExcelCellFormat cellFormatB3b = excelApi.ExcelCellValueApi.GetCellFormat(sheet, 2, 3);
-        Assert.AreEqual(ExcelCellFormatCode.General, cellFormatB3b.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.General, cellFormatB3b.StructCode.MainCode);
 
         //--B5: 12 - number
         ExcelCellFormat cellFormatB5 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B5");
-        Assert.AreEqual(ExcelCellFormatCode.Number, cellFormatB5.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.Number, cellFormatB5.StructCode.MainCode);
 
         //--B7: 34.56 - decimal
         ExcelCellFormat cellFormatB7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B7");
-        Assert.AreEqual(ExcelCellFormatCode.Decimal, cellFormatB7.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormatB7.StructCode.MainCode);
 
         //--B9: 15/02/2021 - DateShort
         ExcelCellFormat cellFormatB9 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B9");
-        Assert.AreEqual(ExcelCellFormatCode.DateShort, cellFormatB9.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.DateShort, cellFormatB9.StructCode.MainCode);
 
         //--B11: 45,21 €  - accounting
         ExcelCellFormat cellFormatB11 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B11");
-        Assert.AreEqual(ExcelCellFormatCode.Accounting, cellFormatB11.Code);
-        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB11.CurrencyCode);
+        Assert.AreEqual(ExcelCellFormatMainCode.Accounting, cellFormatB11.StructCode.MainCode);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB11.StructCode.CurrencyCode);
 
         //--todo: other built-in cases: fraction, percetange, scientific,...
 
@@ -68,8 +73,44 @@ public class ExcelGetCellFormatTests
         Assert.IsTrue(res);
     }
 
+    /// <summary>
+    /// Date and time cases.
+    /// </summary>
     [TestMethod]
-    public void GetCellFormatValuesBuiltInAccounting()
+    public void GetCellFormatValuesDateTime()
+    {
+        ExcelApi excelApi = new ExcelApi();
+
+        string fileName = @"Files\GetCellFormat\GetCellFormatValuesDateTime.xlsx";
+        ExcelWorkbook workbook;
+        ExcelError error;
+
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+        Assert.IsNotNull(workbook);
+        Assert.IsNull(error);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1: 15/02/2021 - DateShort
+        ExcelCellFormat cellFormatB1 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
+        Assert.AreEqual(ExcelCellFormatMainCode.DateTime, cellFormatB1.StructCode.MainCode);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateShort, cellFormatB1.StructCode.DateTimeCode);
+
+        //--todo: other cases: date large, time,...
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+
+
+        Assert.Fail("todo:");
+    }
+
+    [TestMethod]
+    public void GetCellFormatValuesAccounting()
     {
         ExcelApi excelApi = new ExcelApi();
 
@@ -101,11 +142,6 @@ public class ExcelGetCellFormatTests
         Assert.Fail("todo:");
     }
 
-    [TestMethod]
-    public void GetCellFormatValuesTime()
-    {
-        Assert.Fail("todo:");
-    }
 
     /// <summary>
     /// todo: rework, too many cases.
@@ -134,41 +170,41 @@ public class ExcelGetCellFormatTests
 
         //--B2: bonjour - standard/general
         ExcelCellFormat cellFormatB2 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B2");
-        Assert.AreEqual(ExcelCellFormatCode.General, cellFormatB2.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.General, cellFormatB2.StructCode.MainCode);
 
         //--B2: bonjour - standard/general  - col, row
         ExcelCellFormat cellFormatB2b = excelApi.ExcelCellValueApi.GetCellFormat(sheet, 2, 2);
 
         //--B3: 12 - number
         ExcelCellFormat cellFormatB3 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
-        Assert.AreEqual(ExcelCellFormatCode.Number, cellFormatB3.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.Number, cellFormatB3.StructCode.MainCode);
 
         //--B15: 15/02/2021 - Short date
         ExcelCellFormat cellFormatB15 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B15");
-        Assert.AreEqual(ExcelCellFormatCode.DateShort, cellFormatB15.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.DateShort, cellFormatB15.StructCode.MainCode);
 
         //--B16: vendredi 19 septembre 1969 - date large
         ExcelCellFormat cellFormatB16 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B16");
-        Assert.AreEqual(ExcelCellFormatCode.DateLarge, cellFormatB16.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.DateLarge, cellFormatB16.StructCode.MainCode);
 
         //--B17: 13:45:00 - time
         ExcelCellFormat cellFormatB17 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B17");
-        Assert.AreEqual(ExcelCellFormatCode.Time, cellFormatB17.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.Time, cellFormatB17.StructCode.MainCode);
 
         //--B21: 45,21 €  - accounting
         ExcelCellFormat cellFormatB21 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B21");
-        Assert.AreEqual(ExcelCellFormatCode.Accounting, cellFormatB21.Code);
-        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB21.CurrencyCode);
+        Assert.AreEqual(ExcelCellFormatMainCode.Accounting, cellFormatB21.StructCode.MainCode);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB21.StructCode.CurrencyCode);
 
         //--B22: 88,22 € - currency-euro
         ExcelCellFormat cellFormatB22 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B22");
-        Assert.AreEqual(ExcelCellFormatCode.Currency, cellFormatB22.Code);
-        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB21.CurrencyCode);
+        Assert.AreEqual(ExcelCellFormatMainCode.Currency, cellFormatB22.StructCode.MainCode);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB21.StructCode.CurrencyCode);
 
         //--B23: $91,25 - currency-dollarUS
         ExcelCellFormat cellFormatB23 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B23");
-        Assert.AreEqual(ExcelCellFormatCode.Currency, cellFormatB23.Code);
-        Assert.AreEqual(ExcelCellCurrencyCode.UnitedStatesDollar, cellFormatB23.CurrencyCode);
+        Assert.AreEqual(ExcelCellFormatMainCode.Currency, cellFormatB23.StructCode.MainCode);
+        Assert.AreEqual(ExcelCellCurrencyCode.UnitedStatesDollar, cellFormatB23.StructCode.CurrencyCode);
 
 
         //XXXXXXXXXXXX
@@ -193,7 +229,7 @@ public class ExcelGetCellFormatTests
 
         //--E7: 45.60 - decimal - Formula
         ExcelCellFormat cellFormatE7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "E7");
-        Assert.AreEqual(ExcelCellFormatCode.Decimal, cellFormatE7.Code);
+        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormatE7.StructCode.MainCode);
         Assert.IsTrue(cellFormatE7.IsFormula);
 
         //--todo: faire autres cas: built-in: fraction, percetange, scientific,...

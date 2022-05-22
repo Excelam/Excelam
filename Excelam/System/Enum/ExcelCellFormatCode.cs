@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Excelam.System;
 
 /// <summary>
-/// General code, Excel independant (but linked to it).
+/// Excel cell format: Main code, Excel independant (but linked to it).
 /// </summary>
-public enum ExcelCellFormatCode
+public enum ExcelCellFormatMainCode
 {
     /// <summary>
     /// Undefined, the cell value is null.
@@ -87,6 +87,11 @@ public enum ExcelCellFormatCode
     /// None built-in.
     /// </summary>
     FractionByTwo,
+
+    /// <summary>
+    /// For date, Time and datetime.
+    /// </summary>
+    DateTime,
 
     DateShort,
     DateLarge,

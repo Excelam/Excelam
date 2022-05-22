@@ -25,7 +25,7 @@ public class ExcelCellFormatBuilder
     /// <param name="fillId"></param>
     /// <param name="fontId"></param>
     /// <returns></returns>
-    public static int BuildCellFormat(ExcelCellStyles excelCellStyles, Stylesheet stylesheet, ExcelCellFormatCode code, ExcelCellCurrencyCode countryCurrency, int borderId, int fillId, int fontId)
+    public static int BuildCellFormat(ExcelCellStyles excelCellStyles, Stylesheet stylesheet, ExcelCellFormatMainCode code, ExcelCellCurrencyCode countryCurrency, int borderId, int fillId, int fontId)
     {
         var cellFormat = new CellFormat();
         cellFormat.NumberFormatId = ExcelCellFormatValueConverter.Convert(code);
@@ -43,8 +43,10 @@ public class ExcelCellFormatBuilder
         ExcelCellFormat excelCellFormat = new ExcelCellFormat();
         excelCellFormat.NumberFormatId = (int)(uint)cellFormat.NumberFormatId;
         excelCellFormat.ExcelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == cellFormat.NumberFormatId);
-        excelCellFormat.Code = code;
-        excelCellFormat.CurrencyCode = countryCurrency;
+
+        // TODO: probleme!!
+        //excelCellFormat.StructCode = code;
+        excelCellFormat.StructCode.CurrencyCode = countryCurrency;
         excelCellFormat.BorderId = borderId;
         excelCellFormat.ExcelCellBorder = excelCellStyles.ListExcelBorder.FirstOrDefault(b => b.Id == borderId);
         excelCellFormat.FillId = fillId;

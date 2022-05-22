@@ -24,16 +24,23 @@ public class ExcelCellFormat
     public int StyleIndex { get; set; } = -1;
 
     /// <summary>
+    /// cell format code.
+    /// </summary>
+    public ExcelCellFormatStructCode StructCode { get; set; } = null;
+
+    /// <summary>
     /// More precise value format code. 
     /// Corresponds to a numberFormatId.
     /// exp: general, Number, Decimal, Fraction, DateShort, Time, Accounting, CurrencyEuro,...
     /// </summary>
-    public ExcelCellFormatCode Code { get; set; } = ExcelCellFormatCode.Undefined;
+    //public ExcelCellFormatMainCode Code { get; set; } = ExcelCellFormatMainCode.Undefined;
+
+    //public ExcelCellDateTimeCode DateTimeCode { get; set; } = ExcelCellDateTimeCode.Undefined;
 
     /// <summary>
     /// Set when code is a currency, in some case, when the country is identified.
     /// </summary>
-    public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Unknown;
+    //public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Unknown;
 
     /// <summary>
     /// id, from OpenXml.
@@ -105,7 +112,7 @@ public class ExcelCellFormat
         if (FontId > 0)
             s += ", FontId=" + FontId.ToString();
 
-        return "FmtId=" + NumberFormatId +"/" +Code+ s;
+        return "FmtId=" + NumberFormatId +"/" +StructCode+ s;
     }
 
 }
