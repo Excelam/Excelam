@@ -16,6 +16,14 @@ namespace Excelam.System;
 /// </summary>
 public class ExcelCellFormat
 {
+    public static ExcelCellFormat Create(ExcelCellFormatMainCode mainCode)
+    {
+        ExcelCellFormat excelCellFormat = new();
+        excelCellFormat.StructCode = new();
+        excelCellFormat.StructCode.MainCode = mainCode;
+        return excelCellFormat;
+    }
+
     /// <summary>
     /// The format key, found in StyleIndex cell property.
     /// if styleIndex is null, is set to -1.

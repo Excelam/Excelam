@@ -60,8 +60,10 @@ public class ExcelCellValueApi
         if (OxExcelCellValueApi.IsValueSharedString(excelSheet.WorkbookPart, cell))
         {
             // special case
-            ExcelCellFormat excelCellFormat = new();
-            excelCellFormat.StructCode.MainCode = ExcelCellFormatMainCode.General;
+            //ExcelCellFormat excelCellFormat = new();
+            //excelCellFormat.StructCode.MainCode = ExcelCellFormatMainCode.General;
+            ExcelCellFormat excelCellFormat = ExcelCellFormat.Create(ExcelCellFormatMainCode.General);
+
             string formula;
             if (OxExcelCellValueApi.IsCellFormula(excelSheet.WorkbookPart, cell, out formula))
             {
@@ -74,6 +76,14 @@ public class ExcelCellValueApi
         return null;
     }
 
+    /// <summary>
+    /// Return the formula of the cell if exists.
+    /// If not return an empty string.
+    /// </summary>
+    /// <param name="excelSheet"></param>
+    /// <param name="col"></param>
+    /// <param name="row"></param>
+    /// <returns></returns>
     public string? GetCellFormula(ExcelSheet excelSheet, int col, int row)
     {
         return GetCellValueAsString(excelSheet, ExcelCellAddressApi.ConvertAddress(col, row));
