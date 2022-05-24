@@ -17,6 +17,8 @@ public class ExcelNumberingFormat
     /// <summary>
     /// string format code, defined for none built-in format,
     /// except for 44/Accounting.
+    /// exp: decimal with 3 decimals: 0.000 
+    /// accounting/44: _-* #,##0.00\ "€"_-;\-* #,##0.00\ "€"_-;_-* "-"??\ "€"_-;_-@_-
     /// </summary>
     public string FormatCode { get; set; } = string.Empty;
 

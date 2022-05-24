@@ -32,23 +32,22 @@ public class ExcelCellFormat
     public int StyleIndex { get; set; } = -1;
 
     /// <summary>
-    /// cell format code.
+    /// Cell format value code.
+    /// TODO: classe de base + hiérarchie
+    /// 
+    /// ExcelCellFormatValueBase  
+    /// 
+    ///     ExcelCellFormatGeneralText
+    ///     ExcelCellFormatDecimal
+    ///     ExcelCellFormatDateTime
+    ///     ExcelCellFormatAccounting
+    ///     ExcelCellFormatCurrency
+    ///     ExcelCellFormatPercentage
+    ///     ExcelCellFormatFraction
+    ///     
+    /// enum  ExcelCellFormatValueCode
     /// </summary>
-    public ExcelCellFormatStructCode StructCode { get; set; } = null;
-
-    /// <summary>
-    /// More precise value format code. 
-    /// Corresponds to a numberFormatId.
-    /// exp: general, Number, Decimal, Fraction, DateShort, Time, Accounting, CurrencyEuro,...
-    /// </summary>
-    //public ExcelCellFormatMainCode Code { get; set; } = ExcelCellFormatMainCode.Undefined;
-
-    //public ExcelCellDateTimeCode DateTimeCode { get; set; } = ExcelCellDateTimeCode.Undefined;
-
-    /// <summary>
-    /// Set when code is a currency, in some case, when the country is identified.
-    /// </summary>
-    //public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Unknown;
+    public ExcelCellFormatStructCode StructCode { get; set; }
 
     /// <summary>
     /// id, from OpenXml.
@@ -82,19 +81,14 @@ public class ExcelCellFormat
     /// </summary>
     public Protection? Protection { get; set; } = null;
 
-    //public string Formula { get; set; } = String.Empty;
-
 
     /// <summary>
     /// Return true if the cell contains a formula.
     /// </summary>
     public bool IsFormula { get; set; } = false;
-    //{
-    //    get {  if(string.IsNullOrEmpty(Formula)) return false; return true; } 
-    //}
 
     /// <summary>
-    /// Has no other format than value?
+    /// Has no other format than value? like fill, font, border, alignement or protection.
     /// </summary>
     /// <returns></returns>
     public bool HasOtherFormatThanValue()

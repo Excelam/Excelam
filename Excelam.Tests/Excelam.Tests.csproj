@@ -79,6 +79,9 @@
     <None Update="Files\GetCellFormat\GetCellFormatValuesDecimal.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\GetCellFormat\GetCellFormatValuesGeneralText.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\TextFile1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

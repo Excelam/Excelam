@@ -15,16 +15,14 @@ namespace Excelam.Tests;
 public class ExcelGetCellFormatTests
 {
     /// <summary>
-    /// Get cell format values basic built-in.
-    /// TODO: rename, ne garder que: general, number, decimal et text.
-    /// 
+    /// Get cel format values, general and text.
     /// </summary>
     [TestMethod]
-    public void GetCellFormatValuesBuiltIn()
+    public void GetCellFormatValuesGeneralText()
     {
         ExcelApi excelApi = new ExcelApi();
 
-        string fileName = @"Files\GetCellFormat\GetCellFormatValuesBuiltIn.xlsx";
+        string fileName = @"Files\GetCellFormat\GetCellFormatValuesGeneralText.xlsx";
         ExcelWorkbook workbook;
         ExcelError error;
 
@@ -49,24 +47,10 @@ public class ExcelGetCellFormatTests
         ExcelCellFormat cellFormatB3b = excelApi.ExcelCellValueApi.GetCellFormat(sheet, 2, 3);
         Assert.AreEqual(ExcelCellFormatMainCode.General, cellFormatB3b.StructCode.MainCode);
 
-        //--B5: 12 - number
+        //--B5: text
         ExcelCellFormat cellFormatB5 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B5");
-        Assert.AreEqual(ExcelCellFormatMainCode.Number, cellFormatB5.StructCode.MainCode);
+        Assert.AreEqual(ExcelCellFormatMainCode.Text, cellFormatB5.StructCode.MainCode);
 
-        //--B7: 34.56 - decimal
-        ExcelCellFormat cellFormatB7 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B7");
-        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormatB7.StructCode.MainCode);
-
-        //--B9: 15/02/2021 - DateShort
-        //ExcelCellFormat cellFormatB9 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B9");
-        //Assert.AreEqual(ExcelCellFormatMainCode.DateShort, cellFormatB9.StructCode.MainCode);
-
-        //--B11: 45,21 €  - accounting
-        //ExcelCellFormat cellFormatB11 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B11");
-        //Assert.AreEqual(ExcelCellFormatMainCode.Accounting, cellFormatB11.StructCode.MainCode);
-        //Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB11.StructCode.CurrencyCode);
-
-        //--todo: other built-in cases: fraction, percetange, scientific,...
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
@@ -74,9 +58,7 @@ public class ExcelGetCellFormatTests
     }
 
     /// <summary>
-    /// Get cell format values basic built-in.
-    /// TODO: rename, ne garder que: general, number, decimal et text.
-    /// 
+    /// Get cell format values : decimal type.
     /// </summary>
     [TestMethod]
     public void GetCellFormatValuesDecimal()
@@ -99,16 +81,46 @@ public class ExcelGetCellFormatTests
         //--B1: 12 - number
         ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
         Assert.AreEqual(ExcelCellFormatMainCode.Number, cellFormat.StructCode.MainCode);
+        Assert.AreEqual(0, cellFormat.StructCode.NumberOfDecimal);
 
-        //--B3: 22,56 - decimal
+        //--B3: 22,56 - decimal, a built-in format
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
         Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormat.StructCode.MainCode);
+        Assert.IsNull(cellFormat.ExcelNumberingFormat);
+        Assert.AreEqual(2, cellFormat.StructCode.NumberOfDecimal);
 
         //--B5: 63,456 - decimal - 3dec
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B5");
-        Assert.AreEqual(ExcelCellFormatMainCode.Number, cellFormat.StructCode.MainCode);
+        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormat.StructCode.MainCode);
+        Assert.AreEqual("0.000", cellFormat.ExcelNumberingFormat.FormatCode);
+        Assert.AreEqual(3, cellFormat.StructCode.NumberOfDecimal);
 
-        ici();
+
+        //--B7: 5,6 - decimal - 1dec
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B7");
+        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormat.StructCode.MainCode);
+        Assert.AreEqual("0.0", cellFormat.ExcelNumberingFormat.FormatCode);
+        Assert.AreEqual(1, cellFormat.StructCode.NumberOfDecimal);
+
+        //--B9: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B9");
+        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormat.StructCode.MainCode);
+        Assert.AreEqual("0.00;[Red]0.00", cellFormat.ExcelNumberingFormat.FormatCode);
+        Assert.AreEqual(1, cellFormat.StructCode.NumberOfDecimal);
+
+        //--B11: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B11");
+        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormat.StructCode.MainCode);
+        Assert.AreEqual("0.0", cellFormat.ExcelNumberingFormat.FormatCode);
+        Assert.AreEqual(1, cellFormat.StructCode.NumberOfDecimal);
+
+        //--B13: 123 000,50 -decimal, 2 dec. thousand sep, format: ?
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B13");
+        Assert.AreEqual(ExcelCellFormatMainCode.Decimal, cellFormat.StructCode.MainCode);
+        Assert.AreEqual("0.0", cellFormat.ExcelNumberingFormat.FormatCode);
+        Assert.AreEqual(1, cellFormat.StructCode.NumberOfDecimal);
+
+        //ici();
         //--todo: ,...
 
         //--close the file
@@ -169,6 +181,12 @@ public class ExcelGetCellFormatTests
         Assert.IsNotNull(sheet);
 
         //--B2: 12,34€ - accounting, 2 decimales
+
+        //--B11: 45,21 €  - accounting
+        //ExcelCellFormat cellFormatB11 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B11");
+        //Assert.AreEqual(ExcelCellFormatMainCode.Accounting, cellFormatB11.StructCode.MainCode);
+        //Assert.AreEqual(ExcelCellCurrencyCode.Euro, cellFormatB11.StructCode.CurrencyCode);
+
 
         //--B4: 35,901 € - accounting, 3 decimales
 

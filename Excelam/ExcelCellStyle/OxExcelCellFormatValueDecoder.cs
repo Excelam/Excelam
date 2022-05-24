@@ -41,7 +41,11 @@ public class OxExcelCellFormatValueDecoder
 		if (DecodeStandardCases(numberFormatId, out code))
 			return;
 
-		if(DecodeDateAndTimeCases(numberFormatId, format, out code))
+		// decode number and decimal cases
+		if (DecodeNumberAndDecimalCases(numberFormatId, format, out code))
+			return;
+
+		if (DecodeDateAndTimeCases(numberFormatId, format, out code))
 			return;
 		if (DecodeAccounting44Case(numberFormatId, format, out code))
 			return;
@@ -82,19 +86,19 @@ public class OxExcelCellFormatValueDecoder
 			return true;
 		}
 
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Number)
-		{
-			code = new ExcelCellFormatStructCode();
-			code.MainCode = ExcelCellFormatMainCode.Number;
-			return true;
-		}
+		//if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Number)
+		//{
+		//	code = new ExcelCellFormatStructCode();
+		//	code.MainCode = ExcelCellFormatMainCode.Number;
+		//	return true;
+		//}
 
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal)
-		{
-			code = new ExcelCellFormatStructCode();
-			code.MainCode = ExcelCellFormatMainCode.Decimal;
-			return true;
-		}
+		//if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal)
+		//{
+		//	code = new ExcelCellFormatStructCode();
+		//	code.MainCode = ExcelCellFormatMainCode.Decimal;
+		//	return true;
+		//}
 
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.PercentageInt)
 		{
@@ -138,6 +142,52 @@ public class OxExcelCellFormatValueDecoder
 		//}
 
 		// not a built-in case
+		return false;
+	}
+
+	private static bool DecodeNumberAndDecimalCases(int numberFormatId, string format, out ExcelCellFormatStructCode code)
+	{
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Number)
+		{
+			code = new ExcelCellFormatStructCode();
+			code.MainCode = ExcelCellFormatMainCode.Number;
+			return true;
+		}
+
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal)
+		{
+			code = new ExcelCellFormatStructCode();
+			code.MainCode = ExcelCellFormatMainCode.Decimal;
+			code.NumberOfDecimal = 2;
+			return true;
+		}
+
+		if (format == null)
+        {
+			code = null;
+			return false;
+		}
+
+		if (format == "0.0")
+		{
+			code = new ExcelCellFormatStructCode();
+			code.MainCode = ExcelCellFormatMainCode.Decimal;
+			code.NumberOfDecimal = 1;
+			return true;
+
+		}
+
+		if (format=="0.000")
+		{
+			code = new ExcelCellFormatStructCode();
+			code.MainCode = ExcelCellFormatMainCode.Decimal;
+			code.NumberOfDecimal = 3;
+			return true;
+
+		}
+
+		// not a built-in case
+		code = null;
 		return false;
 	}
 
@@ -226,7 +276,7 @@ public class OxExcelCellFormatValueDecoder
 
 		ExcelCellCurrencyCode currencyCode;
 		if (DecodeCurrencyCode(formatCode, out currencyCode))
-        {
+		{
 			code = new ExcelCellFormatStructCode();
 			code.MainCode = ExcelCellFormatMainCode.Currency;
 			code.CurrencyCode = currencyCode;
