@@ -25,12 +25,8 @@ public class ExcelNumberingFormat
     /// <summary>
     /// More precise code.
     /// </summary>
-    public ExcelCellFormatStructCode Code { get; set; }
-
-    /// <summary>
-    /// Set when the code is a currency in some case.
-    /// </summary>
-    //public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Undefined;
+    //public ExcelCellFormatStructCode Code { get; set; }
+    public ExcelCellFormatValueBase ValueBase { get; set; }
 
     /// <summary>
     /// The original excel openXml object.

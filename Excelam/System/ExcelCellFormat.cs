@@ -37,15 +37,24 @@ public class ExcelCellFormat
     /// 
     /// ExcelCellFormatValueBase  
     /// 
-    ///     ExcelCellFormatGeneralText
-    ///     ExcelCellFormatDecimal
-    ///     ExcelCellFormatDateTime
-    ///     ExcelCellFormatAccounting
-    ///     ExcelCellFormatCurrency
-    ///     ExcelCellFormatPercentage
-    ///     ExcelCellFormatFraction
+    ///     ExcelCellFormatValueGeneral
+    ///     ExcelCellFormatValueText
+    ///     ExcelCellFormatValueNumber
+    ///     
+    ///     ExcelCellFormatValueDecimal
+    ///     ExcelCellFormatValueDateTime
+    ///     ExcelCellFormatValueAccounting
+    ///     ExcelCellFormatValueCurrency
+    ///     ExcelCellFormatValuePercentage
+    ///     ExcelCellFormatValueFraction
     ///     
     /// enum  ExcelCellFormatValueCode
+    /// </summary>
+    public ExcelCellFormatValueBase Value { get; set; } = null;
+
+
+    /// <summary>
+    /// TODO: a supprimer.
     /// </summary>
     public ExcelCellFormatStructCode StructCode { get; set; }
 

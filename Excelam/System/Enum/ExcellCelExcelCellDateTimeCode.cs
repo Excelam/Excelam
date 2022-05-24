@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Excelam.System;
 
+/// <summary>
+/// Specific Excel cell format value datetime code.
+/// </summary>
 public enum ExcelCellDateTimeCode
 {
     Undefined,

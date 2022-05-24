@@ -85,10 +85,8 @@ public static class ExcelStylesManager
                 if (cellFormat.NumberFormatId != null) numberFormatId = cellFormat.NumberFormatId;
 
                 var excelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == (int)numberFormatId);
-                //ExcelCellCurrencyCode currencyCode;
-                //ExcelCellDateTimeCode dateTimeCode;
-                ExcelCellFormatStructCode code = DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat);
-
+                //ExcelCellFormatStructCode code = DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat);
+                ExcelCellFormatValueBase formatValue= DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat);
 
                 uint borderId = 0;
                 if (cellFormat.BorderId != null) borderId = cellFormat.BorderId;
@@ -105,9 +103,8 @@ public static class ExcelStylesManager
                     StyleIndex = styleIndex,
                     NumberFormatId = (int)numberFormatId,
 
-                    StructCode = code,
-                    //DateTimeCode= dateTimeCode,
-                    //CurrencyCode = currencyCode,
+                    //StructCode = code,
+                    Value= formatValue,
                     ExcelNumberingFormat = excelNumberingFormat,
 
                     // todo: besoin de ce champ?
@@ -207,22 +204,19 @@ public static class ExcelStylesManager
 
     #region Private methods.
 
-    private static ExcelCellFormatStructCode DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat)
+    private static ExcelCellFormatValueBase DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat)
     {
-        //countryCurrency = ExcelCellCurrencyCode.Undefined;
-        //dateTimeCode = ExcelCellDateTimeCode.Undefined;
 
         if (excelNumberingFormat != null)
         {
             // already decoded
-            //countryCurrency = excelNumberingFormat.CurrencyCode;
-            return excelNumberingFormat.Code;
+            return excelNumberingFormat.ValueBase;
         }
 
         // if null, its a builtin case, decode it to obtain the code
-        ExcelCellFormatStructCode code;
-        OxExcelCellFormatValueDecoder.DecodeNumberingFormat(numberFormatId,string.Empty, out code);
-        return code;
+        ExcelCellFormatValueBase valueBase;
+        OxExcelCellFormatValueDecoder.DecodeNumberingFormat(numberFormatId,string.Empty, out valueBase);
+        return valueBase;
     }
     
 
