@@ -8,6 +8,7 @@ namespace Excelam.System;
 
 /// <summary>
 /// Excel cell format: Main code, Excel independant (but linked to it).
+/// TODO: remove it!!
 /// </summary>
 public enum ExcelCellFormatMainCode
 {
@@ -115,34 +116,4 @@ public enum ExcelCellFormatMainCode
     /// </summary>
     Currency,
 
-    //CurrencyEuro,
-    //CurrencyDollar,
-    //CurrencyPound,
-
-    ///// <summary>
-    ///// ¥
-    ///// japanese, yen
-    ///// 
-    ///// todo: pb meme symbole que china!
-    ///// </summary>
-    //CurrencyYen,
-
-    ///// <summary>
-    ///// yuan (china)
-    ///// renminbi , chinese
-    ///// 
-    ///// JP¥50 and CN¥50 when disambiguation is needed. 
-    ///// </summary>
-    //CurrencyChinese,
-
-    ///// <summary>
-    ///// South Korean
-    ///// </summary>
-    //CurrencyWon,
-
-    //CurrencyUkranian,
-    //CurrencyRussian,
-
-
-    //CurrencyBitcoin,
 }

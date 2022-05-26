@@ -14,6 +14,10 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     public ExcelCellFormatValueDecimal()
     {
         Code = ExcelCellFormatValueCode.Decimal;
+
+        // todo: not in all cases!
+        NumberFormatId = (uint)ExcelCellBuiltInFormatCode.Decimal;
+
     }
 
     public int NumberOfDecimal { get; set; } = 0;

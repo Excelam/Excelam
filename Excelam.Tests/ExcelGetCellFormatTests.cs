@@ -41,6 +41,10 @@ public class ExcelGetCellFormatTests
 
         //--B3: bonjour - standard/general
         ExcelCellFormat cellFormatB3 = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
+
+        // todo: check type
+        Assert.IsInstanceOfType(cellFormatB3.FormatValue, typeof(ExcelCellFormatValueGeneral));
+
         Assert.AreEqual(ExcelCellFormatMainCode.General, cellFormatB3.StructCode.MainCode);
 
         //--B3: bonjour - standard/general  - col, row

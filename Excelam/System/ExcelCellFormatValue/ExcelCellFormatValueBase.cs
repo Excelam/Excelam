@@ -18,4 +18,9 @@ public abstract class ExcelCellFormatValueBase
     /// Defined in some cases.
     /// </summary>
     public string StringFormat { get; set; }= string.Empty;
+
+    /// <summary>
+    /// excel value.
+    /// </summary>
+    public uint NumberFormatId { get; set; }
 }

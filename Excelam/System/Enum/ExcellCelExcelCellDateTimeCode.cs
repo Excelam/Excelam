@@ -16,5 +16,9 @@ public enum ExcelCellDateTimeCode
     /// <summary>
     /// built-in code=14.
     /// </summary>
-    DateShort
+    DateShort,
+
+    DateLarge,
+
+    Time
 }

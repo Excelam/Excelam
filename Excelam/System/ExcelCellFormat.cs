@@ -16,11 +16,12 @@ namespace Excelam.System;
 /// </summary>
 public class ExcelCellFormat
 {
-    public static ExcelCellFormat Create(ExcelCellFormatMainCode mainCode)
+    public static ExcelCellFormat Create(ExcelCellFormatValueCode code)
     {
         ExcelCellFormat excelCellFormat = new();
-        excelCellFormat.StructCode = new();
-        excelCellFormat.StructCode.MainCode = mainCode;
+
+        if (code == ExcelCellFormatValueCode.General)
+            excelCellFormat.FormatValue = new ExcelCellFormatValueGeneral();
         return excelCellFormat;
     }
 
@@ -47,10 +48,10 @@ public class ExcelCellFormat
     ///     ExcelCellFormatValueCurrency
     ///     ExcelCellFormatValuePercentage
     ///     ExcelCellFormatValueFraction
-    ///     
+    ///     ExcelCellFormatValueScientific ?? faire ?
     /// enum  ExcelCellFormatValueCode
     /// </summary>
-    public ExcelCellFormatValueBase Value { get; set; } = null;
+    public ExcelCellFormatValueBase FormatValue { get; set; } = null;
 
 
     /// <summary>
@@ -112,8 +113,11 @@ public class ExcelCellFormat
     public override string ToString()
     {
         string s=string.Empty;
+        string code = ExcelNumberingFormat.ValueBase.Code.ToString();
+
         if (ExcelNumberingFormat != null)
-            s = "| " + ExcelNumberingFormat.Code + " " + ExcelNumberingFormat.FormatCode;
+            // todo: revoir
+            s = "| " + code + " " + ExcelNumberingFormat.FormatCode;
 
         // add other styles
         if (FillId > 0)
@@ -123,7 +127,7 @@ public class ExcelCellFormat
         if (FontId > 0)
             s += ", FontId=" + FontId.ToString();
 
-        return "FmtId=" + NumberFormatId +"/" +StructCode+ s;
+        return "FmtId=" + NumberFormatId +"/" + code + s;
     }
 
 }

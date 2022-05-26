@@ -11,5 +11,8 @@ public class ExcelCellFormatValueAccounting:ExcelCellFormatValueBase
     public ExcelCellFormatValueAccounting()
     {
         Code = ExcelCellFormatValueCode.Accounting;
+        NumberFormatId = (uint)ExcelCellBuiltInFormatCode.Accounting;
     }
+
+    public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Undefined;
 }

@@ -8,10 +8,20 @@ namespace Excelam.System;
 
 public class ExcelCellFormatValueDateTime :ExcelCellFormatValueBase
 {
+    ExcelCellDateTimeCode _dateTimeCode = ExcelCellDateTimeCode.Undefined;
+
     public ExcelCellFormatValueDateTime()
     {
         Code = ExcelCellFormatValueCode.DateTime;
     }
 
-    public ExcelCellDateTimeCode DateTimeCode { get; set; } = ExcelCellDateTimeCode.Undefined;
+    public ExcelCellDateTimeCode DateTimeCode 
+    { 
+        get { return _dateTimeCode; }
+        set 
+        { 
+            if(value== ExcelCellDateTimeCode.DateShort)
+                NumberFormatId= (uint)ExcelCellBuiltInFormatCode.DateShort;
+        } 
+    } 
 }

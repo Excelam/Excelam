@@ -46,17 +46,19 @@ public class OxExcelCellFormatValueDecoder
 
 		if (DecodeDateTimeCases(numberFormatId, format, out valueBase))
 			return;
-		if (DecodeAccounting44Case(numberFormatId, format, out code))
+
+		if (DecodeAccounting44Case(numberFormatId, format, out valueBase))
 			return;
 
-		if (DecodeCurrencyCases(numberFormatId, format, out code))
+		if (DecodeCurrencySpecialCase(numberFormatId, format, out valueBase))
 			return;
 
-		if (DecodeCurrencySpecialCase(numberFormatId, format, out code))
+		if (DecodeCurrencyCases(numberFormatId, format, out valueBase))
 			return;
+
 
 		// decode special math cases: fraction and percentage
-		DecodeMathSpecialCases(numberFormatId, format, out code);
+		DecodeMathSpecialCases(numberFormatId, format, out valueBase);
 	}
 
 	/// <summary>
@@ -161,7 +163,7 @@ public class OxExcelCellFormatValueDecoder
 		}
 
 		if (format == null)
-        {
+		{
 			valueBase = null;
 			return false;
 		}
@@ -194,7 +196,7 @@ public class OxExcelCellFormatValueDecoder
 		return false;
 	}
 
-	private static bool DecodeDateTimeCases(int numberFormatId, string formatCode, out ExcelCellFormatValueBase formatValueBase)
+	private static bool DecodeDateTimeCases(int numberFormatId, string formatCode, out ExcelCellFormatValueBase? formatValueBase)
 	{
 		ExcelCellFormatValueDateTime formatValue;
 
@@ -203,7 +205,7 @@ public class OxExcelCellFormatValueDecoder
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
 			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort;
-			valueBase = formatValue;
+			formatValueBase = formatValue;
 			return true;
 		}
 
@@ -213,7 +215,7 @@ public class OxExcelCellFormatValueDecoder
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
 			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLarge;
-			valueBase = formatValue;
+			formatValueBase = formatValue;
 			return true;
 		}
 
@@ -221,12 +223,12 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.StartsWith("[$-F400]"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			// TODO: Timehhmmss
 			formatValue.DateTimeCode = ExcelCellDateTimeCode.Time;
-			valueBase = formatValue;
+			formatValueBase = formatValue;
 			return true;
 		}
 
+		formatValueBase = null;
 		return false;
 	}
 
@@ -239,20 +241,20 @@ public class OxExcelCellFormatValueDecoder
 	/// <param name="formatCode"></param>
 	/// <param name="code"></param>
 	/// <returns></returns>
-	private static bool DecodeAccounting44Case(int numberFormatId, string formatCode, out ExcelCellFormatStructCode code)
+	private static bool DecodeAccounting44Case(int numberFormatId, string formatCode, out ExcelCellFormatValueBase valueBase)
 	{
-		code = null;
-
+		valueBase = null;
 		// not the case
 		if (numberFormatId != 44)
 			return false;
 
-		code = new ExcelCellFormatStructCode();
+		ExcelCellFormatValueAccounting formatValue = new ExcelCellFormatValueAccounting();
+
 		ExcelCellCurrencyCode currencyCode;
 		DecodeCurrencyCode(formatCode, out currencyCode);
 
-		code.MainCode = ExcelCellFormatMainCode.Accounting;
-		code.CurrencyCode = currencyCode;
+		formatValue.CurrencyCode = currencyCode;
+		valueBase = formatValue;
 		return true;
 	}
 
@@ -264,9 +266,9 @@ public class OxExcelCellFormatValueDecoder
 	/// <param name="excelCellFormat"></param>
 	/// <param name="valueFormat"></param>
 	/// <returns></returns>
-	private static bool DecodeCurrencySpecialCase(int numberFormatId, string formatCode, out ExcelCellFormatStructCode code)
+	private static bool DecodeCurrencySpecialCase(int numberFormatId, string formatCode, out ExcelCellFormatValueBase valueBase)
 	{
-		code = null;
+		valueBase = null;
 
 		// doesn't contains [xxx]
 		if (formatCode.Contains("[") || formatCode.Contains("]"))
@@ -275,9 +277,8 @@ public class OxExcelCellFormatValueDecoder
 		ExcelCellCurrencyCode currencyCode;
 		if (DecodeCurrencyCode(formatCode, out currencyCode))
 		{
-			code = new ExcelCellFormatStructCode();
-			code.MainCode = ExcelCellFormatMainCode.Currency;
-			code.CurrencyCode = currencyCode;
+			ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
+			formatValue.CurrencyCode = currencyCode;
 			return true;
 		}
 
@@ -293,25 +294,26 @@ public class OxExcelCellFormatValueDecoder
 	/// <param name="code"></param>
 	/// <param name="countryCurrency"></param>
 	/// <returns></returns>
-	private static bool DecodeCurrencyCases(int numberFormatId, string formatCode, out ExcelCellFormatStructCode code)
+	private static bool DecodeCurrencyCases(int numberFormatId, string formatCode, out ExcelCellFormatValueBase valueBase)
 	{
-		code = null;
+		valueBase = null;
 
 		if (numberFormatId < 164)
 			// its a built-in format, bye
 			return false;
 
-		code = new ExcelCellFormatStructCode();
 		ExcelCellCurrencyCode currencyCode;
 		if (!DecodeCurrencyCode(formatCode, out currencyCode))
 			return false;
 
-		code.MainCode = ExcelCellFormatMainCode.Currency;
-		code.CurrencyCode = currencyCode;
+		ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
+		formatValue.CurrencyCode = currencyCode;
 		return true;
 	}
 
 	/// <summary>
+	/// TODO: splitter en plusieurs: percentage, fraction, scientific.
+	/// 
 	/// decode special math cases: fraction and percentage.
 	/// Exp:
 	///   164/0.0%
@@ -323,9 +325,9 @@ public class OxExcelCellFormatValueDecoder
 	/// <param name="formatCode"></param>
 	/// <param name="code"></param>
 	/// <returns></returns>
-	private static bool DecodeMathSpecialCases(int numberFormatId, string formatCode, out ExcelCellFormatStructCode code)
+	private static bool DecodeMathSpecialCases(int numberFormatId, string formatCode, out ExcelCellFormatValueBase valueBase)
 	{
-		code = null;
+		valueBase = null;
 
 		if (numberFormatId < 164)
 			// its a built-in format, bye
@@ -333,27 +335,28 @@ public class OxExcelCellFormatValueDecoder
 
 		if (formatCode.Contains("0.0%"))
 		{
-			code = new ExcelCellFormatStructCode();
+			//ExcelCellFormatValuePercentage formatValue = new ExcelCellFormatValuePercentage();
+			//code = new ExcelCellFormatStructCode();
 			// todo:
-			code.MainCode = ExcelCellFormatMainCode.Percentage1;
+			//code.MainCode = ExcelCellFormatMainCode.Percentage1;
 			//code.PercentageCode = ExcelCellFormatMainCode.PercentageOneDotOne;
 			return true;
 		}
 
 		if (formatCode.Contains("0.000%"))
 		{
-			code = new ExcelCellFormatStructCode();
+			//code = new ExcelCellFormatStructCode();
 			// todo:
-			code.MainCode = ExcelCellFormatMainCode.Percentage1;
+			//code.MainCode = ExcelCellFormatMainCode.Percentage1;
 			//code.PercentageCode = ExcelCellFormatMainCode.PercentageOneDotThree;
 			return true;
 		}
 
 		if (formatCode.Contains("#\" \"?/2"))
 		{
-			code = new ExcelCellFormatStructCode();
+			//code = new ExcelCellFormatStructCode();
 			// todo:
-			code.MainCode = ExcelCellFormatMainCode.Percentage1;
+			//code.MainCode = ExcelCellFormatMainCode.Percentage1;
 			//code = ExcelCellFormatMainCode.FractionByTwo;
 			return true;
 		}

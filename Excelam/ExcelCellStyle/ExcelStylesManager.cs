@@ -104,7 +104,7 @@ public static class ExcelStylesManager
                     NumberFormatId = (int)numberFormatId,
 
                     //StructCode = code,
-                    Value= formatValue,
+                    FormatValue= formatValue,
                     ExcelNumberingFormat = excelNumberingFormat,
 
                     // todo: besoin de ce champ?

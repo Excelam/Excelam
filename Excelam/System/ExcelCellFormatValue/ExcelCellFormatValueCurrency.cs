@@ -12,4 +12,7 @@ public class ExcelCellFormatValueCurrency:ExcelCellFormatValueBase
     {
         Code = ExcelCellFormatValueCode.Currency;
     }
+
+    public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Undefined;
+
 }

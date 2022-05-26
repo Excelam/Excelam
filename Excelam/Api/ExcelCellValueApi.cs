@@ -13,7 +13,7 @@ namespace Excelam;
 
 /// <summary>
 /// Read/write cell value content.
-/// Il y aura ExcelCellBorderApi, ExcelCellFillApi, ExcelCellFontApi. 
+/// (to create later :ExcelCellBorderApi, ExcelCellFillApi, ExcelCellFontApi).
 /// </summary>
 public class ExcelCellValueApi
 {
@@ -60,9 +60,7 @@ public class ExcelCellValueApi
         if (OxExcelCellValueApi.IsValueSharedString(excelSheet.WorkbookPart, cell))
         {
             // special case
-            //ExcelCellFormat excelCellFormat = new();
-            //excelCellFormat.StructCode.MainCode = ExcelCellFormatMainCode.General;
-            ExcelCellFormat excelCellFormat = ExcelCellFormat.Create(ExcelCellFormatMainCode.General);
+            ExcelCellFormat excelCellFormat = ExcelCellFormat.Create(ExcelCellFormatValueCode.General);
 
             string formula;
             if (OxExcelCellValueApi.IsCellFormula(excelSheet.WorkbookPart, cell, out formula))
@@ -389,12 +387,17 @@ public class ExcelCellValueApi
 
         // find a style with the same value format: general, and other format set
         ExcelCellFormat cellFormatOther2;
-        int styleIndexOther2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatMainCode.General, ExcelCellCurrencyCode.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatOther2);
+        int styleIndexOther2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(ExcelCellFormatValueCode.General, ExcelCellCurrencyCode.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatOther2);
 
         // no style found?
         if (styleIndexOther2 < 0)
+        {
+            // build first a cell format value
+            ExcelCellFormatValueGeneral formatValue = new ExcelCellFormatValueGeneral();
+
             // 3.2/ no style found, so have to create a new one, with existing formats
-            styleIndexOther2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, ExcelCellFormatMainCode.General, ExcelCellCurrencyCode.Undefined, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
+            styleIndexOther2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, formatValue, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
+        }
 
         // 3.1/ a style exists, so use it  and 3.2 case
         cell.StyleIndex = (uint)styleIndexOther2;
@@ -427,7 +430,7 @@ public class ExcelCellValueApi
     /// <exception cref="Exception"></exception>
     public bool SetCellValueNumber(ExcelSheet excelSheet, string cellAddress, int value)
     {
-        ExcelCellFormatMainCode cellFormatCode = ExcelCellFormatMainCode.Number;
+        ExcelCellFormatValueCode cellFormatCode = ExcelCellFormatValueCode.Number;
 
         // get the cell if it exists?
         Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
@@ -452,7 +455,7 @@ public class ExcelCellValueApi
             cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
 
         //--2/ cell exists, same value format: Number
-        if(cellFormat!=null && cellFormat.StructCode.MainCode == cellFormatCode)
+        if(cellFormat!=null && cellFormat.FormatValue.Code == cellFormatCode)
         {
             // change the cell value
             cell.CellValue = new CellValue(value);
