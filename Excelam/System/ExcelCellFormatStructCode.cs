@@ -8,33 +8,33 @@ namespace Excelam.System;
 
 /// <summary>
 /// Excel cell format code structure.
-/// TODO: rename en abstract ExcelCellFormatValueBase
+/// TODO: REMOVE
 /// </summary>
-public class ExcelCellFormatStructCode
-{
-    /// <summary>
-    /// TODO: rename en ExcelCellFormatValueCode
-    /// </summary>
-    public ExcelCellFormatMainCode MainCode { get; set; } = ExcelCellFormatMainCode.Undefined;
+//public class ExcelCellFormatStructCode_REMOVE
+//{
+//    /// <summary>
+//    /// TODO: rename en ExcelCellFormatValueCode
+//    /// </summary>
+//    //public ExcelCellFormatMainCode MainCode { get; set; } = ExcelCellFormatMainCode.Undefined;
 
-    /// <summary>
-    /// A deplacer dans la sous-classe dédiée
-    /// </summary>
-    public ExcelCellDateTimeCode DateTimeCode { get; set; } = ExcelCellDateTimeCode.Undefined;
+//    /// <summary>
+//    /// A deplacer dans la sous-classe dédiée
+//    /// </summary>
+//    public ExcelCellDateTimeCode DateTimeCode { get; set; } = ExcelCellDateTimeCode.Undefined;
 
-    /// <summary>
-    /// A deplacer dans la sous-classe dédiée
-    /// </summary>
-    public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Undefined;
+//    /// <summary>
+//    /// A deplacer dans la sous-classe dédiée
+//    /// </summary>
+//    public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Undefined;
 
-    //		Accounting(compta),
-    //		pourcentage,
-    //		fraction
+//    //		Accounting(compta),
+//    //		pourcentage,
+//    //		fraction
 
 
-    /// <summary>
-    /// Number of decimal.
-    /// exp: 2 for 23.45
-    /// </summary>
-    public int NumberOfDecimal { get; set; } = 0;
-}
+//    /// <summary>
+//    /// Number of decimal.
+//    /// exp: 2 for 23.45
+//    /// </summary>
+//    public int NumberOfDecimal { get; set; } = 0;
+//}

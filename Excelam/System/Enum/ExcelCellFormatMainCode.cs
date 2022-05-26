@@ -10,7 +10,7 @@ namespace Excelam.System;
 /// Excel cell format: Main code, Excel independant (but linked to it).
 /// TODO: remove it!!
 /// </summary>
-public enum ExcelCellFormatMainCode
+public enum ExcelCellFormatMainCode_REMOVE
 {
     /// <summary>
     /// Undefined, the cell value is null.

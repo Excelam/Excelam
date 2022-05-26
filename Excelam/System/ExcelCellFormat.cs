@@ -57,7 +57,7 @@ public class ExcelCellFormat
     /// <summary>
     /// TODO: a supprimer.
     /// </summary>
-    public ExcelCellFormatStructCode StructCode { get; set; }
+    //public ExcelCellFormatStructCode StructCode { get; set; }
 
     /// <summary>
     /// id, from OpenXml.

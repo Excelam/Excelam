@@ -31,9 +31,10 @@ public class ExcelCellStyles
     /// </summary>
     /// <param name="code"></param>
     /// <returns></returns>
-    public int FindStyle(ExcelCellFormatValueCode code, out ExcelCellFormat cellFormat)
+    public int FindStyle(ExcelCellFormatValueBase formatValue, out ExcelCellFormat cellFormat)
     {
-        KeyValuePair<int,ExcelCellFormat> res= DictStyleIndexExcelStyleIndex.FirstOrDefault(cf => cf.Value.FormatValue.Code == code && !cf.Value.HasOtherFormatThanValue());
+        // todo: va pas marcher dans tous les cas!!!
+        KeyValuePair<int,ExcelCellFormat> res= DictStyleIndexExcelStyleIndex.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValue.Code && !cf.Value.HasOtherFormatThanValue());
 
         cellFormat = null;
         if (res.Value == null)
@@ -48,15 +49,16 @@ public class ExcelCellStyles
     /// </summary>
     /// <param name="cell"></param>
     /// <returns></returns>
-    public int FindStyle(ExcelCellFormatValueCode code, ExcelCellCurrencyCode countryCurrency, out ExcelCellFormat cellFormat)
-    {
-        return FindStyle(code, countryCurrency, 0, 0, 0, out cellFormat);
-    }
+    //public int FindStyle(ExcelCellFormatValueBase formatValue, out ExcelCellFormat cellFormat)
+    //{
+    //    return FindStyle(formatValue, 0, 0, 0, out cellFormat);
+    //}
 
-    public int FindStyle(ExcelCellFormatValueCode code, ExcelCellCurrencyCode countryCurrency, int borderId, int fillId, int fontId, out ExcelCellFormat cellFormat)
+    public int FindStyle(ExcelCellFormatValueBase formatValue, int borderId, int fillId, int fontId, out ExcelCellFormat cellFormat)
     {
+        // TODO: ne va pas marcher suite rework
         // todo: ajouter alignment et protection? +compliqué!
-        KeyValuePair<int, ExcelCellFormat> res = DictStyleIndexExcelStyleIndex.FirstOrDefault(cf => cf.Value.FormatValue.Code == code && cf.Value.StructCode.CurrencyCode == countryCurrency && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
+        KeyValuePair<int, ExcelCellFormat> res = DictStyleIndexExcelStyleIndex.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValue.Code  && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
 
         cellFormat = null;
         if (res.Value == null)

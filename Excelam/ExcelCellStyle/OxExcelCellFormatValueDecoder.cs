@@ -25,7 +25,6 @@ public class OxExcelCellFormatValueDecoder
 			if (excelNumberingFormat.FormatCode == null)
 				excelNumberingFormat.FormatCode = string.Empty;
 
-			ExcelCellFormatStructCode code;
 			ExcelCellFormatValueBase formatValue;
 			DecodeNumberingFormat(excelNumberingFormat.Id, excelNumberingFormat.FormatCode, out formatValue);
 			// set the decoded code
