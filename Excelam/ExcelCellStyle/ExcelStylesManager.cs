@@ -32,13 +32,6 @@ public static class ExcelStylesManager
     /// [$$-C09]#,##0.00			Currency, Dollar, Australien
     /// 
     /// 00000					    Code postal France
-    /// 
-    /// 
-    /// ExcelCellFormatType -> que pour les types builtin, <=164.
-    /// 
-    /// ExcelCellFormatManager
-    /// GetStylesCellFormat()
-    /// ExcelCellFormatDecoder
     /// </summary>
     /// <param name="document"></param>
     public static bool GetStylesCellFormat(Dictionary<string, OpenXmlPart> dictUriOpenXmlPart, out ExcelCellStyles excelCellStyles, out ExcelError excelError)
@@ -85,7 +78,6 @@ public static class ExcelStylesManager
                 if (cellFormat.NumberFormatId != null) numberFormatId = cellFormat.NumberFormatId;
 
                 var excelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == (int)numberFormatId);
-                //ExcelCellFormatStructCode code = DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat);
                 ExcelCellFormatValueBase formatValue= DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat);
 
                 uint borderId = 0;
@@ -120,7 +112,7 @@ public static class ExcelStylesManager
                 };
 
                 // save the decoded cell style
-                excelCellStyles.DictStyleIndexExcelStyleIndex.Add(styleIndex, excelCellFormat);
+                excelCellStyles.DictStyleIndexExcelCellFormat.Add(styleIndex, excelCellFormat);
 
                 // next cell style
                 styleIndex++;
@@ -169,38 +161,6 @@ public static class ExcelStylesManager
         return styleSheet;
     }
 
-    /// <summary>
-    /// Get or create a style sheet.
-    /// Should exists in normal case.
-    /// </summary>
-    /// <param name="workbookStylesPart"></param>
-    /// <returns></returns>
-    //public static Stylesheet GetOrCreateStylesheet(WorkbookStylesPart workbookStylesPart)
-    //{
-    //    Stylesheet stylesheet = workbookStylesPart.Stylesheet;
-    //    if (stylesheet == null)
-    //    {
-    //        // build a simple styles sheet
-    //        stylesheet = CreateEmptyStylesheet();
-    //        stylesheet.Save();
-    //        return stylesheet;
-    //    }
-
-    //    // the cellFormat should not exists, create it
-    //    if (stylesheet.CellFormats == null)
-    //    {
-    //        // create a first empty cellFormat, strange but mandatory!!
-    //        var cellFormat = new CellFormat();
-    //        cellFormat.NumberFormatId = 0;
-    //        CellFormats cellFormats = new CellFormats();
-    //        cellFormats.Append(cellFormat);
-
-    //        stylesheet.Append(cellFormats);
-    //        stylesheet.Save();
-    //    }
-
-    //    return stylesheet;
-    //}
 
     #region Private methods.
 

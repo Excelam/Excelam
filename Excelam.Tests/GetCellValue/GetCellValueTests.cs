@@ -2,15 +2,110 @@ using Excelam.System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Excelam.Tests;
+namespace Excelam.Tests.GetCellValue;
 
 /// <summary>
 /// Get cell value tests.
 /// TODO: refactor! only GetCellValue
 /// </summary>
 [TestClass]
-public class ExcelCellValueApiGetValueTests
+public class GetCellValueTests
 {
+    [TestMethod]
+    public void GetCellValuesGeneralText()
+    {
+        ExcelApi excelApi = new ExcelApi();
+
+        string fileName = @"Files\GetCellValues\GetCellValuesGeneralText.xlsx";
+        ExcelWorkbook workbook;
+        ExcelError error;
+
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+        Assert.IsNotNull(workbook);
+        Assert.IsNull(error);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1: null 
+        string val = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.IsNull(val);
+
+        //--B3: bonjour - general
+        val = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B3");
+        Assert.AreEqual("bonjour", val);
+
+        //--B5: it's a text - text
+        val = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B5");
+        Assert.AreEqual("it's a text", val);
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+    }
+
+    [TestMethod]
+    public void GetCellValuesDecimal()
+    {
+        ExcelApi excelApi = new ExcelApi();
+
+        string fileName = @"Files\GetCellValues\GetCellValuesDecimal.xlsx";
+        ExcelWorkbook workbook;
+        ExcelError error;
+
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+        Assert.IsNotNull(workbook);
+        Assert.IsNull(error);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1: 12 - number
+        int valInt;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out valInt);
+        Assert.IsTrue(res);
+        Assert.AreEqual(12, valInt);
+
+        //--B3: 22,56 - decimal, a built-in format
+        double valDbl;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out valDbl);
+        Assert.IsTrue(res);
+        Assert.AreEqual(22.56, valDbl);
+
+        //--B5: 63,456 - decimal - 3dec
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out valDbl);
+        Assert.IsTrue(res);
+        Assert.AreEqual(63.456, valDbl);
+
+        //--B7: 5,6 - decimal - 1dec
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out valDbl);
+        Assert.IsTrue(res);
+        Assert.AreEqual(5.6, valDbl);
+
+        //--B9: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out valDbl);
+        Assert.IsTrue(res);
+        Assert.AreEqual(-123, valDbl);
+
+        //--B11: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out valDbl);
+        Assert.IsTrue(res);
+        Assert.AreEqual(-123, valDbl);
+
+        //--B13: 123 000,50 -decimal, 2 dec. thousand sep, format: ?
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B13", out valDbl);
+        Assert.IsTrue(res);
+        Assert.AreEqual(123000.5, valDbl);
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+    }
+
     /// <summary>
     /// TODO: refactor it, split in several methods.
     /// GetCellValuesBuiltIn, ...
@@ -42,7 +137,7 @@ public class ExcelCellValueApiGetValueTests
         Assert.AreEqual("bonjour", valB2);
 
         //--B2: bonjour - standard/general  - col, row
-        string valB2b = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, 2,2);
+        string valB2b = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, 2, 2);
         Assert.AreEqual("bonjour", valB2b);
 
         //--B2: bonjour - standard/general  
@@ -71,11 +166,11 @@ public class ExcelCellValueApiGetValueTests
         Assert.AreEqual(dtB16, valB16);
 
         //--B17: 13:45:00 - time
-        DateTime valB17;        
+        DateTime valB17;
         res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B17", out valB17);
         Assert.IsTrue(res);
         // ! for an excel cell time value, check only hour, min and sec.
-        DateTime dtB17 = new DateTime(valB17.Year, valB17.Month, valB17.Day, 13,45,0);
+        DateTime dtB17 = new DateTime(valB17.Year, valB17.Month, valB17.Day, 13, 45, 0);
         Assert.AreEqual(dtB17, valB17);
 
         //--B21: 45,21 €  - accounting

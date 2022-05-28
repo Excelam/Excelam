@@ -45,9 +45,9 @@ public class ExcelCellValueApi
         int styleIndex = OxExcelCellValueApi.GetCellStyleIndex(cell);
 
         // get the cell format
-        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
+        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelCellFormat.ContainsKey(styleIndex))
         {
-            ExcelCellFormat excelCellFormat= excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
+            ExcelCellFormat excelCellFormat= excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelCellFormat[styleIndex];
             string formula;
             if(OxExcelCellValueApi.IsCellFormula(excelSheet.WorkbookPart,cell, out formula))
             {
@@ -381,14 +381,12 @@ public class ExcelCellValueApi
         }
 
         // get the cell format style
-        ExcelCellFormat cellFormat = null;
-        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
-            cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
+        ExcelCellFormat? cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.GetStyleByIndex(styleIndex);
+
 
         // find a style with the same value format: general, and other format set
-        ExcelCellFormat cellFormatOther2;
         ExcelCellFormatValueGeneral formatValueGeneralToFind = new ExcelCellFormatValueGeneral();
-        int styleIndexOther2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(formatValueGeneralToFind, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatOther2);
+        int styleIndexOther2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyleIndex(formatValueGeneralToFind, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
 
         // no style found?
         if (styleIndexOther2 < 0)
@@ -452,12 +450,10 @@ public class ExcelCellValueApi
         int styleIndex = OxExcelCellValueApi.GetCellStyleIndex(cell);
 
         // get the cell format style
-        ExcelCellFormat? cellFormat = null;
-        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
-            cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
+        ExcelCellFormat? cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.GetStyleByIndex(styleIndex);
 
         //--2/ cell exists, same value format: Number
-        if(cellFormat!=null && cellFormat.FormatValue.Code == ExcelCellFormatValueCode.Number)
+        if (cellFormat!=null && cellFormat.FormatValue.Code == ExcelCellFormatValueCode.Number)
         {
             // change the cell value
             cell.CellValue = new CellValue(value);
@@ -502,9 +498,7 @@ public class ExcelCellValueApi
         int styleIndex = OxExcelCellValueApi.GetCellStyleIndex(cell);
 
         // get the cell format style
-        ExcelCellFormat? cellFormat = null;
-        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
-            cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
+        ExcelCellFormat? cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.GetStyleByIndex(styleIndex);
 
         //--2/ cell exists, same value format: Number
         if (cellFormat != null && cellFormat.FormatValue.Code == ExcelCellFormatValueCode.Decimal)
@@ -565,9 +559,7 @@ public class ExcelCellValueApi
         int styleIndex = OxExcelCellValueApi.GetCellStyleIndex(cell);
 
         // get the cell format style
-        ExcelCellFormat? cellFormat = null;
-        if (excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex.ContainsKey(styleIndex))
-            cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.DictStyleIndexExcelStyleIndex[styleIndex];
+        ExcelCellFormat? cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.GetStyleByIndex(styleIndex);
 
         //--2/ cell exists, same value format: DateTime/DateShort
         // TODO: test pas complet!!
@@ -641,11 +633,10 @@ public class ExcelCellValueApi
         Cell? newCell = OxExcelCellValueApi.InsertCell(excelSheet.Worksheet, colName, rowIndex);
 
         // Set the value of cell
-        //newCell.DataType = new EnumValue<CellValues>(CellValues.Number);
         newCell.CellValue = cellValue;
 
         // find a style with the same value format: general, and other format set
-        int styleIndexOther = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatValue, out _);
+        int styleIndexOther = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatValue);
 
         // no style found
         if (styleIndexOther< 0)
@@ -680,8 +671,7 @@ public class ExcelCellValueApi
         cell.CellValue = cellValue;
 
         // Find a style with the same cell format: Number, other formar not set
-        ExcelCellFormat cellFormatSameAs;
-        int styleIndexSameAs = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatValue, 0, 0, 0, out cellFormatSameAs);
+        int styleIndexSameAs = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyleIndex(cellFormatValue, 0, 0, 0);
         if (styleIndexSameAs< 0)
             styleIndexSameAs = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, cellFormatValue, 0, 0, 0);
             
@@ -720,8 +710,7 @@ public class ExcelCellValueApi
         cell.CellValue = cellValue;
 
         // find a similar style 
-        ExcelCellFormat cellFormatSameAs2;
-        int styleIndexSameAs2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatValue, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId, out cellFormatSameAs2);
+        int styleIndexSameAs2 = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyleIndex(cellFormatValue, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
 
         //--3.3/ no style exists, create a new one
         if (styleIndexSameAs2 < 0)

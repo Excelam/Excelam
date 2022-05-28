@@ -63,9 +63,6 @@ public class ExcelFileApi
 
             // Shared string table
             OXExcelSharedStringApi.CreateSharedStringTablePart(spreadsheetDocument.WorkbookPart);
-            //SharedStringTablePart sharedStringTablePart = spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
-            //sharedStringTablePart.SharedStringTable = new SharedStringTable();
-            //sharedStringTablePart.SharedStringTable.Save();
 
             // Add Sheets to the Workbook.
             Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
@@ -144,6 +141,11 @@ public class ExcelFileApi
                 spreadsheetDocument.WorkbookPart.Workbook.CalculationProperties.FullCalculationOnLoad = true;
             }
 
+            // get properties TODO
+            //string company= spreadsheetDocument.ExtendedFilePropertiesPart.Properties.Company.InnerText; // = new DocumentFormat.OpenXml.ExtendedProperties.Company("My Company");
+            //string creator= spreadsheetDocument.PackageProperties.Creator;
+            //string language = spreadsheetDocument.PackageProperties.Language;
+
             // get all uri-part
             Dictionary<string, OpenXmlPart> dictUriOpenXmlPart = BuildUriPartDictionary(spreadsheetDocument);
 
@@ -178,17 +180,11 @@ public class ExcelFileApi
             return false;
         }
 
-        //if (excelDoc.Workbook == null)
-        //{
-        //    error = new ExcelError();
-        //    error.Code = ExcelErrorCode.UnableToCloseExcelFile;
-        //    return false;
-        //}
-
         error = null;
         try
         {
-            //excelDoc.Workbook.Save();
+            // fermer le fichier excel
+            excelWorkbook.SpreadsheetDocument.Save();
             error = null;
             return true;
         }

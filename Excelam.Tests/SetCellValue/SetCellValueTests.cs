@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Excelam.Tests;
+namespace Excelam.Tests.SetCellValue;
 
 /// <summary>
 /// Set cell value tests.
+/// TODO: splitter en plusieurs classes.
 /// </summary>
 [TestClass]
-public class ExcelCellValueApiSetValueTests
+public class SetValueTests
 {
     /// <summary>
     /// Start from an empty excel file.
@@ -62,7 +63,7 @@ public class ExcelCellValueApiSetValueTests
 
 
         //--B7, set 19/05/2022 - DateShort
-        res = excelApi.ExcelCellValueApi.SetCellValueDateShort(sheet, "B7", new DateTime(2022,05,19));
+        res = excelApi.ExcelCellValueApi.SetCellValueDateShort(sheet, "B7", new DateTime(2022, 05, 19));
         Assert.IsTrue(res);
 
         DateTime cellValB7;

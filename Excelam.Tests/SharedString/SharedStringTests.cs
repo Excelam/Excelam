@@ -10,10 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Excelam.Tests;
+namespace Excelam.Tests.SharedString;
 
 [TestClass]
-public class OXExcelSharedStringApiTests
+public class SharedStringTests
 {
     [TestMethod]
     public void CheckSharedStringCellValue()
@@ -41,7 +41,7 @@ public class OXExcelSharedStringApiTests
         Assert.IsNotNull(cellA1);
 
         // The specified cell exists, is it a shared string?
-        int sharedStringId= -1;
+        int sharedStringId = -1;
         if (cellA1.DataType != null && cellA1.DataType == CellValues.SharedString)
             // get the cell value
             cellA1.CellValue.TryGetInt(out sharedStringId);
@@ -53,7 +53,7 @@ public class OXExcelSharedStringApiTests
 
         // save the count of shared string count 
         SharedStringTablePart shareStringTablePart = sheet.WorkbookPart.SharedStringTablePart;
-        int sharedStringCount= shareStringTablePart.SharedStringTable.Elements<SharedStringItem>().Count();
+        int sharedStringCount = shareStringTablePart.SharedStringTable.Elements<SharedStringItem>().Count();
 
         // remove the shared string if the cell is a text
         res = OXExcelSharedStringApi.RemoveSharedStringItem(sheet.WorkbookPart, sharedStringId);
@@ -86,7 +86,7 @@ public class OXExcelSharedStringApiTests
 
         // get now the count of shared string count , now one is removed
         int sharedStringCount3 = shareStringTablePart.SharedStringTable.Elements<SharedStringItem>().Count();
-        Assert.AreEqual(sharedStringCount, sharedStringCount3+1);
+        Assert.AreEqual(sharedStringCount, sharedStringCount3 + 1);
 
         //--B1: 12,00 - not a shared string, its a decimal
         Cell cellB1 = OxExcelCellValueApi.GetCell(sheet.WorkbookPart, sheet.Sheet, "B1");

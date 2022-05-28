@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Excelam.Tests;
+namespace Excelam.Tests.DelCell;
 
 /// <summary>
 /// delete cell tests.
 /// </summary>
 [TestClass]
-public class ExcelCellValueApiDelValueTests
+public class DelCellTests
 {
     [TestMethod]
     public void CheckDeleteSomeCells()
@@ -37,14 +37,14 @@ public class ExcelCellValueApiDelValueTests
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
 
         //--B1: null
-        res= excelApi.ExcelCellValueApi.DeleteCell(sheet, "B1");
+        res = excelApi.ExcelCellValueApi.DeleteCell(sheet, "B1");
         Assert.IsFalse(res);
 
         //--B2: bonjour
         res = excelApi.ExcelCellValueApi.DeleteCell(sheet, "B2");
         Assert.IsTrue(res);
 
-        string valB2=excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B2");
+        string valB2 = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B2");
         // no cell, removed
         Assert.IsNull(valB2);
 

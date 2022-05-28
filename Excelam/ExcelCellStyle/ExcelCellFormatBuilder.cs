@@ -57,7 +57,7 @@ public class ExcelCellFormatBuilder
         excelCellFormat.StyleIndex = (int)(uint)stylesheet.CellFormats.Count-1;
 
         // save in the list the new style
-        excelCellStyles.DictStyleIndexExcelStyleIndex.Add(excelCellFormat.StyleIndex, excelCellFormat);
+        excelCellStyles.DictStyleIndexExcelCellFormat.Add(excelCellFormat.StyleIndex, excelCellFormat);
 
         return excelCellFormat.StyleIndex;
     }

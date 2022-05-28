@@ -76,10 +76,34 @@
     <None Update="Files\GetCellFormat\GetCellFormatValuesDateTime.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\GetCellFormat\GetCellFormatValuesDateTimeEnglishUS.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\GetCellFormat\GetCellFormatValuesDecimal.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Files\GetCellFormat\GetCellFormatValuesGeneralText.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\GetCellValues\GetCellValuesDecimal.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\GetCellValues\GetCellValuesGeneralText.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesGeneraleTextEmpty.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesGeneraleTextSameFormatNoStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesGeneraleTextSameFormatWithStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesGeneralTextOtherFormatNoStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesGeneralTextOtherFormatWithStyle.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Files\TextFile1.txt">

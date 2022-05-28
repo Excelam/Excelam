@@ -109,6 +109,25 @@ public class ExcelCellFormat
         return false;
     }
 
+    public ExcelCellFormatValueNumber? GetFormatValueAsNumber()
+    {
+        return FormatValue as ExcelCellFormatValueNumber;
+    }
+
+    public ExcelCellFormatValueDecimal? GetFormatValueAsDecimal()
+    {
+        return FormatValue as ExcelCellFormatValueDecimal;
+    }
+
+    public ExcelCellFormatValueDateTime? GetFormatValueAsDateTime()
+    {
+        return FormatValue as ExcelCellFormatValueDateTime;
+    }
+
+    public ExcelCellFormatValueCurrency? GetFormatValueAsCurrency()
+    {
+        return FormatValue as ExcelCellFormatValueCurrency;
+    }
 
     public override string ToString()
     {
