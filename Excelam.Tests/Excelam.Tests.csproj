@@ -106,6 +106,21 @@
     <None Update="Files\SetCellValues\SetCellValuesGeneralTextOtherFormatWithStyle.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\SetCellValues\SetCellValuesNumberEmpty.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesNumberOtherFormatNoStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesNumberOtherFormatWithStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesNumberSameFormatNoStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\SetCellValues\SetCellValuesNumberSameFormatWithStyle.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\TextFile1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
