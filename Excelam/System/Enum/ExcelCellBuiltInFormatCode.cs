@@ -85,9 +85,15 @@ public enum ExcelCellBuiltInFormatCode
     Number = 1,
 
     /// <summary>
-    /// Double
+    /// Decimal, 2 dec after the dot.
     /// </summary>
     Decimal = 2,
+
+    /// <summary>
+    /// Decimal, 2 dec after the dot.
+    /// blank thousand separator.
+    /// </summary>
+    DecimalBlankThousandSep = 4,
 
     /// <summary>
     /// 9 = '0%'

@@ -156,7 +156,15 @@ public class OxExcelCellFormatValueDecoder
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.NumberOfDecimal = 2;
+			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal, 2);
+			valueBase = formatValue;
+			return true;
+		}
+
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DecimalBlankThousandSep)
+		{
+			formatValue = new ExcelCellFormatValueDecimal();
+			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalBlankThousandSep, 2);
 			valueBase = formatValue;
 			return true;
 		}
@@ -170,7 +178,7 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.0")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.NumberOfDecimal = 1;
+			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal, 1);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;
@@ -179,16 +187,31 @@ public class OxExcelCellFormatValueDecoder
 		if (format=="0.000")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.NumberOfDecimal = 3;
+			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal, 3);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;
-
 		}
 
-		
+		// Decimal, 2 decimal, negative: red
+		if (format == "0.00_ ;[Red]\\-0.00\\ ")
+		{
+			formatValue = new ExcelCellFormatValueDecimal();
+			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalNegRed, 2);
+			formatValue.StringFormat = format;
+			valueBase = formatValue;
+			return true;
+		}
+
 		// Decimal, 2 decimal, negative: red, no sign. format: "0.00;[Red]0.00"
-		// Decimal, 2 decimal, negative: red, format: "0.00_ ;[Red]\\-0.00\\ "
+		if (format == "0.00;[Red]0.00")
+		{
+			formatValue = new ExcelCellFormatValueDecimal();
+			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalNegRedNoSign, 2);
+			formatValue.StringFormat = format;
+			valueBase = formatValue;
+			return true;
+		}
 
 		// not a built-in case
 		valueBase = null;

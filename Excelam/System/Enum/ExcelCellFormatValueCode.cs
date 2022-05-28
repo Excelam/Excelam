@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Excelam.System;
 
+/// <summary>
+/// Excel cell format value code.
+/// Main code.
+/// </summary>
 public enum ExcelCellFormatValueCode
 {
     Undefined,
@@ -13,6 +17,7 @@ public enum ExcelCellFormatValueCode
     General,
 
     Number,
+
     Text,
 
     Decimal,

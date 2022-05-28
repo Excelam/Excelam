@@ -53,7 +53,7 @@ public class SetValueTests
         Assert.AreEqual(12, cellValB3);
 
         //--B5, set 34.56 - decimal
-        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 34.56);
+        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.Decimal, 2, 34.56);
         Assert.IsTrue(res);
 
         double cellValB5;
@@ -122,7 +122,7 @@ public class SetValueTests
         Assert.AreEqual(14, cellValB3);
 
         //--B5, set 45.88 - decimal
-        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 45.88);
+        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.Decimal, 2, 45.88);
         Assert.IsTrue(res);
 
         double cellValB5;
@@ -191,7 +191,7 @@ public class SetValueTests
         Assert.AreEqual(14, cellValB3);
 
         //--B5, set 45.88 - decimal
-        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 45.88);
+        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.Decimal, 2, 45.88);
         Assert.IsTrue(res);
 
         double cellValB5;
@@ -256,7 +256,7 @@ public class SetValueTests
         Assert.AreEqual(14, cellValB3);
 
         //--B5, set 45.88 - decimal
-        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 45.88);
+        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.Decimal, 2, 45.88);
         Assert.IsTrue(res);
 
         double cellValB5;
@@ -321,7 +321,7 @@ public class SetValueTests
         Assert.AreEqual(14, cellValB3);
 
         //--B5, set 45.88 - decimal
-        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 45.88);
+        res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.Decimal, 2, 45.88);
         Assert.IsTrue(res);
 
         double cellValB5;

@@ -474,9 +474,17 @@ public class ExcelCellValueApi
         return ReplaceCellValueAndStyle(excelSheet, cell, cellFormat, cellFormatValue, new CellValue(value));
     }
 
-    public bool SetCellValueDecimal(ExcelSheet excelSheet, string cellAddress, double value)
+    /// <summary>
+    /// Set a decimal value in the cell.
+    /// </summary>
+    /// <param name="excelSheet"></param>
+    /// <param name="cellAddress"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public bool SetCellValueDecimal(ExcelSheet excelSheet, string cellAddress, ExcelCellDecimalCode subCode, int numberOfDecimal, double value)
     {
-        ExcelCellFormatValueDecimal cellFormatValue;
+        ExcelCellFormatValueDecimal cellFormatValue = new ExcelCellFormatValueDecimal();
+        cellFormatValue.SetSubCode(subCode, numberOfDecimal);
 
         // get the cell if it exists?
         Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);
@@ -488,8 +496,6 @@ public class ExcelCellValueApi
         //--1/ the cell doesn't exists
         if (cell == null)
         {
-            cellFormatValue = new ExcelCellFormatValueDecimal();
-            cellFormatValue.NumberOfDecimal = 2;
             CreateCell(excelSheet, colName, rowIndex, cellFormatValue, new CellValue(value));
             return true;
         }
@@ -507,9 +513,6 @@ public class ExcelCellValueApi
             cell.CellValue = new CellValue(value);
             return true;
         }
-
-        cellFormatValue = new ExcelCellFormatValueDecimal();
-        cellFormatValue.NumberOfDecimal = 2;
 
         //--3/ cell exists, not the same value format
         //--3.1/ no style index, no cellformat, type is a general/standard
