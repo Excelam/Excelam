@@ -45,6 +45,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     {
         if (numberOfDecimal < 0) return;
 
+
         _subCode = subCode;
         NumberOfDecimal = numberOfDecimal;
 
@@ -62,29 +63,34 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
             return;
         }
 
-        // Decimal,	1, "0.0"
+        // default value
+        NumberFormatId = 0;
+
+        // Decimal, 1:  "0.0"
         if (subCode == ExcelCellDecimalCode.Decimal && numberOfDecimal == 1)
         {
-            NumberFormatId = 0;
             StringFormat = "0.0";
             return;
         }
-
-        // Decimal, 3, "0.000"
+        // Decimal, 3 "0.000"
         if (subCode == ExcelCellDecimalCode.Decimal && numberOfDecimal == 3)
         {
-            NumberFormatId = 0;
             StringFormat = "0.000";
             return;
         }
 
+        // Decimal, 2 decimal, negative: red
+        if (subCode == ExcelCellDecimalCode.DecimalNegRed && numberOfDecimal == 2)
+        {
+            StringFormat = @"0.00_ ;[Red]\\-0.00\\ ";
+            return;
+        }
 
-        // DecimalNegRed, 2, "0.00_ ;[Red]\\-0.00\\ "
-        // todo:
-
-        // DecimalNegRedNoSign, 2, "0.00;[Red]0.00"
-        // todo:
-
+        // Decimal, 2 decimal, negative: red, no sign. format: "0.00;[Red]0.00"
+        if (subCode == ExcelCellDecimalCode.DecimalNegRedNoSign && numberOfDecimal == 2)
+        {
+            StringFormat = "0.00;[Red]0.00";
+        }
     }
 
     public bool AreEquals(ExcelCellFormatValueDecimal other)

@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace Excelam.Tests.SetCellValue;
 
 [TestClass]
-public class SetCellValueNumber
+public class SetCellValueGeneralTextTests
 {
     /// <summary>
     /// Start from an empty excel file.
     /// set cell values, test all formats.
     /// </summary>
     [TestMethod]
-    public void SetCellValuesNumberEmpty()
+    public void SetCellValuesEmpty()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesNumberEmpty.xlsx";
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneraleTextEmpty.xlsx";
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
@@ -30,16 +30,21 @@ public class SetCellValueNumber
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
         Assert.IsNotNull(sheet);
 
-        //--B1 set 12 - Number
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B1", 12);
+        //--B1 set 'bonjour' - general
+        res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "bonjour");
         Assert.IsTrue(res);
 
         // check
-        int cellVal;  
-        res= excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
-        Assert.IsTrue(res);
-        Assert.AreEqual(12, cellVal);
+        string cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.AreEqual("bonjour", cellVal);
 
+        ////--B3: set 'le texte' - Text
+        //res = excelApi.ExcelCellValueApi.SetCellValueText(sheet, "B3", "le texte");
+        //Assert.IsTrue(res);
+
+        //// check
+        //cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B3");
+        //Assert.AreEqual("le texte", cellVal);
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
@@ -53,7 +58,7 @@ public class SetCellValueNumber
     [TestMethod]
     public void SetCellValuesSameFormatNoStyle()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesNumberSameFormatNoStyle.xlsx";
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneraleTextSameFormatNoStyle.xlsx";
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
@@ -65,15 +70,21 @@ public class SetCellValueNumber
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
         Assert.IsNotNull(sheet);
 
-        //--B1 set 34 - Number
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B1", 34);
+        //--B1 set 'salute' - general
+        res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "salute");
         Assert.IsTrue(res);
 
         // check
-        int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
-        Assert.IsTrue(res);
-        Assert.AreEqual(34, cellVal);
+        string cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.AreEqual("salute", cellVal);
+
+        ////--B3: set 'another text' - Text
+        //res = excelApi.ExcelCellValueApi.SetCellValueText(sheet, "B3", "another text");
+        //Assert.IsTrue(res);
+
+        //// check
+        //cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B3");
+        //Assert.AreEqual("le texte", cellVal);
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
@@ -87,7 +98,7 @@ public class SetCellValueNumber
     [TestMethod]
     public void SetCellValuesSameFormatWithStyle()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesNumberSameFormatWithStyle.xlsx";
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneraleTextSameFormatWithStyle.xlsx";
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
@@ -99,26 +110,32 @@ public class SetCellValueNumber
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
         Assert.IsNotNull(sheet);
 
-        //--B1 set 34 - Number
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B1", 34);
+        //--B1 set 'salute' - general
+        res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "salute");
         Assert.IsTrue(res);
 
         // check
-        int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
-        Assert.IsTrue(res);
-        Assert.AreEqual(34, cellVal);
+        string cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.AreEqual("salute", cellVal);
+
+        ////--B3: set 'another text' - Text
+        //res = excelApi.ExcelCellValueApi.SetCellValueText(sheet, "B3", "another text");
+        //Assert.IsTrue(res);
+
+        //// check
+        //cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B3");
+        //Assert.AreEqual("le texte", cellVal);
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
         Assert.IsTrue(res);
     }
 
+
     [TestMethod]
     public void SetCellValuesOtherFormatNoStyle()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesNumberOtherFormatNoStyle.xlsx";
-
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneralTextOtherFormatNoStyle.xlsx";
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
         ExcelError error;
@@ -129,24 +146,21 @@ public class SetCellValueNumber
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
         Assert.IsNotNull(sheet);
 
-        //--B1: set 34 - Number, in place of a general
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B1", 34);
+        //--B1 set 'salute' - general
+        res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "salute");
         Assert.IsTrue(res);
 
         // check
-        int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
-        Assert.IsTrue(res);
-        Assert.AreEqual(34, cellVal);
+        string cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.AreEqual("salute", cellVal);
 
-        //--B3: set 67 - Number, in place of a dateShort
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B3", 67);
-        Assert.IsTrue(res);
+        ////--B3: set 'another text' - Text
+        //res = excelApi.ExcelCellValueApi.SetCellValueText(sheet, "B3", "another text");
+        //Assert.IsTrue(res);
 
-        // check
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B3", out cellVal);
-        Assert.IsTrue(res);
-        Assert.AreEqual(67, cellVal);
+        //// check
+        //cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B3");
+        //Assert.AreEqual("le texte", cellVal);
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
@@ -156,8 +170,7 @@ public class SetCellValueNumber
     [TestMethod]
     public void SetCellValuesOtherFormatWithStyle()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesNumberOtherFormatWithStyle.xlsx";
-
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneralTextOtherFormatWithStyle.xlsx";
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
         ExcelError error;
@@ -168,25 +181,21 @@ public class SetCellValueNumber
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
         Assert.IsNotNull(sheet);
 
-        //--B1: set 34 - Number, in place of a general
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B1", 34);
+        //--B1 set 'salute' - general
+        res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "salute");
         Assert.IsTrue(res);
 
         // check
-        int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
-        Assert.IsTrue(res);
-        Assert.AreEqual(34, cellVal);
+        string cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.AreEqual("salute", cellVal);
 
-        //--B3: set 67 - Number, in place of a dateShort
-        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B3", 67);
-        Assert.IsTrue(res);
+        ////--B3: set 'another text' - Text
+        //res = excelApi.ExcelCellValueApi.SetCellValueText(sheet, "B3", "another text");
+        //Assert.IsTrue(res);
 
-        // check
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B3", out cellVal);
-        Assert.IsTrue(res);
-        Assert.AreEqual(67, cellVal);
-
+        //// check
+        //cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B3");
+        //Assert.AreEqual("le texte", cellVal);
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);

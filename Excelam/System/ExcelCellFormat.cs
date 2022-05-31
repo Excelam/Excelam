@@ -34,35 +34,10 @@ public class ExcelCellFormat
 
     /// <summary>
     /// Cell format value code.
-    /// TODO: classe de base + hiérarchie
-    /// 
-    /// ExcelCellFormatValueBase  
-    /// 
-    ///     ExcelCellFormatValueGeneral
-    ///     ExcelCellFormatValueText
-    ///     ExcelCellFormatValueNumber
-    ///     
-    ///     ExcelCellFormatValueDecimal
-    ///     ExcelCellFormatValueDateTime
-    ///     ExcelCellFormatValueAccounting
-    ///     ExcelCellFormatValueCurrency
-    ///     ExcelCellFormatValuePercentage
-    ///     ExcelCellFormatValueFraction
-    ///     ExcelCellFormatValueScientific ?? faire ?
-    /// enum  ExcelCellFormatValueCode
+    /// base class.
+    /// can be: General, Text, Number,Decimal, DateTime,...
     /// </summary>
     public ExcelCellFormatValueBase FormatValue { get; set; } = null;
-
-    /// <summary>
-    /// id, from OpenXml.
-    /// </summary>
-    //public int NumberFormatId { get; set; } = 0;
-
-    /// <summary>
-    /// Set only if a format string is present.
-    /// For none built-in code, except for the accounting code/44.
-    /// </summary>
-    //public ExcelNumberingFormat? ExcelNumberingFormat { get; set; } = null;
 
     public int BorderId { get; set; } = 0;
 

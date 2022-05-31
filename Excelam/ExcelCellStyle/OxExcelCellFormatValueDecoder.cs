@@ -17,20 +17,20 @@ public class OxExcelCellFormatValueDecoder
 	/// </summary>
 	/// <param name="listExcelNumberingFormat"></param>
 	/// <returns></returns>
-	public static void Decode(List<ExcelNumberingFormat> listExcelNumberingFormat)
-	{
-		listExcelNumberingFormat.ForEach(excelNumberingFormat =>
-		{
-			// clean
-			if (excelNumberingFormat.StringFormat == null)
-				excelNumberingFormat.StringFormat = string.Empty;
+	//public static void Decode(List<ExcelNumberingFormat> listExcelNumberingFormat)
+	//{
+	//	listExcelNumberingFormat.ForEach(excelNumberingFormat =>
+	//	{
+	//		// clean
+	//		if (excelNumberingFormat.StringFormat == null)
+	//			excelNumberingFormat.StringFormat = string.Empty;
 
-			ExcelCellFormatValueBase formatValue;
-			DecodeNumberingFormat(excelNumberingFormat.Id, excelNumberingFormat.StringFormat, out formatValue);
-			// set the decoded code
-			//excelNumberingFormat.ValueBase= formatValue;
-		});  
-	}
+	//		ExcelCellFormatValueBase formatValue;
+	//		DecodeNumberingFormat(excelNumberingFormat.Id, excelNumberingFormat.StringFormat, out formatValue);
+	//		// set the decoded code
+	//		//excelNumberingFormat.ValueBase= formatValue;
+	//	});  
+	//}
 
 
 	public static void DecodeNumberingFormat(int numberFormatId, string format, out ExcelCellFormatValueBase valueBase)
@@ -57,6 +57,7 @@ public class OxExcelCellFormatValueDecoder
 
 
 		// decode special math cases: fraction and percentage
+		/// TODO: splitter en plusieurs: percentage, fraction, scientific.
 		DecodeMathSpecialCases(numberFormatId, format, out valueBase);
 	}
 
@@ -89,20 +90,6 @@ public class OxExcelCellFormatValueDecoder
 			valueBase = new ExcelCellFormatValueText();
 			return true;
 		}
-
-		//if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Number)
-		//{
-		//	code = new ExcelCellFormatStructCode();
-		//	code.MainCode = ExcelCellFormatMainCode.Number;
-		//	return true;
-		//}
-
-		//if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal)
-		//{
-		//	code = new ExcelCellFormatStructCode();
-		//	code.MainCode = ExcelCellFormatMainCode.Decimal;
-		//	return true;
-		//}
 
 		//if (numberFormatId == (int)ExcelCellBuiltInFormatCode.PercentageInt)
 		//{
@@ -139,11 +126,6 @@ public class OxExcelCellFormatValueDecoder
 		//	return true;
 		//}
 
-		//if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DateShort)
-		//{
-		//	code = ExcelCellFormatCode.DateShort;
-		//	return true;
-		//}
 
 		// not a built-in case
 		return false;
@@ -153,6 +135,7 @@ public class OxExcelCellFormatValueDecoder
 	{
 		ExcelCellFormatValueDecimal formatValue;
 
+		// built-in format value
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
@@ -161,6 +144,7 @@ public class OxExcelCellFormatValueDecoder
 			return true;
 		}
 
+		// built-in format value
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DecimalBlankThousandSep)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
@@ -194,7 +178,7 @@ public class OxExcelCellFormatValueDecoder
 		}
 
 		// Decimal, 2 decimal, negative: red
-		if (format == "0.00_ ;[Red]\\-0.00\\ ")
+		if (format == @"0.00_ ;[Red]\\-0.00\\ ")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
 			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalNegRed, 2);

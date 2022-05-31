@@ -67,7 +67,7 @@ public static class ExcelStylesManager
 
             // convert all ExcelNumberingFormat into ExcelCellFormatValue
             // TODO: ne sert plus!!
-            OxExcelCellFormatValueDecoder.Decode(excelCellStyles.ListExcelNumberingFormat);
+            //OxExcelCellFormatValueDecoder.Decode(excelCellStyles.ListExcelNumberingFormat);
 
             int styleIndex = 0;
 
@@ -94,11 +94,7 @@ public static class ExcelStylesManager
                 ExcelCellFormat excelCellFormat = new()
                 {
                     StyleIndex = styleIndex,
-                    //formatValue.NumberFormatId = numberFormatId,
-
-                    //StructCode = code,
                     FormatValue= formatValue,
-                    //ExcelNumberingFormat = excelNumberingFormat,
 
                     // todo: besoin de ce champ?
                     BorderId = (int)borderId,
@@ -190,21 +186,11 @@ public static class ExcelStylesManager
 
     private static ExcelCellFormatValueBase DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat)
     {
-
-        if (excelNumberingFormat != null)
-        {
-            // already decoded
-            //return excelNumberingFormat.ValueBase;
-        }
-
-        // if null, its a built-in case, decode it to obtain the code
         ExcelCellFormatValueBase formatValue;
         string stringFormat = null;
         if (excelNumberingFormat != null) stringFormat = excelNumberingFormat.StringFormat;
         OxExcelCellFormatValueDecoder.DecodeNumberingFormat(numberFormatId, stringFormat, out formatValue);
         return formatValue;
-
-
     }
 
     private static List<ExcelCellFill> LoadListExcelFill(Fills fills)
