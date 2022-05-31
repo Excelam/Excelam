@@ -301,6 +301,7 @@ public class OxExcelCellFormatValueDecoder
 		{
 			ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
 			formatValue.CurrencyCode = currencyCode;
+			valueBase = formatValue;
 			return true;
 		}
 
@@ -330,6 +331,7 @@ public class OxExcelCellFormatValueDecoder
 
 		ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
 		formatValue.CurrencyCode = currencyCode;
+		valueBase = formatValue;
 		return true;
 	}
 
