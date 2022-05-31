@@ -12,7 +12,7 @@ public class ExcelCellFormatValuePercentage: ExcelCellFormatValueBase
     { 
         Code = ExcelCellFormatValueCode.Percentage;
         // todo: not in all cases!
-        NumberFormatId = (uint)ExcelCellBuiltInFormatCode.Percentage2Dec;
+        NumberFormatId = (int)ExcelCellBuiltInFormatCode.Percentage2Dec;
 
     }
 }

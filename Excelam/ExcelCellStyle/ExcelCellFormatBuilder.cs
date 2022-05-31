@@ -29,7 +29,7 @@ public class ExcelCellFormatBuilder
     {
         var cellFormat = new CellFormat();
         //cellFormat.NumberFormatId = ExcelCellFormatValueConverter.Convert(formatValue);
-        cellFormat.NumberFormatId = formatValue.NumberFormatId;
+        cellFormat.NumberFormatId = (uint)formatValue.NumberFormatId;
         cellFormat.BorderId = (uint)borderId;
         cellFormat.FontId = (uint)fontId;
         cellFormat.FillId = (uint)fillId;

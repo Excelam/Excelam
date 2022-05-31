@@ -12,7 +12,7 @@ public class ExcelCellFormatValueFraction: ExcelCellFormatValueBase
     {
         Code = ExcelCellFormatValueCode.Fraction;
         // todo: not in all cases!
-        NumberFormatId = (uint)ExcelCellBuiltInFormatCode.Fraction;
+        NumberFormatId = (int)ExcelCellBuiltInFormatCode.Fraction;
 
     }
 }

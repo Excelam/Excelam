@@ -66,6 +66,7 @@ public static class ExcelStylesManager
             //Protection protection;
 
             // convert all ExcelNumberingFormat into ExcelCellFormatValue
+            // TODO: ne sert plus!!
             OxExcelCellFormatValueDecoder.Decode(excelCellStyles.ListExcelNumberingFormat);
 
             int styleIndex = 0;
@@ -110,7 +111,7 @@ public static class ExcelStylesManager
                     Alignment= cellFormat.Alignment,
                     Protection= cellFormat.Protection
                 };
-                excelCellFormat.FormatValue.NumberFormatId = numberFormatId;
+                excelCellFormat.FormatValue.NumberFormatId = (int)numberFormatId;
                 excelCellFormat.FormatValue.ExcelNumberingFormat = excelNumberingFormat;
                 // save the decoded cell style
                 excelCellStyles.DictStyleIndexExcelCellFormat.Add(styleIndex, excelCellFormat);
@@ -165,20 +166,6 @@ public static class ExcelStylesManager
 
     #region Private methods.
 
-    private static ExcelCellFormatValueBase DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat)
-    {
-
-        //if (excelNumberingFormat != null)
-        //{
-        //    // already decoded
-        //    return excelNumberingFormat.ValueBase;
-        //}
-
-        // if null, its a builtin case, decode it to obtain the code
-        ExcelCellFormatValueBase valueBase;
-        OxExcelCellFormatValueDecoder.DecodeNumberingFormat(numberFormatId,string.Empty, out valueBase);
-        return valueBase;
-    }
     
 
     private static List<ExcelNumberingFormat> LoadListExcelNumberingFormat(NumberingFormats numberingFormats)
@@ -191,14 +178,33 @@ public static class ExcelStylesManager
             ExcelNumberingFormat excelNumberingFormat = new();
             excelNumberingFormat.Id = (int)numberingFormat.NumberFormatId.Value;
 
-            //if(numberingFormat.FormatCode!=null)
-            //    excelNumberingFormat.FormatCode = numberingFormat.FormatCode;
+            if(numberingFormat.FormatCode!=null)
+                excelNumberingFormat.StringFormat = numberingFormat.FormatCode;
 
             excelNumberingFormat.NumberingFormat = numberingFormat;
             listExcelNumberingFormat.Add(excelNumberingFormat);
         });
 
         return listExcelNumberingFormat;
+    }
+
+    private static ExcelCellFormatValueBase DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat)
+    {
+
+        if (excelNumberingFormat != null)
+        {
+            // already decoded
+            //return excelNumberingFormat.ValueBase;
+        }
+
+        // if null, its a built-in case, decode it to obtain the code
+        ExcelCellFormatValueBase formatValue;
+        string stringFormat = null;
+        if (excelNumberingFormat != null) stringFormat = excelNumberingFormat.StringFormat;
+        OxExcelCellFormatValueDecoder.DecodeNumberingFormat(numberFormatId, stringFormat, out formatValue);
+        return formatValue;
+
+
     }
 
     private static List<ExcelCellFill> LoadListExcelFill(Fills fills)

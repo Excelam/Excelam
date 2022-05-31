@@ -21,7 +21,7 @@ public class ExcelCellFormatValueDateTime :ExcelCellFormatValueBase
         set 
         { 
             if(value== ExcelCellDateTimeCode.DateShort)
-                NumberFormatId= (uint)ExcelCellBuiltInFormatCode.DateShort;
+                NumberFormatId= (int)ExcelCellBuiltInFormatCode.DateShort;
         } 
     } 
 }

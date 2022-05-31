@@ -20,7 +20,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     {
         Code = ExcelCellFormatValueCode.Decimal;
 
-        NumberFormatId = (uint)ExcelCellBuiltInFormatCode.Decimal;
+        NumberFormatId = (int)ExcelCellBuiltInFormatCode.Decimal;
     }
 
     /// <summary>
@@ -45,8 +45,11 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     {
         if (numberOfDecimal < 0) return;
 
+        _subCode = subCode;
+        NumberOfDecimal = numberOfDecimal;
+
         // std case decimal=2
-        if(subCode == ExcelCellDecimalCode.Decimal && numberOfDecimal== 2)
+        if (subCode == ExcelCellDecimalCode.Decimal && numberOfDecimal== 2)
         {
             NumberFormatId = 2;
             return;
@@ -82,8 +85,6 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
         // DecimalNegRedNoSign, 2, "0.00;[Red]0.00"
         // todo:
 
-        _subCode = subCode;
-        NumberOfDecimal = numberOfDecimal;
     }
 
     public bool AreEquals(ExcelCellFormatValueDecimal other)

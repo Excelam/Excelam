@@ -16,9 +16,9 @@ public abstract class ExcelCellFormatValueBase
     public ExcelCellFormatValueCode Code { get; set; } = ExcelCellFormatValueCode.Undefined;
 
     /// <summary>
-    /// excel value.
+    /// excel/openXml number format id.
     /// </summary>
-    public uint NumberFormatId { get; set; }
+    public int NumberFormatId { get; set; }
 
     /// <summary>
     /// string format code, defined for none built-in format,

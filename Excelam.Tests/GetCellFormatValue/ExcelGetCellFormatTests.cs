@@ -92,7 +92,7 @@ public class GetCellFormatTests
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
         Assert.AreEqual(2, cellFormat.FormatValue.NumberFormatId);
         Assert.AreEqual(ExcelCellFormatValueCode.Decimal, cellFormat.FormatValue.Code);
-        Assert.IsNull(cellFormat.FormatValue.ExcelNumberingFormat.NumberingFormat);
+        Assert.IsNull(cellFormat.FormatValue.ExcelNumberingFormat);
         ExcelCellFormatValueDecimal cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
         Assert.AreEqual(ExcelCellDecimalCode.Decimal, cellFormatValueDecimal.SubCode);
@@ -144,7 +144,7 @@ public class GetCellFormatTests
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B13");
         Assert.AreEqual(4, cellFormat.FormatValue.NumberFormatId);
         Assert.AreEqual(ExcelCellFormatValueCode.Decimal, cellFormat.FormatValue.Code);
-        Assert.IsNull(cellFormat.FormatValue.StringFormat);
+        Assert.AreEqual(string.Empty,cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
         Assert.AreEqual(ExcelCellDecimalCode.DecimalBlankThousandSep, cellFormatValueDecimal.SubCode);
