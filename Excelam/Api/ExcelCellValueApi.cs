@@ -639,7 +639,7 @@ public class ExcelCellValueApi
         newCell.CellValue = cellValue;
 
         // find a style with the same value format: general, and other format set
-        int styleIndexOther = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyle(cellFormatValue);
+        int styleIndexOther = excelSheet.ExcelWorkbook.ExcelCellStyles.FindStyleIndex(cellFormatValue, 0, 0, 0);
 
         // no style found
         if (styleIndexOther< 0)

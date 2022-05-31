@@ -20,13 +20,8 @@ public class ExcelNumberingFormat
     /// exp: decimal with 3 decimals: 0.000 
     /// accounting/44: _-* #,##0.00\ "€"_-;\-* #,##0.00\ "€"_-;_-* "-"??\ "€"_-;_-@_-
     /// </summary>
-    public string FormatCode { get; set; } = string.Empty;
+    public string StringFormat { get; set; } = string.Empty;
 
-    /// <summary>
-    /// More precise code.
-    /// </summary>
-    //public ExcelCellFormatStructCode Code { get; set; }
-    public ExcelCellFormatValueBase ValueBase { get; set; }
 
     /// <summary>
     /// The original excel openXml object.
@@ -35,6 +30,6 @@ public class ExcelNumberingFormat
 
     public override string ToString()
     {
-        return Id + " - " + FormatCode;
+        return Id + " - " + StringFormat;
     }
 }

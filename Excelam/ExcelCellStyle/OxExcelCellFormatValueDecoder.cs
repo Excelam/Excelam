@@ -22,13 +22,13 @@ public class OxExcelCellFormatValueDecoder
 		listExcelNumberingFormat.ForEach(excelNumberingFormat =>
 		{
 			// clean
-			if (excelNumberingFormat.FormatCode == null)
-				excelNumberingFormat.FormatCode = string.Empty;
+			if (excelNumberingFormat.StringFormat == null)
+				excelNumberingFormat.StringFormat = string.Empty;
 
 			ExcelCellFormatValueBase formatValue;
-			DecodeNumberingFormat(excelNumberingFormat.Id, excelNumberingFormat.FormatCode, out formatValue);
+			DecodeNumberingFormat(excelNumberingFormat.Id, excelNumberingFormat.StringFormat, out formatValue);
 			// set the decoded code
-			excelNumberingFormat.ValueBase= formatValue;
+			//excelNumberingFormat.ValueBase= formatValue;
 		});  
 	}
 

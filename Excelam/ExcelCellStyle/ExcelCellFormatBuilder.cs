@@ -41,13 +41,8 @@ public class ExcelCellFormatBuilder
 
         // create a high-level ExcelCellFormat object
         ExcelCellFormat excelCellFormat = new ExcelCellFormat();
-        excelCellFormat.NumberFormatId = (int)(uint)cellFormat.NumberFormatId;
-        excelCellFormat.ExcelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == cellFormat.NumberFormatId);
-
-        // TODO: probleme!!
-        //excelCellFormat.StructCode = code;
-        //excelCellFormat.StructCode.CurrencyCode = countryCurrency;
         excelCellFormat.FormatValue = formatValue;
+        excelCellFormat.FormatValue.ExcelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == cellFormat.NumberFormatId);
         excelCellFormat.BorderId = borderId;
         excelCellFormat.ExcelCellBorder = excelCellStyles.ListExcelBorder.FirstOrDefault(b => b.Id == borderId);
         excelCellFormat.FillId = fillId;

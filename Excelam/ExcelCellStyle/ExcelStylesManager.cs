@@ -77,7 +77,7 @@ public static class ExcelStylesManager
                 uint numberFormatId = 0;
                 if (cellFormat.NumberFormatId != null) numberFormatId = cellFormat.NumberFormatId;
 
-                var excelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == (int)numberFormatId);
+                ExcelNumberingFormat excelNumberingFormat = excelCellStyles.ListExcelNumberingFormat.FirstOrDefault(i => i.Id == (int)numberFormatId);
                 ExcelCellFormatValueBase formatValue= DecodeNumberFormatId((int)numberFormatId, excelNumberingFormat);
 
                 uint borderId = 0;
@@ -93,11 +93,11 @@ public static class ExcelStylesManager
                 ExcelCellFormat excelCellFormat = new()
                 {
                     StyleIndex = styleIndex,
-                    NumberFormatId = (int)numberFormatId,
+                    //formatValue.NumberFormatId = numberFormatId,
 
                     //StructCode = code,
                     FormatValue= formatValue,
-                    ExcelNumberingFormat = excelNumberingFormat,
+                    //ExcelNumberingFormat = excelNumberingFormat,
 
                     // todo: besoin de ce champ?
                     BorderId = (int)borderId,
@@ -110,7 +110,8 @@ public static class ExcelStylesManager
                     Alignment= cellFormat.Alignment,
                     Protection= cellFormat.Protection
                 };
-
+                excelCellFormat.FormatValue.NumberFormatId = numberFormatId;
+                excelCellFormat.FormatValue.ExcelNumberingFormat = excelNumberingFormat;
                 // save the decoded cell style
                 excelCellStyles.DictStyleIndexExcelCellFormat.Add(styleIndex, excelCellFormat);
 
@@ -167,11 +168,11 @@ public static class ExcelStylesManager
     private static ExcelCellFormatValueBase DecodeNumberFormatId(int numberFormatId, ExcelNumberingFormat excelNumberingFormat)
     {
 
-        if (excelNumberingFormat != null)
-        {
-            // already decoded
-            return excelNumberingFormat.ValueBase;
-        }
+        //if (excelNumberingFormat != null)
+        //{
+        //    // already decoded
+        //    return excelNumberingFormat.ValueBase;
+        //}
 
         // if null, its a builtin case, decode it to obtain the code
         ExcelCellFormatValueBase valueBase;
@@ -189,8 +190,9 @@ public static class ExcelStylesManager
         {
             ExcelNumberingFormat excelNumberingFormat = new();
             excelNumberingFormat.Id = (int)numberingFormat.NumberFormatId.Value;
-            if(numberingFormat.FormatCode!=null)
-                excelNumberingFormat.FormatCode = numberingFormat.FormatCode;
+
+            //if(numberingFormat.FormatCode!=null)
+            //    excelNumberingFormat.FormatCode = numberingFormat.FormatCode;
 
             excelNumberingFormat.NumberingFormat = numberingFormat;
             listExcelNumberingFormat.Add(excelNumberingFormat);

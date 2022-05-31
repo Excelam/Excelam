@@ -46,70 +46,83 @@ public class ExcelCellStyles
 
         // is the format value general?
         ExcelCellFormatValueGeneral formatValueGeneral = formatValue as ExcelCellFormatValueGeneral;
-        if(formatValueGeneral!=null)
-        {
-            style= DictStyleIndexExcelCellFormat.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValue.Code && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
-            if (style.Value == null)
-                return -1;
+        if (formatValueGeneral != null)
+            return FindStyleIndexGeneral(formatValueGeneral, borderId, fillId, fontId);
 
-            return style.Key;
-        }
 
         // is the format value text?
         ExcelCellFormatValueText formatValueText = formatValue as ExcelCellFormatValueText;
         if (formatValueText != null)
-        {
-            style = DictStyleIndexExcelCellFormat.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValue.Code && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
-            if (style.Value == null)
-                return -1;
-
-            return style.Key;
-        }
+            return FindStyleIndexText(formatValueText, borderId, fillId, fontId);
 
         // is the format value number?
-        // todo:
-         
+        ExcelCellFormatValueNumber formatValueNumber = formatValue as ExcelCellFormatValueNumber;
+        if (formatValueNumber != null)
+            return FindStyleIndexNumber(formatValueNumber, borderId, fillId, fontId);
+
         // is the format value decimal?
         ExcelCellFormatValueDecimal formatValueDecimal = formatValue as ExcelCellFormatValueDecimal;
         if (formatValueDecimal != null)
-        {
-            // get all format value concerning general type
-            // todo:
-            List<ExcelCellFormat> selectedValues = DictStyleIndexExcelCellFormat
-               .Where(cf => cf.Value.FormatValue.Code == ExcelCellFormatValueCode.Decimal && cf.Value.FillId == fillId && cf.Value.FontId == fontId)
-               .Select(cf => cf.Value).ToList();
-
-            // scan the list
-            // todo:
-        }
+            return FindStyleIndexDecimal(formatValueDecimal, borderId, fillId, fontId);
 
 
-        // TODO: ne va pas marcher suite rework
-        // todo: ajouter alignment et protection? +compliqué!
-        KeyValuePair<int, ExcelCellFormat> res = DictStyleIndexExcelCellFormat.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValue.Code  && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
-
-        if (res.Value == null)
-            return -1;
-
-        return res.Key;
+        // TODO: other cases: DateTime, Currency, Accounting,...
+        return -1;
     }
 
-    /// <summary>
-    /// Find a style with the same value format and no other format set
-    /// return the style index, or -1 if not exists.
-    /// TODO: pb avec les autres infos: borderId, FillId, checker à 0 non??
-    /// </summary>
-    /// <param name="code"></param>
-    /// <returns></returns>
-    public int FindStyle(ExcelCellFormatValueBase formatValue)
+    public int FindStyleIndexGeneral(ExcelCellFormatValueGeneral formatValueGeneral, int borderId, int fillId, int fontId)
     {
-        // todo: va pas marcher dans tous les cas!!!
-        KeyValuePair<int, ExcelCellFormat> res = DictStyleIndexExcelCellFormat.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValue.Code && !cf.Value.HasOtherFormatThanValue());
+        KeyValuePair<int, ExcelCellFormat> style;
 
-        if (res.Value == null)
+        if (formatValueGeneral == null) return -1;
+
+        style = DictStyleIndexExcelCellFormat.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValueGeneral.Code && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
+        if (style.Value == null)
             return -1;
 
-        return res.Key;
+        return style.Key;
     }
 
+    public int FindStyleIndexText(ExcelCellFormatValueText formatValueText, int borderId, int fillId, int fontId)
+    {
+        KeyValuePair<int, ExcelCellFormat> style;
+
+        if (formatValueText == null) return -1;
+
+        style = DictStyleIndexExcelCellFormat.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValueText.Code && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
+        if (style.Value == null)
+            return -1;
+
+        return style.Key;
+    }
+
+    public int FindStyleIndexNumber(ExcelCellFormatValueNumber formatValueNumber, int borderId, int fillId, int fontId)
+    {
+        KeyValuePair<int, ExcelCellFormat> style;
+
+        if (formatValueNumber == null) return -1;
+
+        style = DictStyleIndexExcelCellFormat.FirstOrDefault(cf => cf.Value.FormatValue.Code == formatValueNumber.Code && cf.Value.BorderId == borderId && cf.Value.FillId == fillId && cf.Value.FontId == fontId);
+        if (style.Value == null)
+            return -1;
+
+        return style.Key;
+    }
+
+    public int FindStyleIndexDecimal(ExcelCellFormatValueDecimal formatValueDecimal, int borderId, int fillId, int fontId)
+    {
+        KeyValuePair<int, ExcelCellFormat> style;
+
+        if (formatValueDecimal == null) return -1;
+
+        // get all format value concerning general type
+        List<ExcelCellFormat> selectedValues = DictStyleIndexExcelCellFormat
+           .Where(cf => cf.Value.FormatValue.Code == ExcelCellFormatValueCode.Decimal && cf.Value.FillId == fillId && cf.Value.FontId == fontId)
+           .Select(cf => cf.Value).ToList();
+
+        // scan items of the list: select first on subCode and NumberOfDecimal
+        var item = selectedValues.Where(cf => (cf.FormatValue as ExcelCellFormatValueDecimal).AreEquals(formatValueDecimal)).FirstOrDefault();
+        if (item != null) return item.StyleIndex;
+        return -1;
+    }
 }

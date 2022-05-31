@@ -118,6 +118,7 @@ public class SetCellValueNumber
     public void SetCellValuesOtherFormatNoStyle()
     {
         string fileName = @"Files\SetCellValues\SetCellValuesNumberOtherFormatNoStyle.xlsx";
+
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
         ExcelError error;
@@ -156,6 +157,7 @@ public class SetCellValueNumber
     public void SetCellValuesOtherFormatWithStyle()
     {
         string fileName = @"Files\SetCellValues\SetCellValuesNumberOtherFormatWithStyle.xlsx";
+
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
         ExcelError error;

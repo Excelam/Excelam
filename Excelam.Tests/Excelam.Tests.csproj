@@ -91,6 +91,9 @@
     <None Update="Files\GetCellValues\GetCellValuesGeneralText.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\SetCellValues\SetCellValuesDecimalEmpty.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\SetCellValues\SetCellValuesGeneraleTextEmpty.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

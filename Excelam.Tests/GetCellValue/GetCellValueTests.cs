@@ -106,6 +106,15 @@ public class GetCellValueTests
         Assert.IsTrue(res);
     }
 
+    // GetCellValuesDateTime()
+    // TODO:
+
+    // GetCellValuesCurrency()
+    // TODO:
+
+    // GetCellValuesAccounting()
+    // TODO:
+
     /// <summary>
     /// TODO: refactor it, split in several methods.
     /// GetCellValuesBuiltIn, ...

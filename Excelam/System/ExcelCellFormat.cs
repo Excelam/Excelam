@@ -53,22 +53,16 @@ public class ExcelCellFormat
     /// </summary>
     public ExcelCellFormatValueBase FormatValue { get; set; } = null;
 
-
-    /// <summary>
-    /// TODO: a supprimer.
-    /// </summary>
-    //public ExcelCellFormatStructCode StructCode { get; set; }
-
     /// <summary>
     /// id, from OpenXml.
     /// </summary>
-    public int NumberFormatId { get; set; } = 0;
+    //public int NumberFormatId { get; set; } = 0;
 
     /// <summary>
     /// Set only if a format string is present.
     /// For none built-in code, except for the accounting code/44.
     /// </summary>
-    public ExcelNumberingFormat? ExcelNumberingFormat { get; set; } = null;
+    //public ExcelNumberingFormat? ExcelNumberingFormat { get; set; } = null;
 
     public int BorderId { get; set; } = 0;
 
@@ -132,11 +126,11 @@ public class ExcelCellFormat
     public override string ToString()
     {
         string s=string.Empty;
-        string code = ExcelNumberingFormat.ValueBase.Code.ToString();
+        string code = FormatValue.Code.ToString();
 
-        if (ExcelNumberingFormat != null)
+        //if (ExcelNumberingFormat != null)
             // todo: revoir
-            s = "| " + code + " " + ExcelNumberingFormat.FormatCode;
+            s = "| " + code ;
 
         // add other styles
         if (FillId > 0)
@@ -146,7 +140,8 @@ public class ExcelCellFormat
         if (FontId > 0)
             s += ", FontId=" + FontId.ToString();
 
-        return "FmtId=" + NumberFormatId +"/" + code + s;
+        return s;
+        //return "FmtId=" + NumberFormatId +"/" + code + s;
     }
 
 }
