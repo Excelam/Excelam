@@ -26,7 +26,7 @@ public class ExcelNumberingFormat
     /// <summary>
     /// The original excel openXml object.
     /// </summary>
-    public NumberingFormat NumberingFormat { get; set; }
+    public NumberingFormat? NumberingFormat { get; set; }
 
     public override string ToString()
     {

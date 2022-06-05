@@ -14,6 +14,16 @@ namespace Excelam.System;
 /// </summary>
 public class ExcelCellStyles
 {
+    /// <summary>
+    /// max id existing in the ExcelNumberingFormat list.
+    /// The min value is 163 (Excel/OpenXml specification).
+    /// </summary>
+    public int MaxNumberingFormatId { get; set; } = 163;
+
+    /// <summary>
+    /// List of ExcelNumberingFormat (none built-in/specific cell value format).
+    /// exp: "0.00;[Red]0.00" representing a Decimal, 2 decimal, negative: red, no sign.
+    /// </summary>
     public List<ExcelNumberingFormat> ListExcelNumberingFormat { get; private set; } = new();
     public List<ExcelCellFill> ListExcelFill { get; private set; } = new();
     public List<ExcelCellBorder> ListExcelBorder { get; private set; } = new();
@@ -24,6 +34,38 @@ public class ExcelCellStyles
     /// dictionary of styleIndex - ExcelCellFormat.
     /// </summary>
     public Dictionary<int, ExcelCellFormat> DictStyleIndexExcelCellFormat { get; private set; } = new();
+
+    /// <summary>
+    /// Save the list of numbering format.
+    /// Get the highest numberingFormatId.
+    /// </summary>
+    /// <param name="listExcelNumberingFormat"></param>
+    public void SetListExcelNumberingFormat(List<ExcelNumberingFormat> listExcelNumberingFormat)
+    {
+        if (listExcelNumberingFormat == null) return;
+        ListExcelNumberingFormat.Clear();
+        ListExcelNumberingFormat.AddRange(listExcelNumberingFormat);
+
+        // Get the highest numberingFormatId.
+        foreach(ExcelNumberingFormat excelNumberingFormat in ListExcelNumberingFormat.Where(nf => nf.NumberingFormat != null))
+        {
+            if (excelNumberingFormat.NumberingFormat.NumberFormatId > MaxNumberingFormatId)
+                MaxNumberingFormatId = (int)(uint)excelNumberingFormat.NumberingFormat.NumberFormatId;
+        }
+    }
+
+    /// <summary>
+    /// Find a numbering format corresponding to the string format.
+    /// </summary>
+    /// <param name="stringFormat"></param>
+    /// <returns></returns>
+    public ExcelNumberingFormat FindExcelNumberingFormat(string stringFormat)
+    {
+        if (string.IsNullOrEmpty(stringFormat))
+            return null;
+
+        return ListExcelNumberingFormat.Where(nf => nf.StringFormat.Equals(stringFormat)).FirstOrDefault();
+    }
 
     public ExcelCellFormat? GetStyleByIndex(int styleIndex)
     {

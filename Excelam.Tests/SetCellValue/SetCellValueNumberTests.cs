@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,45 @@ namespace Excelam.Tests.SetCellValue;
 [TestClass]
 public class SetCellValueNumberTests
 {
+    /// <summary>
+    /// Start from aa new excel file.
+    /// set cell values, test all formats.
+    /// </summary>
+    [TestMethod]
+    public void SetCellValuesNumberNew()
+    {
+        string fileName = @"Files\SetCellValues\SetCellValuesNumberNew.xlsx";
+
+        if (File.Exists(fileName))
+            File.Delete(fileName);
+
+        ExcelApi excelApi = new ExcelApi();
+        ExcelWorkbook workbook;
+        ExcelError error;
+        bool res = excelApi.ExcelFileApi.CreateExcelFile(fileName, excelApi.ExcelFileApi.DefaultFirstSheetName, out workbook, out error);
+        Assert.IsTrue(res);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1 set 12 - Number
+        res = excelApi.ExcelCellValueApi.SetCellValueNumber(sheet, "B1", 12);
+        Assert.IsTrue(res);
+
+        // check
+        int cellVal;  
+        res= excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        Assert.IsTrue(res);
+        Assert.AreEqual(12, cellVal);
+
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+    }
+
+
     /// <summary>
     /// Start from an empty excel file.
     /// set cell values, test all formats.
@@ -35,8 +75,8 @@ public class SetCellValueNumberTests
         Assert.IsTrue(res);
 
         // check
-        int cellVal;  
-        res= excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        int cellVal;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(12, cellVal);
 

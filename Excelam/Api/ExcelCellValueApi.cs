@@ -392,10 +392,10 @@ public class ExcelCellValueApi
         if (styleIndexOther2 < 0)
         {
             // build first a cell format value
-            ExcelCellFormatValueGeneral formatValue = new ExcelCellFormatValueGeneral();
+            ExcelCellFormatValueGeneral formatValueGeneral = new ExcelCellFormatValueGeneral();
 
             // 3.2/ no style found, so have to create a new one, with existing formats
-            styleIndexOther2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, formatValue, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
+            styleIndexOther2 = ExcelCellFormatBuilder.BuildCellFormat(excelSheet.ExcelWorkbook.ExcelCellStyles, excelSheet.ExcelWorkbook.GetWorkbookStylesPart().Stylesheet, formatValueGeneral, cellFormat.BorderId, cellFormat.FillId, cellFormat.FontId);
         }
 
         // 3.1/ a style exists, so use it  and 3.2 case

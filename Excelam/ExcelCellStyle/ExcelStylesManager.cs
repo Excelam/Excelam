@@ -56,18 +56,14 @@ public static class ExcelStylesManager
                 // nothing so bye 
                 return true;
 
-            // load and decode all numberingFormat item
+            // load and decode all numberingFormat items
             NumberingFormats numberingFormats = styleSheet.NumberingFormats;
-            excelCellStyles.ListExcelNumberingFormat.AddRange(LoadListExcelNumberingFormat(styleSheet.NumberingFormats));
+            excelCellStyles.SetListExcelNumberingFormat(LoadListExcelNumberingFormat(styleSheet.NumberingFormats));            
             excelCellStyles.ListExcelBorder.AddRange(LoadListExcelBorder(styleSheet.Borders));
             excelCellStyles.ListExcelFill.AddRange(LoadListExcelFill(styleSheet.Fills));
             excelCellStyles.ListExcelFont.AddRange(LoadListExcelFont(styleSheet.Fonts));
-            //Alignment alignment;
-            //Protection protection;
-
-            // convert all ExcelNumberingFormat into ExcelCellFormatValue
-            // TODO: ne sert plus!!
-            //OxExcelCellFormatValueDecoder.Decode(excelCellStyles.ListExcelNumberingFormat);
+            // Alignment alignment;
+            // Protection protection;
 
             int styleIndex = 0;
 
@@ -96,7 +92,6 @@ public static class ExcelStylesManager
                     StyleIndex = styleIndex,
                     FormatValue= formatValue,
 
-                    // todo: besoin de ce champ?
                     BorderId = (int)borderId,
                     ExcelCellBorder= excelCellStyles.ListExcelBorder.FirstOrDefault(b=>b.Id== (int)borderId),
                     FillId = (int)fillId,
@@ -154,7 +149,10 @@ public static class ExcelStylesManager
         CellFormats cellFormats = new CellFormats();
         cellFormats.Append(cellFormat);
 
+        //NumberingFormats numberingFormats = new NumberingFormats();
+        //Stylesheet styleSheet = new Stylesheet(fonts, fills, borders, numberingFormats, cellFormats);
         Stylesheet styleSheet = new Stylesheet(fonts, fills, borders, cellFormats);
+
 
         return styleSheet;
     }
@@ -163,7 +161,11 @@ public static class ExcelStylesManager
     #region Private methods.
 
     
-
+    /// <summary>
+    /// Load from the excel file the list of numberingFormat objects.
+    /// </summary>
+    /// <param name="numberingFormats"></param>
+    /// <returns></returns>
     private static List<ExcelNumberingFormat> LoadListExcelNumberingFormat(NumberingFormats numberingFormats)
     {
         List<ExcelNumberingFormat> listExcelNumberingFormat = new();

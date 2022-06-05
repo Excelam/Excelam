@@ -105,7 +105,7 @@ public class ExcelCellFormat
 
         //if (ExcelNumberingFormat != null)
             // todo: revoir
-            s = "| " + code ;
+            //s = "| " + code ;
 
         // add other styles
         if (FillId > 0)
@@ -115,8 +115,7 @@ public class ExcelCellFormat
         if (FontId > 0)
             s += ", FontId=" + FontId.ToString();
 
-        return s;
-        //return "FmtId=" + NumberFormatId +"/" + code + s;
+        return "FmtId=" + FormatValue.NumberFormatId + "/" + code + s;
     }
 
 }

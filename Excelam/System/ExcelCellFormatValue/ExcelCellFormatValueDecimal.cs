@@ -82,7 +82,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
         // Decimal, 2 decimal, negative: red
         if (subCode == ExcelCellDecimalCode.DecimalNegRed && numberOfDecimal == 2)
         {
-            StringFormat = @"0.00_ ;[Red]\\-0.00\\ ";
+            StringFormat = "0.00_ ;[Red]\\-0.00\\ ";
             return;
         }
 

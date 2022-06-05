@@ -18,7 +18,7 @@ public class SetCellValueGeneralTextTests
     [TestMethod]
     public void SetCellValuesEmpty()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesGeneraleTextEmpty.xlsx";
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneralTextEmpty.xlsx";
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
@@ -58,7 +58,7 @@ public class SetCellValueGeneralTextTests
     [TestMethod]
     public void SetCellValuesSameFormatNoStyle()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesGeneraleTextSameFormatNoStyle.xlsx";
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneralTextSameFormatNoStyle.xlsx";
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;
@@ -98,7 +98,7 @@ public class SetCellValueGeneralTextTests
     [TestMethod]
     public void SetCellValuesSameFormatWithStyle()
     {
-        string fileName = @"Files\SetCellValues\SetCellValuesGeneraleTextSameFormatWithStyle.xlsx";
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneralTextSameFormatWithStyle.xlsx";
 
         ExcelApi excelApi = new ExcelApi();
         ExcelWorkbook workbook;

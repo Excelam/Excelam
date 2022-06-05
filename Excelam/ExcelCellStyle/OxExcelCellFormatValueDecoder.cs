@@ -178,7 +178,7 @@ public class OxExcelCellFormatValueDecoder
 		}
 
 		// Decimal, 2 decimal, negative: red
-		if (format == @"0.00_ ;[Red]\\-0.00\\ ")
+		if (format == "0.00_ ;[Red]\\-0.00\\ ")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
 			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalNegRed, 2);
