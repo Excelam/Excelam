@@ -20,8 +20,8 @@ public class ExcelCellFormatValueDateTime :ExcelCellFormatValueBase
         get { return _dateTimeCode; }
         set 
         { 
-            if(value== ExcelCellDateTimeCode.DateShort)
-                NumberFormatId= (int)ExcelCellBuiltInFormatCode.DateShort;
+            if(value== ExcelCellDateTimeCode.DateShort14)
+                NumberFormatId= (int)ExcelCellBuiltInFormatCode.DateShort14;
             _dateTimeCode = value;
         } 
     } 

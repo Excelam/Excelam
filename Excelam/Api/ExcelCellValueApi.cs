@@ -553,7 +553,7 @@ public class ExcelCellValueApi
         if (cell == null)
         {
             cellFormatValue = new ExcelCellFormatValueDateTime();
-            cellFormatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort;
+            cellFormatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort14;
             CreateCell(excelSheet, colName, rowIndex, cellFormatValue, new CellValue(value.ToOADate()));
             return true;
         }
@@ -576,7 +576,7 @@ public class ExcelCellValueApi
         }
 
         cellFormatValue = new ExcelCellFormatValueDateTime();
-        cellFormatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort;
+        cellFormatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort14;
 
         //--3/ cell exists, not the same value format
         //--3.1/ no style index, no cellformat, type is a general/standard

@@ -73,19 +73,19 @@ public class OxExcelCellFormatValueDecoder
 		if (numberFormatId > 163)
 			return false;
 
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.General)
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.General0)
 		{
 			valueBase = new ExcelCellFormatValueGeneral();
 			return true;
 		}
 
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Number)
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Number1)
 		{
 			valueBase = new ExcelCellFormatValueNumber();
 			return true;
 		}
 
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Text)
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Text49)
 		{
 			valueBase = new ExcelCellFormatValueText();
 			return true;
@@ -136,19 +136,19 @@ public class OxExcelCellFormatValueDecoder
 		ExcelCellFormatValueDecimal formatValue;
 
 		// built-in format value
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal)
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal2)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal, 2);
+			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal2, 2);
 			valueBase = formatValue;
 			return true;
 		}
 
 		// built-in format value
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DecimalBlankThousandSep)
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal4BlankThousandSep)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalBlankThousandSep, 2);
+			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal4BlankThousandSep, 2);
 			valueBase = formatValue;
 			return true;
 		}
@@ -162,7 +162,7 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.0")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal, 1);
+			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalN, 1);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;
@@ -171,7 +171,7 @@ public class OxExcelCellFormatValueDecoder
 		if (format=="0.000")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal, 3);
+			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalN, 3);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;
@@ -207,14 +207,22 @@ public class OxExcelCellFormatValueDecoder
 		ExcelCellFormatValueDateTime formatValue;
 
 
-		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DateShort)
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DateShort14)
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort;
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort14;
 			formatValueBase = formatValue;
 			return true;
 		}
 
+		// 21 = 'hh:mm:ss'
+		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Time21_hh_mm_ss)
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.Time21_hh_mm_ss;
+			formatValueBase = formatValue;
+			return true;
+		}
 
 		// [$-F800]dddd\\,\\ mmmm\\ dd\\,\\ yyyy
 		if (formatCode.StartsWith("[$-F800]"))

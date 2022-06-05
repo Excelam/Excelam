@@ -95,7 +95,7 @@ public class GetCellFormatTests
         Assert.IsNull(cellFormat.FormatValue.ExcelNumberingFormat);
         ExcelCellFormatValueDecimal cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal2, cellFormatValueDecimal.SubCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         //--B5: 63,456 - decimal - 3dec
@@ -105,7 +105,7 @@ public class GetCellFormatTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
 
@@ -116,7 +116,7 @@ public class GetCellFormatTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         //--B9: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
@@ -147,7 +147,7 @@ public class GetCellFormatTests
         Assert.AreEqual(string.Empty,cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalBlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         //--close the file
@@ -180,7 +180,7 @@ public class GetCellFormatTests
         //--B1: 15/02/2021 - DateShort
         ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
         Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellDateTimeCode.DateShort, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
 
         //--todo: other cases: date large, time,...
 
@@ -213,12 +213,12 @@ public class GetCellFormatTests
         //--C2: 2022-02-14 -DateShort
         ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "C2");
         Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellDateTimeCode.DateShort, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
 
         //--C4: May 15, 1980 -DateLarge
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "C4");
         Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellDateTimeCode.DateShort, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
 
         //--todo: other cases: date large, time,...
 

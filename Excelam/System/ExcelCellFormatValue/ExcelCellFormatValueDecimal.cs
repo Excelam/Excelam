@@ -20,7 +20,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     {
         Code = ExcelCellFormatValueCode.Decimal;
 
-        NumberFormatId = (int)ExcelCellBuiltInFormatCode.Decimal;
+        NumberFormatId = (int)ExcelCellBuiltInFormatCode.Decimal2;
     }
 
     /// <summary>
@@ -50,14 +50,14 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
         NumberOfDecimal = numberOfDecimal;
 
         // std case decimal=2
-        if (subCode == ExcelCellDecimalCode.Decimal && numberOfDecimal== 2)
+        if (subCode == ExcelCellDecimalCode.Decimal2) // && numberOfDecimal== 2)
         {
             NumberFormatId = 2;
             return;
         }
 
         // std case decimal=4
-        if (subCode == ExcelCellDecimalCode.DecimalBlankThousandSep && numberOfDecimal == 2)
+        if (subCode == ExcelCellDecimalCode.Decimal4BlankThousandSep && numberOfDecimal == 2)
         {
             NumberFormatId = 4;
             return;
@@ -67,13 +67,13 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
         NumberFormatId = 0;
 
         // Decimal, 1:  "0.0"
-        if (subCode == ExcelCellDecimalCode.Decimal && numberOfDecimal == 1)
+        if (subCode == ExcelCellDecimalCode.DecimalN && numberOfDecimal == 1)
         {
             StringFormat = "0.0";
             return;
         }
         // Decimal, 3 "0.000"
-        if (subCode == ExcelCellDecimalCode.Decimal && numberOfDecimal == 3)
+        if (subCode == ExcelCellDecimalCode.DecimalN && numberOfDecimal == 3)
         {
             StringFormat = "0.000";
             return;

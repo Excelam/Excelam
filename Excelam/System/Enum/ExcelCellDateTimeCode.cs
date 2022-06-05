@@ -14,9 +14,16 @@ public enum ExcelCellDateTimeCode
     Undefined,
 
     /// <summary>
-    /// built-in code=14.
+    /// built-in code.
+    ///  14 = 'm/d/yyyy'  
     /// </summary>
-    DateShort,
+    DateShort14,
+
+    /// <summary>
+    /// built-in code.
+    /// 21 = 'hh:mm:ss'
+    /// </summary>
+    Time21_hh_mm_ss,
 
     DateLarge,
 

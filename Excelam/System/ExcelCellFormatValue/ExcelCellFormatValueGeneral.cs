@@ -11,6 +11,6 @@ public class ExcelCellFormatValueGeneral: ExcelCellFormatValueBase
     public ExcelCellFormatValueGeneral()
     {
         Code = ExcelCellFormatValueCode.General;
-        NumberFormatId = (int)ExcelCellBuiltInFormatCode.General;
+        NumberFormatId = (int)ExcelCellBuiltInFormatCode.General0;
     }
 }

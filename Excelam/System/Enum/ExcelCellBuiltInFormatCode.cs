@@ -77,23 +77,23 @@ public enum ExcelCellBuiltInFormatCode
     /// <summary>
     /// string
     /// </summary>
-    General = 0,
+    General0 = 0,
 
     /// <summary>
     /// Integer
     /// </summary>
-    Number = 1,
+    Number1 = 1,
 
     /// <summary>
     /// Decimal, 2 dec after the dot.
     /// </summary>
-    Decimal = 2,
+    Decimal2 = 2,
 
     /// <summary>
     /// Decimal, 2 dec after the dot.
     /// blank thousand separator.
     /// </summary>
-    DecimalBlankThousandSep = 4,
+    Decimal4BlankThousandSep = 4,
 
     /// <summary>
     /// 9 = '0%'
@@ -110,22 +110,32 @@ public enum ExcelCellBuiltInFormatCode
     /// <summary>
     /// Double
     /// </summary>
-    Scientific = 11,
+    Scientific11 = 11,
 
     /// <summary>
     /// 12 = '# ?/?';
     /// </summary>
-    Fraction = 12,
+    Fraction12 = 12,
 
     /// <summary>
     /// 13 = '# ??/??'
     /// </summary>
     Fraction2Digit = 13,
 
-    DateShort = 14,
+    /// <summary>
+    /// 'm/d/yyyy'  
+    /// No format.
+    /// </summary>
+    DateShort14 = 14,
 
-    Accounting = 44,
-    Text = 49
+    /// <summary>
+    ///  'hh:mm:ss'
+    ///  no format.
+    /// </summary>
+    Time21_hh_mm_ss = 21,
+
+    Accounting44 = 44,
+    Text49 = 49
 
 
     // Special

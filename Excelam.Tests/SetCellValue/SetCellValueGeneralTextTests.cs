@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,49 @@ namespace Excelam.Tests.SetCellValue;
 [TestClass]
 public class SetCellValueGeneralTextTests
 {
+    /// <summary>
+    /// Start from an empty excel file.
+    /// set cell values, test all formats.
+    /// </summary>
+    [TestMethod]
+    public void SetCellValuesNew()
+    {
+        string fileName = @"Files\SetCellValues\SetCellValuesGeneralTextNew.xlsx";
+
+        if (File.Exists(fileName))
+            File.Delete(fileName);
+
+        ExcelApi excelApi = new ExcelApi();
+        ExcelWorkbook workbook;
+        ExcelError error;
+        bool res = excelApi.ExcelFileApi.CreateExcelFile(fileName, excelApi.ExcelFileApi.DefaultFirstSheetName, out workbook, out error);
+        Assert.IsTrue(res);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1 set 'bonjour' - general
+        res = excelApi.ExcelCellValueApi.SetCellValueGeneral(sheet, "B1", "bonjour");
+        Assert.IsTrue(res);
+
+        // check
+        string cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B1");
+        Assert.AreEqual("bonjour", cellVal);
+
+        ////--B3: set 'le texte' - Text
+        //res = excelApi.ExcelCellValueApi.SetCellValueText(sheet, "B3", "le texte");
+        //Assert.IsTrue(res);
+
+        //// check
+        //cellVal = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "B3");
+        //Assert.AreEqual("le texte", cellVal);
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+    }
+
     /// <summary>
     /// Start from an empty excel file.
     /// set cell values, test all formats.

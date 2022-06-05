@@ -11,7 +11,7 @@ public class ExcelCellFormatValueText :ExcelCellFormatValueBase
     public ExcelCellFormatValueText()
     {
         Code = ExcelCellFormatValueCode.Text;
-        NumberFormatId = (int)ExcelCellBuiltInFormatCode.Text;
+        NumberFormatId = (int)ExcelCellBuiltInFormatCode.Text49;
 
     }
 }
