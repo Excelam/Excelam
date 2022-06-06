@@ -106,8 +106,40 @@ public class GetCellValueTests
         Assert.IsTrue(res);
     }
 
-    // GetCellValuesDateTime()
-    // TODO:
+
+    [TestMethod]
+    public void GetCellValuesDateTime()
+    {
+        ExcelApi excelApi = new ExcelApi();
+
+        string fileName = @"Files\GetCellValues\GetCellValuesDateTime.xlsx";
+        ExcelWorkbook workbook;
+        ExcelError error;
+
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+        Assert.IsNotNull(workbook);
+        Assert.IsNull(error);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1: 10/05/2022 - DateShort14
+        DateTime valdt;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B1", out valdt);
+        Assert.IsTrue(res);
+        Assert.AreEqual(2022, valdt.Year);
+        Assert.AreEqual(5, valdt.Month);
+        Assert.AreEqual(10, valdt.Day);
+
+        // TODO:
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+    }
+
 
     // GetCellValuesCurrency()
     // TODO:

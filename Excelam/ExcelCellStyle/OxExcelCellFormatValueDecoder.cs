@@ -206,7 +206,7 @@ public class OxExcelCellFormatValueDecoder
 	{
 		ExcelCellFormatValueDateTime formatValue;
 
-
+		// built-in, 14 dateShort
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DateShort14)
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
@@ -215,7 +215,7 @@ public class OxExcelCellFormatValueDecoder
 			return true;
 		}
 
-		// 21 = 'hh:mm:ss'
+		// built-in, 21 = 'hh:mm:ss'
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Time21_hh_mm_ss)
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
@@ -224,7 +224,16 @@ public class OxExcelCellFormatValueDecoder
 			return true;
 		}
 
-		// [$-F800]dddd\\,\\ mmmm\\ dd\\,\\ yyyy
+		// "yyyy\\-mm\\-dd;@"
+		if (formatCode.Equals("yyyy\\-mm\\-dd;@"))
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.Date_yyyy_mm_dd;
+			formatValueBase = formatValue;
+			return true;
+		}
+
+		// "[$-F800]dddd\\,\\ mmmm\\ dd\\,\\ yyyy"
 		if (formatCode.StartsWith("[$-F800]"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
@@ -233,11 +242,64 @@ public class OxExcelCellFormatValueDecoder
 			return true;
 		}
 
-		// [$-F400]h:mm:ss\\ AM/PM
+		// "[$-F400]h:mm:ss\\ AM/PM"
 		if (formatCode.StartsWith("[$-F400]"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
 			formatValue.DateTimeCode = ExcelCellDateTimeCode.Time;
+			formatValueBase = formatValue;
+			return true;
+		}
+
+		// "[$-409]mmmm\\ d\\,\\ yyyy;@" 
+		if (formatCode.Equals("[$-409]mmmm\\ d\\,\\ yyyy;@"))
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLargeEnglishUS;
+			formatValueBase = formatValue;
+			return true;
+		}
+
+		// "[$-407]d\\.\\ mmmm\\ yyyy;@"
+		if (formatCode.Equals("[$-407]d\\.\\ mmmm\\ yyyy;@"))
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLargeGermanGermany;
+			formatValueBase = formatValue;
+			return true;
+		}
+		// "[$-807]d\\.\\ mmmm\\ yyyy;@"
+		if (formatCode.Equals("[$-807]d\\.\\ mmmm\\ yyyy;@"))
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLargeGermanSwitzerland;
+			formatValueBase = formatValue;
+			return true;
+		}
+
+		// dateTime others case: day and hour
+		if (formatCode.Contains("d") && formatCode.Contains("h"))
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateTimeOtherCases;
+			formatValueBase = formatValue;
+			return true;
+		}
+
+		// only date: (day and month) or (month and year)
+		if ((formatCode.Contains("d") && formatCode.Contains("m")) || (formatCode.Contains("m") && formatCode.Contains("y")))
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateOtherCases;
+			formatValueBase = formatValue;
+			return true;
+		}
+
+		// Time others case: hour or second
+		if (formatCode.Contains("h") || formatCode.Contains("s"))
+		{
+			formatValue = new ExcelCellFormatValueDateTime();
+			formatValue.DateTimeCode = ExcelCellDateTimeCode.TimeOtherCases;
 			formatValueBase = formatValue;
 			return true;
 		}

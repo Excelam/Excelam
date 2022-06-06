@@ -177,11 +177,46 @@ public class GetCellFormatTests
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
         Assert.IsNotNull(sheet);
 
-        //--B1: 15/02/2021 - DateShort
+        //--B1: 15/02/2021 - DateShort14
         ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
         Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
 
+        //--B3: 00:14:23 - Time21_hh_mm_ss
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
+        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellDateTimeCode.Time21_hh_mm_ss, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+
+        //--B5: 2021-05-12 - special Date - English/US
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B5");
+        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellDateTimeCode.Date_yyyy_mm_dd, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+
+        //--B7: 1998-07-11 - Special Date - French/US
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B7");
+        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellDateTimeCode.Date_yyyy_mm_dd, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+
+        //--B9: samedi 15 février 2020 - dateLarge
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B9");
+        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateLarge, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+
+        //--B11: February 15, 2020 - DateLargeEnglishUS
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B11");
+        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateLargeEnglishUS, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+
+        //--B13: 15. Februar 2020 -DateLargeGermany
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B13");
+        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateLargeGermanGermany, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+
+        //--B15: 15. Februar 2020 -DateLargeGermany/Suisse
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B15");
+        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateLargeGermanSwitzerland, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+
         //--todo: other cases: date large, time,...
 
         //--close the file
@@ -189,43 +224,6 @@ public class GetCellFormatTests
         Assert.IsTrue(res);
     }
 
-    /// <summary>
-    /// Date and time cases.
-    /// </summary>
-    [TestMethod]
-    public void GetCellFormatValuesDateTimeEnglishUS()
-    {
-        ExcelApi excelApi = new ExcelApi();
-
-        string fileName = @"Files\GetCellFormat\GetCellFormatValuesDateTimeEnglishUS.xlsx";
-        ExcelWorkbook workbook;
-        ExcelError error;
-
-        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
-        Assert.IsTrue(res);
-        Assert.IsNotNull(workbook);
-        Assert.IsNull(error);
-
-        // get the first sheet
-        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
-        Assert.IsNotNull(sheet);
-
-        //--C2: 2022-02-14 -DateShort
-        ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "C2");
-        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
-
-        //--C4: May 15, 1980 -DateLarge
-        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "C4");
-        Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
-
-        //--todo: other cases: date large, time,...
-
-        //--close the file
-        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
-        Assert.IsTrue(res);
-    }
 
     [TestMethod]
     public void GetCellFormatValuesAccounting()
