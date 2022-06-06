@@ -484,7 +484,7 @@ public class ExcelCellValueApi
     public bool SetCellValueDecimal(ExcelSheet excelSheet, string cellAddress, ExcelCellDecimalCode subCode, int numberOfDecimal, double value)
     {
         ExcelCellFormatValueDecimal cellFormatValue = new ExcelCellFormatValueDecimal();
-        cellFormatValue.SetSubCode(subCode, numberOfDecimal);
+        cellFormatValue.SetDecimalCode(subCode, numberOfDecimal);
 
         // get the cell if it exists?
         Cell cell = OxExcelCellValueApi.GetCell(excelSheet.WorkbookPart, excelSheet.Sheet, cellAddress);

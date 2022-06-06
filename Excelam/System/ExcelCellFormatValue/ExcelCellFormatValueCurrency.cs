@@ -15,4 +15,11 @@ public class ExcelCellFormatValueCurrency:ExcelCellFormatValueBase
 
     public ExcelCellCurrencyCode CurrencyCode { get; set; } = ExcelCellCurrencyCode.Undefined;
 
+    /// <summary>
+    /// Number of decimal after the dot.
+    /// </summary>
+    public int NumberOfDecimal { get; private set; } = 0;
+
+
+
 }

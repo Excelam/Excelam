@@ -55,7 +55,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         var cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out cellVal);
@@ -73,7 +73,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out cellVal);
@@ -90,7 +90,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out cellVal);
@@ -107,7 +107,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out cellVal);
@@ -124,7 +124,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(String.Empty, cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out cellVal);
@@ -177,7 +177,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         var cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out cellVal);
@@ -195,7 +195,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out cellVal);
@@ -212,7 +212,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out cellVal);
@@ -229,7 +229,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out cellVal);
@@ -246,7 +246,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(String.Empty, cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out cellVal);
@@ -298,7 +298,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         var cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out cellVal);
@@ -316,7 +316,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out cellVal);
@@ -333,7 +333,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out cellVal);
@@ -350,7 +350,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out cellVal);
@@ -367,7 +367,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(String.Empty, cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out cellVal);
@@ -419,7 +419,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         var cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out cellVal);
@@ -437,7 +437,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out cellVal);
@@ -454,7 +454,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out cellVal);
@@ -471,7 +471,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out cellVal);
@@ -488,7 +488,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(String.Empty, cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out cellVal);
@@ -537,7 +537,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         var cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out cellVal);
@@ -555,7 +555,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out cellVal);
@@ -572,7 +572,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out cellVal);
@@ -589,7 +589,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out cellVal);
@@ -606,7 +606,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(String.Empty, cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out cellVal);
@@ -654,7 +654,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         var cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out cellVal);
@@ -672,7 +672,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out cellVal);
@@ -689,7 +689,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out cellVal);
@@ -706,7 +706,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out cellVal);
@@ -723,7 +723,7 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(String.Empty, cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out cellVal);

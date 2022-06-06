@@ -95,7 +95,7 @@ public class GetCellFormatTests
         Assert.IsNull(cellFormat.FormatValue.ExcelNumberingFormat);
         ExcelCellFormatValueDecimal cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal2, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal2, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         //--B5: 63,456 - decimal - 3dec
@@ -105,7 +105,7 @@ public class GetCellFormatTests
         Assert.AreEqual("0.000", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(3, cellFormatValueDecimal.NumberOfDecimal);
 
 
@@ -116,7 +116,7 @@ public class GetCellFormatTests
         Assert.AreEqual("0.0", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(1, cellFormatValueDecimal.NumberOfDecimal);
 
         //--B9: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
@@ -126,7 +126,7 @@ public class GetCellFormatTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         //--B11: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
@@ -136,7 +136,7 @@ public class GetCellFormatTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
 
@@ -147,7 +147,7 @@ public class GetCellFormatTests
         Assert.AreEqual(string.Empty,cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.SubCode);
+        Assert.AreEqual(ExcelCellDecimalCode.Decimal4BlankThousandSep, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
 
         //--close the file
@@ -224,6 +224,79 @@ public class GetCellFormatTests
         Assert.IsTrue(res);
     }
 
+
+    /// <summary>
+    /// percentage cases.
+    /// </summary>
+    [TestMethod]
+    public void GetCellFormatValuesPercentage()
+    {
+        ExcelApi excelApi = new ExcelApi();
+
+        string fileName = @"Files\GetCellFormat\GetCellFormatValuesPercentage.xlsx";
+        ExcelWorkbook workbook;
+        ExcelError error;
+
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+        Assert.IsNotNull(workbook);
+        Assert.IsNull(error);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1: 1,50% - Percentage10Decimal
+        ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
+        Assert.AreEqual(ExcelCellFormatValueCode.Percentage, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellPercentageCode.Percentage10Decimal2, (cellFormat.FormatValue as ExcelCellFormatValuePercentage).PercentageCode);
+
+        //--todo: other cases: 
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+
+    }
+
+    /// <summary>
+    /// currency cases.
+    /// </summary>
+    [TestMethod]
+    public void GetCellFormatValuesCurrency()
+    {
+        ExcelApi excelApi = new ExcelApi();
+
+        string fileName = @"Files\GetCellFormat\GetCellFormatValuesCurrency.xlsx";
+        ExcelWorkbook workbook;
+        ExcelError error;
+
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+        Assert.IsNotNull(workbook);
+        Assert.IsNull(error);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1: 120,45 € - Currency euro, 2 decimales
+        ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, (cellFormat.FormatValue as ExcelCellFormatValueCurrency).CurrencyCode);
+
+        //--B3: $250,85 - English-US
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.UnitedStatesDollar, (cellFormat.FormatValue as ExcelCellFormatValueCurrency).CurrencyCode);
+
+        //--todo: other cases: 
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+
+    }
 
     [TestMethod]
     public void GetCellFormatValuesAccounting()

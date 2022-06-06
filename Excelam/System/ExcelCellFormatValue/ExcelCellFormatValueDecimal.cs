@@ -11,7 +11,7 @@ namespace Excelam.System;
 /// </summary>
 public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
 {
-    ExcelCellDecimalCode _subCode = ExcelCellDecimalCode.Undefined;
+    ExcelCellDecimalCode _decimalCode = ExcelCellDecimalCode.Undefined;
 
     /// <summary>
     /// Constructor.
@@ -26,9 +26,9 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     /// <summary>
     /// Get the decimal sub code.
     /// </summary>
-    public ExcelCellDecimalCode SubCode 
+    public ExcelCellDecimalCode DecimalCode 
     { 
-        get { return _subCode;  }
+        get { return _decimalCode;  }
     }
 
     /// <summary>
@@ -41,12 +41,12 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     /// </summary>
     /// <param name="subCode"></param>
     /// <param name="numberOfDecimal"></param>
-    public void SetSubCode(ExcelCellDecimalCode subCode, int numberOfDecimal)
+    public void SetDecimalCode(ExcelCellDecimalCode subCode, int numberOfDecimal)
     {
         if (numberOfDecimal < 0) return;
 
 
-        _subCode = subCode;
+        _decimalCode = subCode;
         NumberOfDecimal = numberOfDecimal;
 
         // std case decimal=2
@@ -95,7 +95,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
 
     public bool AreEquals(ExcelCellFormatValueDecimal other)
     {
-        if (_subCode == other._subCode && NumberOfDecimal==other.NumberOfDecimal) return true;
+        if (_decimalCode == other._decimalCode && NumberOfDecimal==other.NumberOfDecimal) return true;
         return false;
     }
 }

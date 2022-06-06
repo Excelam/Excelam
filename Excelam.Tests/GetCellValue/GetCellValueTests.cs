@@ -125,15 +125,27 @@ public class GetCellValueTests
         var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
         Assert.IsNotNull(sheet);
 
-        //--B1: 10/05/2022 - DateShort14
+        //--B1: 15/02/2022 - DateShort14
         DateTime valdt;
         res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B1", out valdt);
         Assert.IsTrue(res);
+        Assert.AreEqual(15, valdt.Day);
+        Assert.AreEqual(2, valdt.Month);
         Assert.AreEqual(2022, valdt.Year);
-        Assert.AreEqual(5, valdt.Month);
-        Assert.AreEqual(10, valdt.Day);
 
-        // TODO:
+        //--B3: 14:10:25 - Time21_hh_mm_ss
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B3", out valdt);
+        Assert.IsTrue(res);
+        Assert.AreEqual(14, valdt.Hour);
+        Assert.AreEqual(10, valdt.Minute);
+        Assert.AreEqual(25, valdt.Second);
+
+        //--B5: lundi 18 juin 1945 - DateLarge
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDateTime(sheet, "B5", out valdt);
+        Assert.IsTrue(res);
+        Assert.AreEqual(18, valdt.Day);
+        Assert.AreEqual(6, valdt.Month);
+        Assert.AreEqual(1945, valdt.Year);
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
@@ -141,8 +153,40 @@ public class GetCellValueTests
     }
 
 
-    // GetCellValuesCurrency()
-    // TODO:
+    [TestMethod]
+    public void GetCellValuesCurrency()
+    {
+        ExcelApi excelApi = new ExcelApi();
+
+        // TODO: fichier n'existe pas!!!
+        string fileName = @"Files\GetCellValues\GetCellValuesCurrency.xlsx";
+        ExcelWorkbook workbook;
+        ExcelError error;
+
+        bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out workbook, out error);
+        Assert.IsTrue(res);
+        Assert.IsNotNull(workbook);
+        Assert.IsNull(error);
+
+        // get the first sheet
+        var sheet = excelApi.ExcelSheetApi.GetSheet(workbook, 0);
+        Assert.IsNotNull(sheet);
+
+        //--B1: 88,22 € - currency-euro
+        double valB22;
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B1", out valB22);
+        Assert.IsTrue(res);
+        Assert.AreEqual(88.22, valB22);
+
+        //--B3: $91,25 - currency-dollarUS
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B1", out valB22);
+        Assert.IsTrue(res);
+        Assert.AreEqual(88.22, valB22);
+
+        //--close the file
+        res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);
+        Assert.IsTrue(res);
+    }
 
     // GetCellValuesAccounting()
     // TODO:

@@ -85,7 +85,7 @@ public class OxExcelCellFormatValueDecoder
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal2)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal2, 2);
+			formatValue.SetDecimalCode(ExcelCellDecimalCode.Decimal2, 2);
 			valueBase = formatValue;
 			return true;
 		}
@@ -94,7 +94,7 @@ public class OxExcelCellFormatValueDecoder
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal4BlankThousandSep)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.Decimal4BlankThousandSep, 2);
+			formatValue.SetDecimalCode(ExcelCellDecimalCode.Decimal4BlankThousandSep, 2);
 			valueBase = formatValue;
 			return true;
 		}
@@ -108,7 +108,7 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.0")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalN, 1);
+			formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalN, 1);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;
@@ -117,7 +117,7 @@ public class OxExcelCellFormatValueDecoder
 		if (format=="0.000")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalN, 3);
+			formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalN, 3);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;
@@ -127,7 +127,7 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.00_ ;[Red]\\-0.00\\ ")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalNegRed, 2);
+			formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalNegRed, 2);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;
@@ -137,7 +137,7 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.00;[Red]0.00")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			formatValue.SetSubCode(ExcelCellDecimalCode.DecimalNegRedNoSign, 2);
+			formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalNegRedNoSign, 2);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
 			return true;

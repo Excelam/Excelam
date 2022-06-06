@@ -73,6 +73,9 @@
     <None Update="Files\GetCellFormat\GetCellFormatValuesBuiltIn.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\GetCellFormat\GetCellFormatValuesCurrency.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Files\GetCellFormat\GetCellFormatValuesDateTime.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -85,11 +88,17 @@
     <None Update="Files\GetCellFormat\GetCellFormatValuesGeneralText.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\GetCellFormat\GetCellFormatValuesPercentage.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\GetCellValues\GetCellValuesDateTime.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Files\GetCellValues\GetCellValuesDecimal.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Files\GetCellValues\GetCellValuesGeneralText.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Files\SetCellValues\SetCellValuesDecimalEmpty.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
