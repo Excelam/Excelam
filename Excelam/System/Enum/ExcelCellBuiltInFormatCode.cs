@@ -99,13 +99,13 @@ public enum ExcelCellBuiltInFormatCode
     /// 9 = '0%'
     /// only int, no decimal part.
     /// </summary>
-    PercentageInt = 9,
+    Percentage9Int = 9,
 
     /// <summary>
     /// 10 = '0.00%'
     /// With 2 decimal part.
     /// </summary>
-    Percentage2Dec = 10,
+    Percentage10Decimal = 10,
 
     /// <summary>
     /// Double
@@ -120,7 +120,7 @@ public enum ExcelCellBuiltInFormatCode
     /// <summary>
     /// 13 = '# ??/??'
     /// </summary>
-    Fraction2Digit = 13,
+    Fraction13 = 13,
 
     /// <summary>
     /// 'm/d/yyyy'  

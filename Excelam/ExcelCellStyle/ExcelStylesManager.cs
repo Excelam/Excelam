@@ -102,6 +102,7 @@ public static class ExcelStylesManager
                     Alignment= cellFormat.Alignment,
                     Protection= cellFormat.Protection
                 };
+                // TODO: FormatValue can be null!!
                 excelCellFormat.FormatValue.NumberFormatId = (int)numberFormatId;
                 excelCellFormat.FormatValue.ExcelNumberingFormat = excelNumberingFormat;
                 // save the decoded cell style

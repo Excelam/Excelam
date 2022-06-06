@@ -15,4 +15,6 @@ public class ExcelCellFormatValueFraction: ExcelCellFormatValueBase
         NumberFormatId = (int)ExcelCellBuiltInFormatCode.Fraction12;
 
     }
+
+    public ExcelCellFractionCode FractionCode { get; set; } = ExcelCellFractionCode.Undefined;
 }

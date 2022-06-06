@@ -24,11 +24,14 @@ public enum ExcelCellFormatValueCode
 
     DateTime,
 
+    Percentage,
+
+    Fraction,
+
+    Scientific,
+
     Currency,
 
     Accounting,
 
-    Percentage,
-
-    Fraction
 }
