@@ -154,9 +154,17 @@ public class ExcelCellValueApi
         return cell.CellValue.InnerXml;
     }
 
-    public bool GetCellValueAsNumber(ExcelSheet excelSheet, int col, int row, out int value)
+    /// <summary>
+    /// Concerns excel cell number value.
+    /// </summary>
+    /// <param name="excelSheet"></param>
+    /// <param name="col"></param>
+    /// <param name="row"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public bool GetCellValueAsInt(ExcelSheet excelSheet, int col, int row, out int value)
     {
-        return GetCellValueAsNumber(excelSheet, ExcelCellAddressApi.ConvertAddress(col, row), out value);
+        return GetCellValueAsInt(excelSheet, ExcelCellAddressApi.ConvertAddress(col, row), out value);
     }
 
     /// <summary>
@@ -166,7 +174,7 @@ public class ExcelCellValueApi
     /// <param name="sheet"></param>
     /// <param name="cellAddress"></param>
     /// <returns></returns>
-    public bool GetCellValueAsNumber(ExcelSheet excelSheet, string cellAddress, out int value)
+    public bool GetCellValueAsInt(ExcelSheet excelSheet, string cellAddress, out int value)
     {
         value = 0;
         string? valueStr = GetCellValueAsString(excelSheet, cellAddress);
@@ -181,7 +189,7 @@ public class ExcelCellValueApi
         return false;
     }
 
-    public bool GetCellValueAsDecimal(ExcelSheet excelSheet, string cellAddress, out double value)
+    public bool GetCellValueAsDouble(ExcelSheet excelSheet, string cellAddress, out double value)
     {
         value = 0;
 
@@ -190,10 +198,10 @@ public class ExcelCellValueApi
         // the cell doesn't exists
         if (cell == null) return false;
 
-        return GetCellValueAsDecimal(excelSheet, cell, out value); 
+        return GetCellValueAsDouble(excelSheet, cell, out value); 
     }
 
-    public bool GetCellValueAsDecimal(ExcelSheet excelSheet, Cell cell, out double value)
+    public bool GetCellValueAsDouble(ExcelSheet excelSheet, Cell cell, out double value)
     {
         value = 0;
         string? valueStr = GetCellValueAsString(excelSheet, cell);
@@ -230,7 +238,7 @@ public class ExcelCellValueApi
         if (cell.DataType == null || cell.DataType == CellValues.Number)
         {
             double oaDate;
-            GetCellValueAsDecimal(excelSheet, cell, out oaDate);
+            GetCellValueAsDouble(excelSheet, cell, out oaDate);
 
             if (oaDate == 0)
             {
@@ -483,6 +491,9 @@ public class ExcelCellValueApi
     /// <returns></returns>
     public bool SetCellValueDecimal(ExcelSheet excelSheet, string cellAddress, ExcelCellDecimalCode subCode, int numberOfDecimal, double value)
     {
+        // TODO: revoir les parametres!  pas de SubCode à passer!!
+        //ici();
+
         ExcelCellFormatValueDecimal cellFormatValue = new ExcelCellFormatValueDecimal();
         cellFormatValue.SetDecimalCode(subCode, numberOfDecimal);
 

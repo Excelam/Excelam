@@ -37,6 +37,9 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     public int NumberOfDecimal { get; private set; } = 0;
 
     /// <summary>
+    /// TODO: refactorer! passer numberOfDecimal, NegativeOption et HasThousandSeparator.
+    /// -> va set le bon subCode.
+    /// 
     /// Set a subCode withe the number of decimal (after the dot).
     /// </summary>
     /// <param name="subCode"></param>

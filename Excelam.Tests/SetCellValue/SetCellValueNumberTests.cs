@@ -40,7 +40,7 @@ public class SetCellValueNumberTests
 
         // check
         int cellVal;  
-        res= excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        res= excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B1", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(12, cellVal);
 
@@ -76,7 +76,7 @@ public class SetCellValueNumberTests
 
         // check
         int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B1", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(12, cellVal);
 
@@ -111,7 +111,7 @@ public class SetCellValueNumberTests
 
         // check
         int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B1", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(34, cellVal);
 
@@ -145,7 +145,7 @@ public class SetCellValueNumberTests
 
         // check
         int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B1", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(34, cellVal);
 
@@ -175,7 +175,7 @@ public class SetCellValueNumberTests
 
         // check
         int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B1", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(34, cellVal);
 
@@ -184,7 +184,7 @@ public class SetCellValueNumberTests
         Assert.IsTrue(res);
 
         // check
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B3", out cellVal);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B3", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(67, cellVal);
 
@@ -214,7 +214,7 @@ public class SetCellValueNumberTests
 
         // check
         int cellVal;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out cellVal);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B1", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(34, cellVal);
 
@@ -223,7 +223,7 @@ public class SetCellValueNumberTests
         Assert.IsTrue(res);
 
         // check
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B3", out cellVal);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B3", out cellVal);
         Assert.IsTrue(res);
         Assert.AreEqual(67, cellVal);
 

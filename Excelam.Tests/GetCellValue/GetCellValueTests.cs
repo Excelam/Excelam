@@ -66,38 +66,38 @@ public class GetCellValueTests
 
         //--B1: 12 - number
         int valInt;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B1", out valInt);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B1", out valInt);
         Assert.IsTrue(res);
         Assert.AreEqual(12, valInt);
 
         //--B3: 22,56 - decimal, a built-in format
         double valDbl;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B3", out valDbl);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B3", out valDbl);
         Assert.IsTrue(res);
         Assert.AreEqual(22.56, valDbl);
 
         //--B5: 63,456 - decimal - 3dec
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B5", out valDbl);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B5", out valDbl);
         Assert.IsTrue(res);
         Assert.AreEqual(63.456, valDbl);
 
         //--B7: 5,6 - decimal - 1dec
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B7", out valDbl);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B7", out valDbl);
         Assert.IsTrue(res);
         Assert.AreEqual(5.6, valDbl);
 
         //--B9: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B9", out valDbl);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B9", out valDbl);
         Assert.IsTrue(res);
         Assert.AreEqual(-123, valDbl);
 
         //--B11: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B11", out valDbl);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B11", out valDbl);
         Assert.IsTrue(res);
         Assert.AreEqual(-123, valDbl);
 
         //--B13: 123 000,50 -decimal, 2 dec. thousand sep, format: ?
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B13", out valDbl);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B13", out valDbl);
         Assert.IsTrue(res);
         Assert.AreEqual(123000.5, valDbl);
 
@@ -174,12 +174,12 @@ public class GetCellValueTests
 
         //--B1: 88,22 € - currency-euro
         double valB22;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B1", out valB22);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B1", out valB22);
         Assert.IsTrue(res);
         Assert.AreEqual(88.22, valB22);
 
         //--B3: $91,25 - currency-dollarUS
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B1", out valB22);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B1", out valB22);
         Assert.IsTrue(res);
         Assert.AreEqual(88.22, valB22);
 
@@ -227,12 +227,12 @@ public class GetCellValueTests
 
         //--B2: bonjour - standard/general  
         int valB2int;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B2", out valB2int);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B2", out valB2int);
         Assert.IsFalse(res);
 
         //--B3: 12 - number
         int valB3;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsNumber(sheet, "B3", out valB3);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsInt(sheet, "B3", out valB3);
         Assert.IsTrue(res);
         Assert.AreEqual(12, valB3);
 
@@ -260,13 +260,13 @@ public class GetCellValueTests
 
         //--B21: 45,21 €  - accounting
         double valB21;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B21", out valB21);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B21", out valB21);
         Assert.IsTrue(res);
         Assert.AreEqual(45.21, valB21);
 
         //--B22: 88,22 € - currency-euro
         double valB22;
-        res = excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "B22", out valB22);
+        res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B22", out valB22);
         Assert.IsTrue(res);
         Assert.AreEqual(88.22, valB22);
 
@@ -282,7 +282,7 @@ public class GetCellValueTests
         string valE7Str = excelApi.ExcelCellValueApi.GetCellValueAsString(sheet, "E7");
         Assert.AreEqual("45.6", valE7Str);
         double valE7;
-        excelApi.ExcelCellValueApi.GetCellValueAsDecimal(sheet, "E7", out valE7);
+        excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "E7", out valE7);
         Assert.AreEqual(45.6, valE7);
 
 
