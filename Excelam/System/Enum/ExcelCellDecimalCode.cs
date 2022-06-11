@@ -36,14 +36,14 @@ public enum ExcelCellDecimalCode
     /// negative value is diplayed in red.
     /// format=0.00_ ;[Red]\\-0.00\\ 
     /// </summary>
-    DecimalNegRed,
+    //DecimalNegRed,
 
     /// <summary>
     /// negative value is diplayed in red.
     /// minus sign is not displayed.
     /// format=0.00;[Red]0.00
     /// </summary>
-    DecimalNegRedNoSign
+    //DecimalNegRedNoSign
 
 
 

@@ -36,6 +36,10 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     /// </summary>
     public int NumberOfDecimal { get; private set; } = 0;
 
+    public bool HasThousandSeparator { get; private set; } = false;
+
+    public ExcelCellValueNegativeOption NegativeOption { get; private set; } = ExcelCellValueNegativeOption.Default;
+
     /// <summary>
     /// TODO: refactorer! passer numberOfDecimal, NegativeOption et HasThousandSeparator.
     /// -> va set le bon subCode.
@@ -44,61 +48,77 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     /// </summary>
     /// <param name="subCode"></param>
     /// <param name="numberOfDecimal"></param>
-    public void SetDecimalCode(ExcelCellDecimalCode subCode, int numberOfDecimal)
+    public void Define(int numberOfDecimal, bool hasThousandSeparator, ExcelCellValueNegativeOption negativeOption)
+        //ExcelCellDecimalCode subCode, int numberOfDecimal)
     {
-        if (numberOfDecimal < 0) return;
+        // not a number, should have at least one decimal after the dot
+        if (numberOfDecimal < 1) numberOfDecimal = 2;
 
-
-        _decimalCode = subCode;
         NumberOfDecimal = numberOfDecimal;
+        HasThousandSeparator =hasThousandSeparator;
+        NegativeOption = negativeOption;
 
         // std case decimal=2
-        if (subCode == ExcelCellDecimalCode.Decimal2) // && numberOfDecimal== 2)
+        if (numberOfDecimal==2 && !hasThousandSeparator && negativeOption== ExcelCellValueNegativeOption.Default)
         {
+            _decimalCode = ExcelCellDecimalCode.Decimal2;
             NumberFormatId = 2;
             return;
         }
 
         // std case decimal=4
-        if (subCode == ExcelCellDecimalCode.Decimal4BlankThousandSep && numberOfDecimal == 2)
+        if (numberOfDecimal == 2 && hasThousandSeparator && negativeOption == ExcelCellValueNegativeOption.Default)
         {
+            _decimalCode = ExcelCellDecimalCode.Decimal4BlankThousandSep;
             NumberFormatId = 4;
             return;
         }
 
         // default value
         NumberFormatId = 0;
+        _decimalCode = ExcelCellDecimalCode.DecimalN;
 
         // Decimal, 1:  "0.0"
-        if (subCode == ExcelCellDecimalCode.DecimalN && numberOfDecimal == 1)
+        if (numberOfDecimal == 1 && !hasThousandSeparator && negativeOption == ExcelCellValueNegativeOption.Default)
         {
             StringFormat = "0.0";
             return;
         }
         // Decimal, 3 "0.000"
-        if (subCode == ExcelCellDecimalCode.DecimalN && numberOfDecimal == 3)
+        if (numberOfDecimal == 3 && !hasThousandSeparator && negativeOption == ExcelCellValueNegativeOption.Default)
         {
             StringFormat = "0.000";
             return;
         }
 
         // Decimal, 2 decimal, negative: red
-        if (subCode == ExcelCellDecimalCode.DecimalNegRed && numberOfDecimal == 2)
+        if (numberOfDecimal == 2 && !hasThousandSeparator && negativeOption == ExcelCellValueNegativeOption.RedWithSign)
         {
             StringFormat = "0.00_ ;[Red]\\-0.00\\ ";
             return;
         }
 
-        // Decimal, 2 decimal, negative: red, no sign. format: "0.00;[Red]0.00"
-        if (subCode == ExcelCellDecimalCode.DecimalNegRedNoSign && numberOfDecimal == 2)
+        // Decimal, 2 decimal, negative: red, no sign
+        if (numberOfDecimal == 2 && !hasThousandSeparator && negativeOption == ExcelCellValueNegativeOption.RedWithoutSign)
         {
             StringFormat = "0.00;[Red]0.00";
         }
     }
-
+        
+    /// <summary>
+    /// same subcode, same number of decimals
+    /// same flag hasThousandSeperator,
+    /// same negativeOtion.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
     public bool AreEquals(ExcelCellFormatValueDecimal other)
     {
-        if (_decimalCode == other._decimalCode && NumberOfDecimal==other.NumberOfDecimal) return true;
+        if (_decimalCode == other._decimalCode && 
+            NumberOfDecimal==other.NumberOfDecimal &&
+            HasThousandSeparator== other.HasThousandSeparator &&
+            NegativeOption== other.NegativeOption) 
+                return true;
         return false;
     }
 }

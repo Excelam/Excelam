@@ -126,8 +126,9 @@ public class GetCellFormatTests
         Assert.AreEqual("0.00;[Red]0.00", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRedNoSign, cellFormatValueDecimal.DecimalCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
+        Assert.AreEqual(ExcelCellValueNegativeOption.RedWithoutSign, cellFormatValueDecimal.NegativeOption);
 
         //--B11: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B11");
@@ -136,8 +137,9 @@ public class GetCellFormatTests
         Assert.AreEqual("0.00_ ;[Red]\\-0.00\\ ", cellFormat.FormatValue.StringFormat);
         cellFormatValueDecimal = cellFormat.GetFormatValueAsDecimal();
         Assert.IsNotNull(cellFormatValueDecimal);
-        Assert.AreEqual(ExcelCellDecimalCode.DecimalNegRed, cellFormatValueDecimal.DecimalCode);
+        Assert.AreEqual(ExcelCellDecimalCode.DecimalN, cellFormatValueDecimal.DecimalCode);
         Assert.AreEqual(2, cellFormatValueDecimal.NumberOfDecimal);
+        Assert.AreEqual(ExcelCellValueNegativeOption.RedWithSign, cellFormatValueDecimal.NegativeOption);
 
 
         //--B13: 123 000,50 -decimal, 2 dec. thousand sep, format: null
