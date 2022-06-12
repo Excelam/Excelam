@@ -6,7 +6,6 @@ namespace Excelam.Tests.GetCellValue;
 
 /// <summary>
 /// Get cell value tests.
-/// TODO: refactor! only GetCellValue
 /// </summary>
 [TestClass]
 public class GetCellValueTests
@@ -158,7 +157,6 @@ public class GetCellValueTests
     {
         ExcelApi excelApi = new ExcelApi();
 
-        // TODO: fichier n'existe pas!!!
         string fileName = @"Files\GetCellValues\GetCellValuesCurrency.xlsx";
         ExcelWorkbook workbook;
         ExcelError error;
@@ -182,6 +180,9 @@ public class GetCellValueTests
         res = excelApi.ExcelCellValueApi.GetCellValueAsDouble(sheet, "B1", out valB22);
         Assert.IsTrue(res);
         Assert.AreEqual(88.22, valB22);
+
+
+        //--TODO: check others
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);

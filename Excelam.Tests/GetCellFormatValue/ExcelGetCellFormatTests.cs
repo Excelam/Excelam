@@ -182,12 +182,16 @@ public class GetCellFormatTests
         //--B1: 15/02/2021 - DateShort14
         ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
         Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+        ExcelCellFormatValueDateTime formatValue= cellFormat.GetFormatValueAsDateTime();
+        Assert.IsNotNull(formatValue);
+        Assert.AreEqual(ExcelCellDateTimeCode.DateShort14, formatValue.DateTimeCode);
 
         //--B3: 00:14:23 - Time21_hh_mm_ss
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
         Assert.AreEqual(ExcelCellFormatValueCode.DateTime, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellDateTimeCode.Time21_hh_mm_ss, (cellFormat.FormatValue as ExcelCellFormatValueDateTime).DateTimeCode);
+        formatValue = cellFormat.GetFormatValueAsDateTime();
+        Assert.IsNotNull(formatValue);
+        Assert.AreEqual(ExcelCellDateTimeCode.Time21_hh_mm_ss, formatValue.DateTimeCode);
 
         //--B5: 2021-05-12 - special Date - English/US
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B5");
@@ -284,15 +288,126 @@ public class GetCellFormatTests
 
         //--B1: 120,45 € - Currency euro, 2 decimales
         ExcelCellFormat cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B1");
-        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellCurrencyCode.Euro, (cellFormat.FormatValue as ExcelCellFormatValueCurrency).CurrencyCode);
+        ExcelCellFormatValueCurrency formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
 
-        //--B3: $250,85 - English-US
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Euro, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        //--B3: $250,85 - English-US dollar
         cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B3");
-        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
-        Assert.AreEqual(ExcelCellCurrencyCode.UnitedStatesDollar, (cellFormat.FormatValue as ExcelCellFormatValueCurrency).CurrencyCode);
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
 
-        //--todo: other cases: 
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.UnitedStatesDollar, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        //--B5: £120 500,78 - PoundSterling
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B5");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.PoundSterling, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+
+        // AustralianDollar
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B7");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.AustralianDollar, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        // CanadianDollar
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B9");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.CanadianDollar, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        // JapaneseYen
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B11");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.JapaneseYen, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        // RussianRuble
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B13");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.RussianRuble, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        // SingaporeDollar
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B15");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.SingaporeDollar, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        // China
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B17");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.ChineseChina, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+        // Bitcoin
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B19");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Bitcoin, formatValue.CurrencyCode);
+        Assert.AreEqual(6, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
+
+
+        // unknown, not managed currency
+        cellFormat = excelApi.ExcelCellValueApi.GetCellFormat(sheet, "B21");
+        formatValue = cellFormat.GetFormatValueAsCurrency();
+        Assert.IsNotNull(formatValue);
+
+        Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
+        Assert.AreEqual(ExcelCellCurrencyCode.Unknown, formatValue.CurrencyCode);
+        Assert.AreEqual(2, formatValue.NumberOfDecimal);
+        Assert.IsTrue(formatValue.HasThousandSeparator);
+        Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         //--close the file
         res = excelApi.ExcelFileApi.CloseExcelFile(workbook, out error);

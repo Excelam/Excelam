@@ -44,7 +44,9 @@ public enum ExcelCellCurrencyCode
     ///// </summary>
     JapaneseYen,
 
-    China,
+    ChineseChina,
+
+    YiChina,
 
     SingaporeDollar,
 

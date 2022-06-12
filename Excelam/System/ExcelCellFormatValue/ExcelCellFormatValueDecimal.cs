@@ -36,6 +36,9 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     /// </summary>
     public int NumberOfDecimal { get; private set; } = 0;
 
+    /// <summary>
+    /// Has a blank thousand separator.
+    /// </summary>
     public bool HasThousandSeparator { get; private set; } = false;
 
     public ExcelCellValueNegativeOption NegativeOption { get; private set; } = ExcelCellValueNegativeOption.Default;
@@ -59,6 +62,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
         {
             _decimalCode = ExcelCellDecimalCode.Decimal2;
             NumberFormatId = 2;
+            StringFormat = string.Empty;
             return;
         }
 
@@ -67,6 +71,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
         {
             _decimalCode = ExcelCellDecimalCode.Decimal4BlankThousandSep;
             NumberFormatId = 4;
+            StringFormat = string.Empty;
             return;
         }
 

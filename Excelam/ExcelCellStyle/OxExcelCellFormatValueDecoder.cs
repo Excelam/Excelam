@@ -37,8 +37,8 @@ public class OxExcelCellFormatValueDecoder
 		if (DecodeAccounting44Case(numberFormatId, format, out valueBase))
 			return;
 
-		if (DecodeCurrencySpecialCase(numberFormatId, format, out valueBase))
-			return;
+		//if (DecodeCurrencySpecialCase(numberFormatId, format, out valueBase))
+		//	return;
 
 		DecodeCurrencyCases(numberFormatId, format, out valueBase);
 	}
@@ -94,7 +94,6 @@ public class OxExcelCellFormatValueDecoder
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Decimal4BlankThousandSep)
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			//formatValue.SetDecimalCode(ExcelCellDecimalCode.Decimal4BlankThousandSep, 2);
 			formatValue.Define(2, true, ExcelCellValueNegativeOption.Default);
 			valueBase = formatValue;
 			return true;
@@ -109,7 +108,6 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.0")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			//formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalN, 1);
 			formatValue.Define(1, false, ExcelCellValueNegativeOption.Default);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
@@ -119,7 +117,6 @@ public class OxExcelCellFormatValueDecoder
 		if (format=="0.000")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			//formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalN, 3);
 			formatValue.Define(3, false, ExcelCellValueNegativeOption.Default);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
@@ -130,7 +127,6 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.00_ ;[Red]\\-0.00\\ ")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			//formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalNegRed, 2);
 			formatValue.Define(2, false, ExcelCellValueNegativeOption.RedWithSign);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
@@ -141,7 +137,6 @@ public class OxExcelCellFormatValueDecoder
 		if (format == "0.00;[Red]0.00")
 		{
 			formatValue = new ExcelCellFormatValueDecimal();
-			//formatValue.SetDecimalCode(ExcelCellDecimalCode.DecimalNegRedNoSign, 2);
 			formatValue.Define(2, false, ExcelCellValueNegativeOption.RedWithoutSign);
 			formatValue.StringFormat = format;
 			valueBase = formatValue;
@@ -168,7 +163,7 @@ public class OxExcelCellFormatValueDecoder
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.DateShort14)
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateShort14;
+			formatValue.Define(ExcelCellDateTimeCode.DateShort14);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -177,7 +172,7 @@ public class OxExcelCellFormatValueDecoder
 		if (numberFormatId == (int)ExcelCellBuiltInFormatCode.Time21_hh_mm_ss)
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.Time21_hh_mm_ss;
+			formatValue.Define(ExcelCellDateTimeCode.Time21_hh_mm_ss);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -192,7 +187,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.Equals("yyyy\\-mm\\-dd;@"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.Date_yyyy_mm_dd;
+			formatValue.Define(ExcelCellDateTimeCode.Date_yyyy_mm_dd);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -201,7 +196,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.StartsWith("[$-F800]"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLarge;
+			formatValue.Define(ExcelCellDateTimeCode.DateLarge);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -210,7 +205,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.StartsWith("[$-F400]"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.Time;
+			formatValue.Define(ExcelCellDateTimeCode.Time);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -219,7 +214,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.Equals("[$-409]mmmm\\ d\\,\\ yyyy;@"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLargeEnglishUS;
+			formatValue.Define(ExcelCellDateTimeCode.DateLargeEnglishUS);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -228,7 +223,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.Equals("[$-407]d\\.\\ mmmm\\ yyyy;@"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLargeGermanGermany;
+			formatValue.Define(ExcelCellDateTimeCode.DateLargeGermanGermany);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -236,7 +231,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.Equals("[$-807]d\\.\\ mmmm\\ yyyy;@"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateLargeGermanSwitzerland;
+			formatValue.Define(ExcelCellDateTimeCode.DateLargeGermanSwitzerland);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -245,7 +240,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.Contains("d") && formatCode.Contains("h"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateTimeOtherCases;
+			formatValue.DefineSpecialCase(ExcelCellDateTimeCode.DateTimeOtherCases, formatCode);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -254,7 +249,7 @@ public class OxExcelCellFormatValueDecoder
 		if ((formatCode.Contains("d") && formatCode.Contains("m")) || (formatCode.Contains("m") && formatCode.Contains("y")))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.DateOtherCases;
+			formatValue.DefineSpecialCase(ExcelCellDateTimeCode.DateOtherCases, formatCode);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -263,7 +258,7 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.Contains("h") || formatCode.Contains("s"))
 		{
 			formatValue = new ExcelCellFormatValueDateTime();
-			formatValue.DateTimeCode = ExcelCellDateTimeCode.TimeOtherCases;
+			formatValue.DefineSpecialCase(ExcelCellDateTimeCode.TimeOtherCases, formatCode);
 			formatValueBase = formatValue;
 			return true;
 		}
@@ -441,32 +436,34 @@ public class OxExcelCellFormatValueDecoder
 	/// <param name="excelCellFormat"></param>
 	/// <param name="valueFormat"></param>
 	/// <returns></returns>
-	private static bool DecodeCurrencySpecialCase(int numberFormatId, string formatCode, out ExcelCellFormatValueBase valueBase)
-	{
-		valueBase = null;
+	//private static bool DecodeCurrencySpecialCase(int numberFormatId, string formatCode, out ExcelCellFormatValueBase valueBase)
+	//{
+	//	valueBase = null;
 
-		if (string.IsNullOrEmpty(formatCode))
-			return false;
+	//	if (string.IsNullOrEmpty(formatCode))
+	//		return false;
 
-		// doesn't contains [xxx]
-		if (formatCode.Contains("[") || formatCode.Contains("]"))
-			return false;
+	//	// doesn't contains [xxx]
+	//	if (formatCode.Contains("[") || formatCode.Contains("]"))
+	//		return false;
 
-		ExcelCellCurrencyCode currencyCode;
-		if (DecodeCurrencyCode(formatCode, out currencyCode))
-		{
-			ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
-			formatValue.CurrencyCode = currencyCode;
-			valueBase = formatValue;
-			return true;
-		}
+	//	ExcelCellCurrencyCode currencyCode;
+	//	if (DecodeCurrencyCode(formatCode, out currencyCode))
+	//	{
+	//		ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
+	//		formatValue.CurrencyCode = currencyCode;
+	//		valueBase = formatValue;
+	//		return true;
+	//	}
 
-		return false;
-	}
+	//	return false;
+	//}
 
 	/// <summary>
 	/// decode currency casees.
 	/// based on ISO 4217.
+	/// 
+	/// one special case: "#,##0.00\\ \"€\""
 	/// </summary>
 	/// <param name="numberFormatId"></param>
 	/// <param name="formatCode"></param>
@@ -485,14 +482,22 @@ public class OxExcelCellFormatValueDecoder
 		if (!DecodeCurrencyCode(formatCode, out currencyCode))
 			return false;
 
+		// find the number of decimals
+		int numberOfdecimals;
+		bool hasThousandSeparator ;
+		ExcelCellValueNegativeOption negativeOption = ExcelCellValueNegativeOption.Default;
+		GetCurrencyInfos(formatCode, out numberOfdecimals, out hasThousandSeparator, out negativeOption);
+
 		ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
-		formatValue.CurrencyCode = currencyCode;
+		formatValue.Define(currencyCode, numberOfdecimals, hasThousandSeparator, negativeOption); 
 		valueBase = formatValue;
 		return true;
 	}
 
 	/// <summary>
 	/// Decode the currency code.
+	/// https://www.science.co.il/language/Locale-codes.php     pas complete
+	///	https://blog.csdn.net/2066/article/details/45555
 	/// </summary>
 	/// <param name="formatCode"></param>
 	/// <param name="currencyCode"></param>
@@ -539,13 +544,6 @@ public class OxExcelCellFormatValueDecoder
 			return true;
 		}
 
-		// #,##0.00\\ [$?-422]		Ukraine
-		if (formatCode.Contains("-422]"))
-		{
-			currencyCode = ExcelCellCurrencyCode.UkrainianHryvnia;
-			return true;
-		}
-
 
 		// [$¥-411]#,##0.00		Japonais
 		if (formatCode.Contains("-411]"))
@@ -560,8 +558,14 @@ public class OxExcelCellFormatValueDecoder
 			currencyCode = ExcelCellCurrencyCode.RussianRuble;
 			return true;
 		}
+		// #,##0.00\\ [$?-422]		Ukraine
+		if (formatCode.Contains("-422]"))
+		{
+			currencyCode = ExcelCellCurrencyCode.UkrainianHryvnia;
+			return true;
+		}
 
-		// [$$-1004]#,##0.00 Chinese - Singapore
+		// [$$-1004]#,##0.00 Chinese - Singapore dollar
 		if (formatCode.Contains("-1004]"))
 		{
 			currencyCode = ExcelCellCurrencyCode.SingaporeDollar;
@@ -571,14 +575,14 @@ public class OxExcelCellFormatValueDecoder
 		// [$¥-804]#,##0.00  Chinese - China
 		if (formatCode.Contains("-804]"))
 		{
-			currencyCode = ExcelCellCurrencyCode.China;
+			currencyCode = ExcelCellCurrencyCode.ChineseChina;
 			return true;
 		}
 
-		// [$¥-478]#,##0.00 Chinese - China, diff avec 804??
+		// [$¥-478]#,##0.00  Yi - China
 		if (formatCode.Contains("-478]"))
 		{
-			currencyCode = ExcelCellCurrencyCode.China;
+			currencyCode = ExcelCellCurrencyCode.YiChina;
 			return true;
 		}
 
@@ -589,9 +593,9 @@ public class OxExcelCellFormatValueDecoder
 			return true;
 		}
 
-		if (formatCode.Contains("[$$-"))
+		if (formatCode.Contains("[$"))
 		{
-			// dollar, not managed
+			// it's a currency but not yet managed
 			currencyCode = ExcelCellCurrencyCode.Unknown;
 			return true;
 		}
@@ -599,4 +603,40 @@ public class OxExcelCellFormatValueDecoder
 		currencyCode = ExcelCellCurrencyCode.Undefined;
 		return false;
 	}
+
+	/// <summary>
+	/// decode the currency formatString.
+	/// 
+	/// exp: 
+	/// #,##0.00\\ \"€\"		numberOfdecimals=2
+	/// [$₿]\\ #,##0.000000		numberOfdecimals=6
+	/// </summary>
+	/// <param name="formatCode"></param>
+	/// <param name="numberOfdecimals"></param>
+	/// <param name="hasThousandSeparator"></param>
+	/// <param name="negativeOption"></param>
+	private static void GetCurrencyInfos(string formatCode, out int numberOfdecimals, out bool hasThousandSeparator, out ExcelCellValueNegativeOption negativeOption)
+	{
+		if (formatCode.EndsWith("#,##0.00") || formatCode.Contains("#,##0.00\\"))
+		{
+			numberOfdecimals = 2;
+			hasThousandSeparator = true;
+			negativeOption = ExcelCellValueNegativeOption.Default;
+			return;
+		}
+
+		if (formatCode.EndsWith("#,##0.000000"))
+		{
+			numberOfdecimals = 6;
+			hasThousandSeparator = true;
+			negativeOption = ExcelCellValueNegativeOption.Default;
+			return;
+		}
+
+		// unable to decode
+		numberOfdecimals = 2;
+		hasThousandSeparator = true;
+		negativeOption = ExcelCellValueNegativeOption.Default;
+	}
+
 }

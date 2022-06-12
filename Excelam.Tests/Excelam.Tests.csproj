@@ -91,6 +91,9 @@
     <None Update="Files\GetCellFormat\GetCellFormatValuesPercentage.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Files\GetCellValues\GetCellValuesCurrency.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Files\GetCellValues\GetCellValuesDateTime.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
