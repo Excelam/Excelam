@@ -11,7 +11,7 @@ use the last version: 2.16.0.
 To have code samples, see the tests project: Excelam.Tests.
 
 A nuget package has been published:
-https://www.nuget.org/packages/Excelam/0.0.1
+https://www.nuget.org/packages/Excelam/0.0.2
 
 Next stages will be to manage more types: fraction, percentage, scientific and more currencies.
 
@@ -57,7 +57,7 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
-## 2.3. Get a sheet par index or by name
+## 2.3. Get a sheet by index or by name
 
 ```csharp
 
