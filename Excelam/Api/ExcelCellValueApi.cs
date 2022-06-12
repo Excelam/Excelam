@@ -489,7 +489,6 @@ public class ExcelCellValueApi
     /// <param name="cellAddress"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    //public bool SetCellValueDecimal(ExcelSheet excelSheet, string cellAddress, ExcelCellDecimalCode subCode, int numberOfDecimal, double value)
     public bool SetCellValueDecimal(ExcelSheet excelSheet, string cellAddress, int numberOfDecimal, bool hasThousandSeparator, ExcelCellValueNegativeOption negativeOption, double value)
     {        
         ExcelCellFormatValueDecimal cellFormatValue = new ExcelCellFormatValueDecimal();
@@ -578,8 +577,6 @@ public class ExcelCellValueApi
         if (cellFormat != null && cellFormat.FormatValue.Code == ExcelCellFormatValueCode.DateTime)
         {
             // change the cell value
-            // todo: revoir, marche pas!!
-            //ici();
             cell.CellValue = new CellValue(value.ToOADate());
             return true;
         }

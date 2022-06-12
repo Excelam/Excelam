@@ -35,7 +35,6 @@ public class SetCellValueDecimalTests
         Assert.IsNotNull(sheet);
 
         //--B1: 22,56 - decimal, a built-in format
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", ExcelCellDecimalCode.Decimal2, 2, 22.56);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", 2, false, ExcelCellValueNegativeOption.Default, 22.56);
         Assert.IsTrue(res);
 
@@ -47,7 +46,6 @@ public class SetCellValueDecimalTests
 
 
         //--B3: 63,456 - decimal - 3dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", ExcelCellDecimalCode.DecimalN, 3, 63.456);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", 3, false, ExcelCellValueNegativeOption.Default, 63.456);
         Assert.IsTrue(res);
 
@@ -67,7 +65,6 @@ public class SetCellValueDecimalTests
 
 
         //--B5: 5,6 - decimal - 1dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.DecimalN, 1, 5.6);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 1, false, ExcelCellValueNegativeOption.Default, 5.6);
         Assert.IsTrue(res);
 
@@ -86,7 +83,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(5.6, cellVal);
 
         //--B7: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", ExcelCellDecimalCode.DecimalNegRedNoSign, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", 2, false, ExcelCellValueNegativeOption.RedWithoutSign, -123);
         Assert.IsTrue(res);
 
@@ -105,7 +101,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B9: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", ExcelCellDecimalCode.DecimalNegRed, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", 2, false, ExcelCellValueNegativeOption.RedWithSign , -123);
         Assert.IsTrue(res);
 
@@ -124,7 +119,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B11: 123 000,50 -decimal, 2 dec. thousand sep, format: null
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", ExcelCellDecimalCode.Decimal4BlankThousandSep, 2, 123000.50);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", 2, true, ExcelCellValueNegativeOption.Default, 123000.50);
         Assert.IsTrue(res);
 
@@ -168,7 +162,6 @@ public class SetCellValueDecimalTests
         Assert.IsNotNull(sheet);
 
         //--B1: 22,56 - decimal, a built-in format
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", ExcelCellDecimalCode.Decimal2, 2, 22.56);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", 2, false, ExcelCellValueNegativeOption.Default, 22.56);
 
         Assert.IsTrue(res);
@@ -181,7 +174,6 @@ public class SetCellValueDecimalTests
 
 
         //--B3: 63,456 - decimal - 3dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", ExcelCellDecimalCode.DecimalN, 3, 63.456);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", 3, false, ExcelCellValueNegativeOption.Default, 63.456);
         Assert.IsTrue(res);
 
@@ -201,7 +193,6 @@ public class SetCellValueDecimalTests
 
 
         //--B5: 5,6 - decimal - 1dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.DecimalN, 1, 5.6);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 1, false, ExcelCellValueNegativeOption.Default, 5.6);
         Assert.IsTrue(res);
 
@@ -220,7 +211,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(5.6, cellVal);
 
         //--B7: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", ExcelCellDecimalCode.DecimalNegRedNoSign, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", 2, false, ExcelCellValueNegativeOption.RedWithoutSign, -123);
         Assert.IsTrue(res);
 
@@ -239,7 +229,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B9: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", ExcelCellDecimalCode.DecimalNegRed, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", 2, false, ExcelCellValueNegativeOption.RedWithSign, -123);
         Assert.IsTrue(res);
 
@@ -258,7 +247,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B11: 123 000,50 -decimal, 2 dec. thousand sep, format: null
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", ExcelCellDecimalCode.Decimal4BlankThousandSep, 2, 123000.50);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", 2, true, ExcelCellValueNegativeOption.Default, 123000.50);
         Assert.IsTrue(res);
 
@@ -301,7 +289,6 @@ public class SetCellValueDecimalTests
         Assert.IsNotNull(sheet);
 
         //--B1: 22,56 - decimal, a built-in format
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", ExcelCellDecimalCode.Decimal2, 2, 22.56);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", 2, false, ExcelCellValueNegativeOption.Default, 22.56);
         Assert.IsTrue(res);
 
@@ -313,7 +300,6 @@ public class SetCellValueDecimalTests
 
 
         //--B3: 63,456 - decimal - 3dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", ExcelCellDecimalCode.DecimalN, 3, 63.456);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", 3, false, ExcelCellValueNegativeOption.Default, 63.456);
         Assert.IsTrue(res);
 
@@ -333,7 +319,6 @@ public class SetCellValueDecimalTests
 
 
         //--B5: 5,6 - decimal - 1dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.DecimalN, 1, 5.6);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 1, false, ExcelCellValueNegativeOption.Default, 5.6);
         Assert.IsTrue(res);
 
@@ -352,7 +337,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(5.6, cellVal);
 
         //--B7: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", ExcelCellDecimalCode.DecimalNegRedNoSign, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", 2, false, ExcelCellValueNegativeOption.RedWithoutSign, -123);
         Assert.IsTrue(res);
 
@@ -371,7 +355,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B9: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", ExcelCellDecimalCode.DecimalNegRed, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", 2, false, ExcelCellValueNegativeOption.RedWithSign, -123);
         Assert.IsTrue(res);
 
@@ -390,7 +373,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B11: 123 000,50 -decimal, 2 dec. thousand sep, format: null
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", ExcelCellDecimalCode.Decimal4BlankThousandSep, 2, 123000.50);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", 2, true, ExcelCellValueNegativeOption.Default, 123000.50);
         Assert.IsTrue(res);
 
@@ -433,7 +415,6 @@ public class SetCellValueDecimalTests
         Assert.IsNotNull(sheet);
 
         //--B1: 22,56 - decimal, a built-in format
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", ExcelCellDecimalCode.Decimal2, 2, 22.56);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", 2, false, ExcelCellValueNegativeOption.Default, 22.56);
         Assert.IsTrue(res);
 
@@ -445,7 +426,6 @@ public class SetCellValueDecimalTests
 
 
         //--B3: 63,456 - decimal - 3dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", ExcelCellDecimalCode.DecimalN, 3, 63.456);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", 3, false, ExcelCellValueNegativeOption.Default, 63.456);
         Assert.IsTrue(res);
 
@@ -465,7 +445,6 @@ public class SetCellValueDecimalTests
 
 
         //--B5: 5,6 - decimal - 1dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.DecimalN, 1, 5.6);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 1, false, ExcelCellValueNegativeOption.Default, 5.6);
         Assert.IsTrue(res);
 
@@ -484,7 +463,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(5.6, cellVal);
 
         //--B7: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", ExcelCellDecimalCode.DecimalNegRedNoSign, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", 2, false, ExcelCellValueNegativeOption.RedWithoutSign, -123);
         Assert.IsTrue(res);
 
@@ -503,7 +481,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B9: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", ExcelCellDecimalCode.DecimalNegRed, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", 2, false, ExcelCellValueNegativeOption.RedWithSign, -123);
         Assert.IsTrue(res);
 
@@ -522,7 +499,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B11: 123 000,50 -decimal, 2 dec. thousand sep, format: null
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", ExcelCellDecimalCode.Decimal4BlankThousandSep, 2, 123000.50);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", 2, true, ExcelCellValueNegativeOption.Default, 123000.50);
         Assert.IsTrue(res);
 
@@ -562,7 +538,6 @@ public class SetCellValueDecimalTests
         Assert.IsNotNull(sheet);
 
         //--B1: 22,56 - decimal, a built-in format
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", ExcelCellDecimalCode.Decimal2, 2, 22.56);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", 2, false, ExcelCellValueNegativeOption.Default, 22.56);
         Assert.IsTrue(res);
 
@@ -574,7 +549,6 @@ public class SetCellValueDecimalTests
 
 
         //--B3: 63,456 - decimal - 3dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", ExcelCellDecimalCode.DecimalN, 3, 63.456);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", 3, false, ExcelCellValueNegativeOption.Default, 63.456);
         Assert.IsTrue(res);
 
@@ -594,7 +568,6 @@ public class SetCellValueDecimalTests
 
 
         //--B5: 5,6 - decimal - 1dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.DecimalN, 1, 5.6);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 1, false, ExcelCellValueNegativeOption.Default, 5.6);
         Assert.IsTrue(res);
 
@@ -612,7 +585,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(5.6, cellVal);
 
         //--B7: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", ExcelCellDecimalCode.DecimalNegRedNoSign, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", 2, false, ExcelCellValueNegativeOption.RedWithoutSign, -123);
         Assert.IsTrue(res);
 
@@ -631,7 +603,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B9: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", ExcelCellDecimalCode.DecimalNegRed, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", 2, false, ExcelCellValueNegativeOption.RedWithSign, -123);
         Assert.IsTrue(res);
 
@@ -650,7 +621,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B11: 123 000,50 -decimal, 2 dec. thousand sep, format: null
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", ExcelCellDecimalCode.Decimal4BlankThousandSep, 2, 123000.50);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", 2, true, ExcelCellValueNegativeOption.Default, 123000.50);
         Assert.IsTrue(res);
 
@@ -689,7 +659,6 @@ public class SetCellValueDecimalTests
         Assert.IsNotNull(sheet);
 
         //--B1: 22,56 - decimal, a built-in format
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", ExcelCellDecimalCode.Decimal2, 2, 22.56);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B1", 2, false, ExcelCellValueNegativeOption.Default, 22.56);
         Assert.IsTrue(res);
 
@@ -701,7 +670,6 @@ public class SetCellValueDecimalTests
 
 
         //--B3: 63,456 - decimal - 3dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", ExcelCellDecimalCode.DecimalN, 3, 63.456);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B3", 3, false, ExcelCellValueNegativeOption.Default, 63.456);
         Assert.IsTrue(res);
 
@@ -721,7 +689,6 @@ public class SetCellValueDecimalTests
 
 
         //--B5: 5,6 - decimal - 1dec
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", ExcelCellDecimalCode.DecimalN, 1, 5.6);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B5", 1, false, ExcelCellValueNegativeOption.Default, 5.6);
         Assert.IsTrue(res);
 
@@ -740,7 +707,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(5.6, cellVal);
 
         //--B7: 123 - decimal - neg, red, no sign, format: "0.00;[Red]0.00"
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", ExcelCellDecimalCode.DecimalNegRedNoSign, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B7", 2, false, ExcelCellValueNegativeOption.RedWithoutSign, -123);
         Assert.IsTrue(res);
 
@@ -759,7 +725,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B9: -123 - decimal - neg, red, sign, format: "0.00_ ;[Red]\\-0.00\\ "
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", ExcelCellDecimalCode.DecimalNegRed, 2, -123);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B9", 2, false, ExcelCellValueNegativeOption.RedWithSign, -123);
         Assert.IsTrue(res);
 
@@ -778,7 +743,6 @@ public class SetCellValueDecimalTests
         Assert.AreEqual(-123, cellVal);
 
         //--B11: 123 000,50 -decimal, 2 dec. thousand sep, format: null
-        //res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", ExcelCellDecimalCode.Decimal4BlankThousandSep, 2, 123000.50);
         res = excelApi.ExcelCellValueApi.SetCellValueDecimal(sheet, "B11", 2, true, ExcelCellValueNegativeOption.Default, 123000.50);
         Assert.IsTrue(res);
 

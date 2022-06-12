@@ -41,15 +41,11 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     public ExcelCellValueNegativeOption NegativeOption { get; private set; } = ExcelCellValueNegativeOption.Default;
 
     /// <summary>
-    /// TODO: refactorer! passer numberOfDecimal, NegativeOption et HasThousandSeparator.
-    /// -> va set le bon subCode.
-    /// 
-    /// Set a subCode withe the number of decimal (after the dot).
+    /// Define a cell value as a decimal.
     /// </summary>
     /// <param name="subCode"></param>
     /// <param name="numberOfDecimal"></param>
     public void Define(int numberOfDecimal, bool hasThousandSeparator, ExcelCellValueNegativeOption negativeOption)
-        //ExcelCellDecimalCode subCode, int numberOfDecimal)
     {
         // not a number, should have at least one decimal after the dot
         if (numberOfDecimal < 1) numberOfDecimal = 2;
