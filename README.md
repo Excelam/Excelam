@@ -11,7 +11,7 @@ use the last version: 2.16.0.
 To have code samples, see the tests project: Excelam.Tests.
 
 A nuget package has been published:
-https://www.nuget.org/packages/Excelam/0.0.2
+https://www.nuget.org/packages/Excelam
 
 Next stages will be to manage more types: fraction, percentage, scientific and more currencies.
 
