@@ -484,12 +484,11 @@ public class OxExcelCellFormatValueDecoder
 
 		// find the number of decimals
 		int numberOfdecimals;
-		bool hasThousandSeparator ;
 		ExcelCellValueNegativeOption negativeOption = ExcelCellValueNegativeOption.Default;
-		GetCurrencyInfos(formatCode, out numberOfdecimals, out hasThousandSeparator, out negativeOption);
+		GetCurrencyInfos(formatCode, out numberOfdecimals, out negativeOption);
 
 		ExcelCellFormatValueCurrency formatValue = new ExcelCellFormatValueCurrency();
-		formatValue.Define(currencyCode, numberOfdecimals, hasThousandSeparator, negativeOption); 
+		formatValue.Define(currencyCode, numberOfdecimals, negativeOption); 
 		valueBase = formatValue;
 		return true;
 	}
@@ -615,12 +614,11 @@ public class OxExcelCellFormatValueDecoder
 	/// <param name="numberOfdecimals"></param>
 	/// <param name="hasThousandSeparator"></param>
 	/// <param name="negativeOption"></param>
-	private static void GetCurrencyInfos(string formatCode, out int numberOfdecimals, out bool hasThousandSeparator, out ExcelCellValueNegativeOption negativeOption)
+	private static void GetCurrencyInfos(string formatCode, out int numberOfdecimals, out ExcelCellValueNegativeOption negativeOption)
 	{
 		if (formatCode.EndsWith("#,##0.00") || formatCode.Contains("#,##0.00\\"))
 		{
 			numberOfdecimals = 2;
-			hasThousandSeparator = true;
 			negativeOption = ExcelCellValueNegativeOption.Default;
 			return;
 		}
@@ -628,14 +626,12 @@ public class OxExcelCellFormatValueDecoder
 		if (formatCode.EndsWith("#,##0.000000"))
 		{
 			numberOfdecimals = 6;
-			hasThousandSeparator = true;
 			negativeOption = ExcelCellValueNegativeOption.Default;
 			return;
 		}
 
 		// unable to decode
 		numberOfdecimals = 2;
-		hasThousandSeparator = true;
 		negativeOption = ExcelCellValueNegativeOption.Default;
 	}
 

@@ -28,11 +28,6 @@ public class ExcelCellFormatValueCurrency:ExcelCellFormatValueBase
     /// </summary>
     public int NumberOfDecimal { get; private set; } = 0;
 
-    /// <summary>
-    /// Has a blank thousand separator.
-    /// </summary>
-    public bool HasThousandSeparator { get; private set; } = false;
-
     public ExcelCellValueNegativeOption NegativeOption { get; private set; } = ExcelCellValueNegativeOption.Default;
 
     /// <summary>
@@ -40,26 +35,25 @@ public class ExcelCellFormatValueCurrency:ExcelCellFormatValueBase
     /// </summary>
     /// <param name="subCode"></param>
     /// <param name="numberOfDecimal"></param>
-    public void Define(ExcelCellCurrencyCode currencyCode, int numberOfDecimal, bool hasThousandSeparator, ExcelCellValueNegativeOption negativeOption)
+    public void Define(ExcelCellCurrencyCode currencyCode, int numberOfDecimal, ExcelCellValueNegativeOption negativeOption)
     {
         // not a number, should have at least one decimal after the dot
         if (numberOfDecimal < 1) numberOfDecimal = 2;
 
         _currencyCode = currencyCode;
         NumberOfDecimal = numberOfDecimal;
-        HasThousandSeparator = hasThousandSeparator;
         NegativeOption = negativeOption;
         // no built-in case exists for currency format
         NumberFormatId = 0;
 
         // euro, 2 dec, has thousand sep, neg: std
-        if (currencyCode== ExcelCellCurrencyCode.Euro && numberOfDecimal == 2 && hasThousandSeparator && negativeOption == ExcelCellValueNegativeOption.Default)
+        if (currencyCode== ExcelCellCurrencyCode.Euro && numberOfDecimal == 2 && negativeOption == ExcelCellValueNegativeOption.Default)
         {
             StringFormat = "#,##0.00\\ \"€\"";
             return;
         }
 
-        if (currencyCode == ExcelCellCurrencyCode.UnitedStatesDollar && numberOfDecimal == 2 && hasThousandSeparator && negativeOption == ExcelCellValueNegativeOption.Default)
+        if (currencyCode == ExcelCellCurrencyCode.UnitedStatesDollar && numberOfDecimal == 2 && negativeOption == ExcelCellValueNegativeOption.Default)
         {
             StringFormat = "[$$-409]#,##0.00";
             return;
@@ -79,7 +73,6 @@ public class ExcelCellFormatValueCurrency:ExcelCellFormatValueBase
     {
         if (_currencyCode == other._currencyCode &&
             NumberOfDecimal == other.NumberOfDecimal &&
-            HasThousandSeparator == other.HasThousandSeparator &&
             NegativeOption == other.NegativeOption)
             return true;
         return false;

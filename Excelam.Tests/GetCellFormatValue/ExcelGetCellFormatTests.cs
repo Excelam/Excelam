@@ -294,7 +294,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.Euro, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         //--B3: $250,85 - English-US dollar
@@ -305,7 +304,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.UnitedStatesDollar, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         //--B5: £120 500,78 - PoundSterling
@@ -316,7 +314,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.PoundSterling, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
 
@@ -328,7 +325,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.AustralianDollar, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         // CanadianDollar
@@ -339,7 +335,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.CanadianDollar, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         // JapaneseYen
@@ -350,7 +345,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.JapaneseYen, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         // RussianRuble
@@ -361,7 +355,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.RussianRuble, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         // SingaporeDollar
@@ -372,7 +365,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.SingaporeDollar, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         // China
@@ -383,7 +375,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.ChineseChina, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         // Bitcoin
@@ -394,7 +385,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.Bitcoin, formatValue.CurrencyCode);
         Assert.AreEqual(6, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
 
@@ -406,7 +396,6 @@ public class GetCellFormatTests
         Assert.AreEqual(ExcelCellFormatValueCode.Currency, cellFormat.FormatValue.Code);
         Assert.AreEqual(ExcelCellCurrencyCode.Unknown, formatValue.CurrencyCode);
         Assert.AreEqual(2, formatValue.NumberOfDecimal);
-        Assert.IsTrue(formatValue.HasThousandSeparator);
         Assert.AreEqual(ExcelCellValueNegativeOption.Default, formatValue.NegativeOption);
 
         //--close the file
