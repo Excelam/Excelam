@@ -1,9 +1,9 @@
-# 1/ What is Excelam?
+# 1. What is Excelam?
 
 Excelam is a open-source .NET library over OpenXml to use Excel easily.
 The library is writen in C#/net6.
 
-The goal is to get cell value format, get cell value and set cell value, in different formats aas existing in Excel: General, Number, Decimal, Date and Time, Currency,...
+The goal is to get cell value format, get cell value and set cell value, in different formats as defined in Excel: General, Number, Decimal, Date and Time, Currency,...
 
 The only dependency is DocumentFormat.OpenXml (Open XML SDK), the official Microsoft library to work with Word, Excel and PowerPoint documents.
 use the last version: 2.16.0.
