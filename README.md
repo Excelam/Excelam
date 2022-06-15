@@ -3,7 +3,7 @@
 Excelam is a open-source .NET library over OpenXml to use Excel easily.
 The library is writen in C#/net6.
 
-The goal is to get cell value format, get cell value and set cell value, in different formats: general, number, decimal, date, currency,...
+The goal is to get cell value format, get cell value and set cell value, in different formats aas existing in Excel: General, Number, Decimal, Date and Time, Currency,...
 
 The only dependency is DocumentFormat.OpenXml (Open XML SDK), the official Microsoft library to work with Word, Excel and PowerPoint documents.
 use the last version: 2.16.0.
@@ -13,7 +13,7 @@ To have code samples, see the tests project: Excelam.Tests.
 A nuget package has been published:
 https://www.nuget.org/packages/Excelam
 
-Next stages will be to manage more types: fraction, percentage, scientific and more currencies.
+Next stages will be to manage more types and more cases: Accouting, Fraction, Percentage, and Scientific.
 
 # 2. Create or open an Excel file
 
