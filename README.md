@@ -19,29 +19,26 @@ Next stages will be to manage more types and more cases: Accouting, Fraction, Pe
 
 Excel cell modeling is rich but also complex.
 
-# 2.1. Cell modeling
+## 2.1. Cell modeling
 
 Cell modeling is composed in four main parts:
 
-- Value format
+- Value format, Fill, Border and Font.
 
-- Fill
+And also these two specific parts:
 
-- Border
-
-- Font
-
-And also these two parts:
-
-- Alignment
-
-- Protection
+- Alignment, Protection.
 
 The library concerns currently the value format of cell. Others parts are not managed.
 
-# 2.1. Cell value format
+## 2.2. Cell value format
 
-Excel provide a rich structure of cell value format.
+Excel provide a rich list of categories for cell value format:
+
+- General, Text, Number, Decimal, Date and Time, Currency, Accounting, Percentage, Fraction and scientific.
+
+General and Text categories are very basic. For others categories, it's possible to configure the format with more details.
+
 
 
 TODO: !display
