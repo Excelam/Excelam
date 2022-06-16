@@ -23,8 +23,7 @@ Excel cell modeling is rich but also complex.
 
 Cell modeling is composed of four main parts:
 
-<b>
-- Value format, Fill, Border and Font.</b>
+- <b>Value format, Fill, Border and Font.</b>
     
 And also these two specific parts:
 
