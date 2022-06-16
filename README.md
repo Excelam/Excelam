@@ -17,7 +17,11 @@ Next stages will be to manage more types and more cases: Accouting, Fraction, Pe
 
 # 2. Focus on Excel Cell value format
 
-Excel cell modelization is rich but also complex. Cell content is composed in many parts:
+Excel cell modeling is rich but also complex.
+
+# 2.1. Cell modeling
+
+Cell modeling is composed in four main parts:
 
 - Value format
 
@@ -27,12 +31,21 @@ Excel cell modelization is rich but also complex. Cell content is composed in ma
 
 - Font
 
+And also these two parts:
+
 - Alignment
 
 - Protection
 
+The library concerns currently the value format of cell. Others parts are not managed.
 
-TODO:
+# 2.1. Cell value format
+
+Excel provide a rich structure of cell value format.
+
+
+TODO: !display
+
 
 # 3. Create or open an Excel file
 
