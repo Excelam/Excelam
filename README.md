@@ -49,6 +49,7 @@ Name      | NumberFormatId | Built-in?  |  string format
 :--       | :------------: | :--------: | --------: 
 General   | 0              |     y      |  -  
 Text      | 49             |     y      |  -
+DateShort | 14             |     y      |  -
 
 
 
