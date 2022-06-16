@@ -35,9 +35,20 @@ The library concerns currently the value format of cell. Others parts are not ma
 
 Excel provide a rich list of categories for cell value format:
 
-- General, Text, Number, Decimal, Date and Time, Currency, Accounting, Percentage, Fraction and scientific.
+- <b>General, Text, Number, Decimal, Date and Time, Currency, Accounting, Percentage, Fraction and scientific.</b>
 
-General and Text categories are very basic. For others categories, it's possible to configure the format with more details.
+General, Text and Number categories are very basic. For others categories, it's possible to configure the format with more details.
+
+All cell value format are identified by an integer named NumberFormatId.
+Some cell value format are built-in, NumberFormatId is set to a value lesser than 164.
+For format that are not built-in, a string containing the format must be set and the NumberFormatId is greater than 163.
+
+Example:
+
+Name      | NumberFormatId | Built-in?  |  string format
+:--       | :------------: | :--------: | --------: 
+General   | 0              |     y      |  -  
+Text      | 49             |     y      |  -
 
 
 
