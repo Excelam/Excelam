@@ -1,6 +1,6 @@
 # 1. What is Excelam?
 
-Excelam is a open-source .NET library over OpenXml to use Excel easily.
+Excelam is an open-source .NET library over OpenXml to use Excel easily.
 The library is writen in C#/net6.
 
 The goal is to get cell value format, get cell value and set cell value, in different formats as defined in Excel: General, Number, Decimal, Date and Time, Currency,...
@@ -15,9 +15,28 @@ https://www.nuget.org/packages/Excelam
 
 Next stages will be to manage more types and more cases: Accouting, Fraction, Percentage, and Scientific.
 
-# 2. Create or open an Excel file
+# 2. Focus on Excel Cell value format
 
-## 2.1. Create a new excel file
+Excel cell modelization is rich but also complex. Cell content is composed in many parts:
+
+- Value format
+
+- Fill
+
+- Border
+
+- Font
+
+- Alignment
+
+- Protection
+
+
+TODO:
+
+# 3. Create or open an Excel file
+
+## 3.1. Create a new excel file
 
 Create an Excel file, provide the filename and the name of the first sheet.
 
@@ -38,7 +57,7 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
-## 2.2. Open an existing excel file
+## 3.2. Open an existing excel file
 
 ```csharp
 ExcelApi excelApi = new ExcelApi();
@@ -57,7 +76,7 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
-## 2.3. Get a sheet by index or by name
+## 3.3. Get a sheet by index or by name
 
 ```csharp
 
@@ -68,7 +87,10 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 var sheet2 = excelApi.ExcelSheetApi.GetSheetByName(excelWorkbook, "MySheet");
 ```
 
+
 # 3. Get cell value format : current cases
+
+TODO: rework it!!
 
 The GetCellFormat() function read the cell value format. It return an object ExcelCellFormat containing an enum value for the format: ExcelCellFormatCode.
 If the format is not reconized (not implemented), the enum value is: Undefined.
