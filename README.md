@@ -43,14 +43,7 @@ All cell value format are identified by an integer named NumberFormatId.
 Some cell value format are built-in, NumberFormatId is set to a value lesser than 164.
 For format that are not built-in, a string containing the format must be set and the NumberFormatId is greater than 163.
 
-Example:
-
-Name      | NumberFormatId | Built-in?  |  string format
-:--       | :------------: | :--------: | --------: 
-General   | 0              |     y      |  -  
-Text      | 49             |     y      |  -
-DateShort | 14             |     y      |  -
-
+To have more details on the excel cell value format categries, go [here](https://github.com/Excelam/Excelam/wiki/Excel-cell-value-format).
 
 
 TODO: !display
