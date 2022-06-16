@@ -21,10 +21,12 @@ Excel cell modeling is rich but also complex.
 
 ## 2.1. Cell modeling
 
-Cell modeling is composed in four main parts:
+Cell modeling is composed of four main parts:
 
+<b>
 - Value format, Fill, Border and Font.
-
+</b>
+    
 And also these two specific parts:
 
 - Alignment, Protection.
