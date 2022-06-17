@@ -3,19 +3,21 @@
 Excelam is an open-source .NET library over OpenXml to use Excel easily.
 The library is writen in C#/net6.
 
-The goal is to get cell value format, get cell value and set cell value, in different formats as defined in Excel: General, Number, Decimal, Date and Time, Currency,...
+The goal of the libray is focused on get cell value format and read/write cell value in different formats available in Excel:
+
+- <b>General, Number, Decimal, Date and Time, Currency,...</b>
 
 The only dependency is DocumentFormat.OpenXml (Open XML SDK), the official Microsoft library to work with Word, Excel and PowerPoint documents.
-use the last version: 2.16.0.
+The library use the last version: 2.16.0.
 
 To have code samples, see the tests project: Excelam.Tests.
 
 A nuget package has been published:
 https://www.nuget.org/packages/Excelam
 
-Next stages will be to manage more types and more cases: Accouting, Fraction, Percentage, and Scientific.
+Next stages will be to manage more types and more cases: Accounting, Fraction, Percentage, and Scientific.
 
-# 2. Focus on Excel Cell value format
+# 2. Excel Cell value format
 
 Excel cell modeling is rich but also complex.
 
@@ -45,8 +47,7 @@ For format that are not built-in, a string containing the format must be set and
 
 To have more details on the excel cell value format categries, go [here](https://github.com/Excelam/Excelam/wiki/Excel-cell-value-format).
 
-
-TODO: !display
+Be carreful, cell value format concerns only the display of the value but the inner value in the cell can be formatted in another format. 
 
 
 # 3. Create or open an Excel file
@@ -73,6 +74,30 @@ res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
 ## 3.2. Open an existing excel file
+
+```csharp
+ExcelApi excelApi = new ExcelApi();
+string fileName = @"Files\MyExcel.xlsx";
+
+ExcelWorkbook excelWorkbook;
+ExcelError error;
+bool res = excelApi.ExcelFileApi.OpenExcelFile(fileName, out excelWorkbook, out error);
+
+// get the first sheet
+var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
+
+// do something in the excel file...
+
+// save and close the file
+res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
+```
+
+## 3.3. Save and close an excel file
+
+It's possible to save the modification of the current excel file.
+
+On closing, the modifications are automatically saved.
+
 
 ```csharp
 ExcelApi excelApi = new ExcelApi();
