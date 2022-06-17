@@ -75,6 +75,8 @@ res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 
 ## 3.2. Open an existing excel file
 
+How to open an existing Excel file:
+
 ```csharp
 ExcelApi excelApi = new ExcelApi();
 string fileName = @"Files\MyExcel.xlsx";
@@ -112,11 +114,18 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 
 // do something in the excel file...
 
+// save the modifications
+excelApi.ExcelFileApi.SaveExcelFile(excelWorkbook, out error);
+
+// do again modifications...
+
 // save and close the file
 res= excelApi.ExcelFileApi.CloseExcelFile(excelWorkbook, out error);
 ```
 
-## 3.3. Get a sheet by index or by name
+## 3.4. Get a sheet by index or by name
+
+It's possible to get a sheet from Excel by index, starting from 0, or by the name.
 
 ```csharp
 
