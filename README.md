@@ -149,8 +149,25 @@ The GelCellFormat(cellAddress) function get the value format of the cell.
 ExcelCellFormat cellFormat= excelApi.ExcelCellValueApi.GetCellFormat(excelSheet, "A1");
 ```
 
+The function return an ExcelCellFormat object witch define the category and detail of the format of the cell value.
+The next step is to focus on cellFormat.FormatValue.Code enum value.
 
-# 4.1. Cell value format is General
+```csharp
+// is the format category General?
+if(cellFormat.FormatValue.Code == ExcelCellFormatValueCode.General)
+  ...
+```
+
+ExcelCellFormat.FormatValue is set to an object depending of the format.
+
+TODO:
+
+
+
+## 4.1. Cell value format is General
+
+If the cell value format is General, the case is simple, it's a basic category format.
+There is nothing more to get about the format.
 
 ```csharp
 // get the A1 cell value format
