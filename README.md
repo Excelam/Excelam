@@ -3,7 +3,7 @@
 Excelam is an open-source .NET library over OpenXml to use Excel easily.
 The library is writen in C#/net6.
 
-The goal of the libray is focused on working on cell value in different formats available in Excel:
+The goal of the library is focused on working on cell value in different formats available in Excel:
 
 - <b>Get Cell Format</b>
 
@@ -140,10 +140,34 @@ var sheet = excelApi.ExcelSheetApi.GetSheet(excelWorkbook, 0);
 var sheet2 = excelApi.ExcelSheetApi.GetSheetByName(excelWorkbook, "MySheet");
 ```
 
+# 4. Get cell value format
 
-# 3. Get cell value format : current cases
+The GelCellFormat(cellAddress) function get the value format of the cell.
 
-TODO: rework it!!
+```csharp
+// get the A1 cell value format
+ExcelCellFormat cellFormat= excelApi.ExcelCellValueApi.GetCellFormat(excelSheet, "A1");
+```
+
+
+# 4.1. Cell value format is General
+
+```csharp
+// get the A1 cell value format
+ExcelCellFormat cellFormat= excelApi.ExcelCellValueApi.GetCellFormat(excelSheet, "A1");
+
+// is the format category General?
+if(cellFormat.FormatValue.Code == ExcelCellFormatValueCode.General)
+{
+    // read the string value of the cell...
+}
+```
+
+
+
+# XXXX. Get cell value format : current cases
+
+XXXXXXTODO: rework it!!
 
 The GetCellFormat() function read the cell value format. It return an object ExcelCellFormat containing an enum value for the format: ExcelCellFormatCode.
 If the format is not reconized (not implemented), the enum value is: Undefined.
