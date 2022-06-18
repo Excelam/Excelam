@@ -27,7 +27,8 @@ public class ExcelCellFormatBuilder
     /// <returns></returns>
     public static int BuildCellFormat(ExcelCellStyles excelCellStyles, Stylesheet stylesheet, ExcelCellFormatValueBase formatValue, int borderId, int fillId, int fontId)
     {
-        // get a numberingFormat if needed, stirng format set
+        // get a numberingFormat if needed, string format set
+        // TODO: pb normal?
         var excelNumberingFormat = GetOrCreateExcelNumberingFormat(excelCellStyles, stylesheet, formatValue.StringFormat);
 
         var cellFormat = new CellFormat();
@@ -78,14 +79,20 @@ public class ExcelCellFormatBuilder
         return excelCellFormat.StyleIndex;
     }
 
+    /// <summary>
+    /// Get or create a numberingFormat from/in Excel styles.
+    /// </summary>
+    /// <param name="excelCellStyles"></param>
+    /// <param name="stylesheet"></param>
+    /// <param name="stringFormat"></param>
+    /// <returns></returns>
     private static ExcelNumberingFormat? GetOrCreateExcelNumberingFormat(ExcelCellStyles excelCellStyles, Stylesheet stylesheet, string stringFormat)
     {
         // no specific string format so no numbering format, bye
         if (string.IsNullOrWhiteSpace(stringFormat))
             return null;
 
-        // todo: pas besoin d'associer (et créer si manque) un numberingFormat pour les built-in (sauf accounting!)
-        // a stringFormat exists?
+        // try to find an existing numberingFormat
         ExcelNumberingFormat excelNumberingFormat = excelCellStyles.FindExcelNumberingFormat(stringFormat);
 
         // exists?

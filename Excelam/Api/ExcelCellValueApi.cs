@@ -246,6 +246,7 @@ public class ExcelCellValueApi: ExcelCellValueApiBase
     public bool SetCellValueDecimal(ExcelSheet excelSheet, string cellAddress, int numberOfDecimal, bool hasThousandSeparator, ExcelCellValueNegativeOption negativeOption, double value)
     {        
         ExcelCellFormatValueDecimal cellFormatValue = new ExcelCellFormatValueDecimal();
+        // TODO: pb avec numberingFormat  -> get or create ici!!
         cellFormatValue.Define(numberOfDecimal, hasThousandSeparator, negativeOption);
 
         // get the cell if it exists?

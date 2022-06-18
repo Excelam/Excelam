@@ -103,8 +103,8 @@ public static class ExcelStylesManager
                     Protection= cellFormat.Protection
                 };
                 // TODO: FormatValue can be null!!
-                excelCellFormat.FormatValue.NumberFormatId = (int)numberFormatId;
-                excelCellFormat.FormatValue.ExcelNumberingFormat = excelNumberingFormat;
+                //excelCellFormat.FormatValue.NumberFormatId = (int)numberFormatId;
+                //excelCellFormat.FormatValue.ExcelNumberingFormat = excelNumberingFormat;
                 // save the decoded cell style
                 excelCellStyles.DictStyleIndexExcelCellFormat.Add(styleIndex, excelCellFormat);
 
@@ -192,7 +192,15 @@ public static class ExcelStylesManager
         ExcelCellFormatValueBase formatValue;
         string stringFormat = null;
         if (excelNumberingFormat != null) stringFormat = excelNumberingFormat.StringFormat;
+
+        // TODO: fournir le numberingFormat!!
         OxExcelCellFormatValueDecoder.DecodeNumberingFormat(numberFormatId, stringFormat, out formatValue);
+
+        //excelCellFormat.FormatValue.NumberFormatId = (int)numberFormatId;
+        //excelCellFormat.FormatValue.ExcelNumberingFormat = excelNumberingFormat;        
+        formatValue.NumberFormatId = numberFormatId;
+        formatValue.ExcelNumberingFormat = excelNumberingFormat;        
+
         return formatValue;
     }
 

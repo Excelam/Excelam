@@ -149,6 +149,7 @@ public class SetCellValueDecimalTests
     [TestMethod]
     public void SetCellValuesEmpty()
     {
+        // ! configure: copy file always!
         string fileName = @"Files\SetCellValues\SetCellValuesDecimalEmpty.xlsx";
 
         ExcelApi excelApi = new ExcelApi();
