@@ -159,7 +159,7 @@ public class ExcelCellStyles
 
         // get all format value concerning general type
         List<ExcelCellFormat> selectedValues = DictStyleIndexExcelCellFormat
-           .Where(cf => cf.Value.FormatValue.Code == ExcelCellFormatValueCode.Decimal && cf.Value.FillId == fillId && cf.Value.FontId == fontId)
+           .Where(cf => cf.Value.FormatValue.Code == ExcelCellFormatValueCategoryCode.Decimal && cf.Value.FillId == fillId && cf.Value.FontId == fontId)
            .Select(cf => cf.Value).ToList();
 
         // scan items of the list: select first on subCode and NumberOfDecimal

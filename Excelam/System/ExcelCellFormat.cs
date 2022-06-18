@@ -9,19 +9,29 @@ namespace Excelam.System;
 
 /// <summary>
 /// An Excel cell format.
-/// Defined in the file: /xl/styles.xml.
+/// Concerns the value format, the border, the fill, the fill, the alignement and protection.
+/// 
+/// Is defined in the file: /xl/styles.xml.
 /// Has a position defined by IndexStyle.
 /// 
 /// Contains format for: Value, border, fill, font and also alignment and protection.
 /// </summary>
 public class ExcelCellFormat
 {
-    public static ExcelCellFormat Create(ExcelCellFormatValueCode code)
+    public static ExcelCellFormat Create(ExcelCellFormatValueCategoryCode code)
     {
         ExcelCellFormat excelCellFormat = new();
 
-        if (code == ExcelCellFormatValueCode.General)
+        if (code == ExcelCellFormatValueCategoryCode.General)
             excelCellFormat.FormatValue = new ExcelCellFormatValueGeneral();
+
+        if (code == ExcelCellFormatValueCategoryCode.Text)
+            excelCellFormat.FormatValue = new ExcelCellFormatValueText();
+
+        if (code == ExcelCellFormatValueCategoryCode.Number)
+            excelCellFormat.FormatValue = new ExcelCellFormatValueNumber();
+
+        // todo: others cases?
         return excelCellFormat;
     }
 

@@ -15,12 +15,8 @@
         public ExcelSheetApi ExcelSheetApi { get; private set; }
 
         /// <summary>
-        /// TODO: rename en ExcelCellApi?
-        /// garder Address
+        /// To access cell value.
         /// </summary>
         public ExcelCellValueApi ExcelCellValueApi { get; private set; }
-
-        // IExcelCellAddressApi
-
     }
 }

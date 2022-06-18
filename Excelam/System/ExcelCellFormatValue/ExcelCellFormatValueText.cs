@@ -10,7 +10,7 @@ public class ExcelCellFormatValueText :ExcelCellFormatValueBase
 {
     public ExcelCellFormatValueText()
     {
-        Code = ExcelCellFormatValueCode.Text;
+        Code = ExcelCellFormatValueCategoryCode.Text;
         NumberFormatId = (int)ExcelCellBuiltInFormatCode.Text49;
 
     }

@@ -12,7 +12,7 @@ public class ExcelCellFormatValueDateTime :ExcelCellFormatValueBase
 
     public ExcelCellFormatValueDateTime()
     {
-        Code = ExcelCellFormatValueCode.DateTime;
+        Code = ExcelCellFormatValueCategoryCode.DateTime;
         StringFormat = string.Empty; 
     }
 

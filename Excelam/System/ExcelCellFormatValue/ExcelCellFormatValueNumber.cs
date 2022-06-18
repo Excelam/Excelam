@@ -14,7 +14,7 @@ public class ExcelCellFormatValueNumber: ExcelCellFormatValueBase
 {
     public ExcelCellFormatValueNumber()
     {
-        Code = ExcelCellFormatValueCode.Number;
+        Code = ExcelCellFormatValueCategoryCode.Number;
         NumberFormatId = (int)ExcelCellBuiltInFormatCode.Number1;
 
     }

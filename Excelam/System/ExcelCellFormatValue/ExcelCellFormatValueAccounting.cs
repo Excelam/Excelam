@@ -10,7 +10,7 @@ public class ExcelCellFormatValueAccounting:ExcelCellFormatValueBase
 {
     public ExcelCellFormatValueAccounting()
     {
-        Code = ExcelCellFormatValueCode.Accounting;
+        Code = ExcelCellFormatValueCategoryCode.Accounting;
         NumberFormatId = (int)ExcelCellBuiltInFormatCode.Accounting44;
     }
 

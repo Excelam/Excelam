@@ -18,7 +18,7 @@ public class ExcelCellFormatValueDecimal :ExcelCellFormatValueBase
     /// </summary>
     public ExcelCellFormatValueDecimal()
     {
-        Code = ExcelCellFormatValueCode.Decimal;
+        Code = ExcelCellFormatValueCategoryCode.Decimal;
 
         NumberFormatId = (int)ExcelCellBuiltInFormatCode.Decimal2;
     }

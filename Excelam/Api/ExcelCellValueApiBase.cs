@@ -51,7 +51,7 @@ public abstract class ExcelCellValueApiBase
         if (OxExcelCellValueApi.IsValueSharedString(excelSheet.WorkbookPart, cell))
         {
             // special case
-            ExcelCellFormat excelCellFormat = ExcelCellFormat.Create(ExcelCellFormatValueCode.General);
+            ExcelCellFormat excelCellFormat = ExcelCellFormat.Create(ExcelCellFormatValueCategoryCode.General);
 
             string formula;
             if (OxExcelCellValueApi.IsCellFormula(excelSheet.WorkbookPart, cell, out formula))

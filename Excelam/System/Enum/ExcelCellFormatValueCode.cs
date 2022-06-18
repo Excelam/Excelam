@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace Excelam.System;
 
 /// <summary>
-/// Excel cell format value code.
-/// Main code.
+/// Excel cell format value category code.
 /// </summary>
-public enum ExcelCellFormatValueCode
+public enum ExcelCellFormatValueCategoryCode
 {
     Undefined,
 

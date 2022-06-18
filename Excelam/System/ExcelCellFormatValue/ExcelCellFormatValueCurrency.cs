@@ -15,7 +15,7 @@ public class ExcelCellFormatValueCurrency:ExcelCellFormatValueBase
 
     public ExcelCellFormatValueCurrency()
     {
-        Code = ExcelCellFormatValueCode.Currency;
+        Code = ExcelCellFormatValueCategoryCode.Currency;
     }
 
     public ExcelCellCurrencyCode CurrencyCode

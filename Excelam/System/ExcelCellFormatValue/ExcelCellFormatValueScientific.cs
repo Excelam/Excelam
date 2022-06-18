@@ -10,7 +10,7 @@ public class ExcelCellFormatValueScientific : ExcelCellFormatValueBase
 {
     public ExcelCellFormatValueScientific()
     {
-        Code = ExcelCellFormatValueCode.Scientific;
+        Code = ExcelCellFormatValueCategoryCode.Scientific;
         NumberFormatId = (int)ExcelCellBuiltInFormatCode.Scientific11;
     }
 

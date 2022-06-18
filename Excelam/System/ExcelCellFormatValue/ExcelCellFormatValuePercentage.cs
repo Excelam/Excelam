@@ -10,7 +10,7 @@ public class ExcelCellFormatValuePercentage: ExcelCellFormatValueBase
 {
     public ExcelCellFormatValuePercentage()
     { 
-        Code = ExcelCellFormatValueCode.Percentage;
+        Code = ExcelCellFormatValueCategoryCode.Percentage;
         // todo: not in all cases!
         NumberFormatId = (int)ExcelCellBuiltInFormatCode.Percentage9Int;
     }

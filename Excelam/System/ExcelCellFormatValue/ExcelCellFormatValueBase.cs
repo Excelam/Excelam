@@ -10,10 +10,13 @@ namespace Excelam.System;
 /// <summary>
 /// base class of cell format value:
 /// General, Text, Number Decimal, DateTime, Currency, Accounting, Percentage and Fraction.
+/// 
+/// TODO: rename
+/// ExcelCellFormatValueCategoryBase
 /// </summary>
 public abstract class ExcelCellFormatValueBase
 {
-    public ExcelCellFormatValueCode Code { get; set; } = ExcelCellFormatValueCode.Undefined;
+    public ExcelCellFormatValueCategoryCode Code { get; set; } = ExcelCellFormatValueCategoryCode.Undefined;
 
     /// <summary>
     /// excel/openXml number format id.
@@ -25,17 +28,13 @@ public abstract class ExcelCellFormatValueBase
     /// except for 44/Accounting.
     /// exp: decimal with 3 decimals: 0.000 
     /// accounting/44: _-* #,##0.00\ "€"_-;\-* #,##0.00\ "€"_-;_-* "-"??\ "€"_-;_-@_-
+    /// 
+    /// TODO: supprimer!! est dans numberingFormat
+    /// 
     /// </summary>
-    //public string FormatCode { get; set; } = string.Empty;
     public string StringFormat { get; set; } = string.Empty;
 
     public ExcelNumberingFormat ExcelNumberingFormat { get; set; }
-
-    /// <summary>
-    /// The original excel openXml object.
-    /// TODO: a deplacer 
-    /// </summary>
-    //public NumberingFormat NumberingFormat { get; set; }
 
     public override string ToString()
     {

@@ -206,7 +206,7 @@ public class ExcelCellValueApi: ExcelCellValueApiBase
         ExcelCellFormat? cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.GetStyleByIndex(styleIndex);
 
         //--2/ cell exists, same value format: Number
-        if (cellFormat!=null && cellFormat.FormatValue.Code == ExcelCellFormatValueCode.Number)
+        if (cellFormat!=null && cellFormat.FormatValue.Code == ExcelCellFormatValueCategoryCode.Number)
         {
             // change the cell value
             cell.CellValue = new CellValue(value);
@@ -269,7 +269,7 @@ public class ExcelCellValueApi: ExcelCellValueApiBase
         ExcelCellFormat? cellFormat = excelSheet.ExcelWorkbook.ExcelCellStyles.GetStyleByIndex(styleIndex);
 
         //--2/ cell exists, same value format: Number
-        if (cellFormat != null && cellFormat.FormatValue.Code == ExcelCellFormatValueCode.Decimal)
+        if (cellFormat != null && cellFormat.FormatValue.Code == ExcelCellFormatValueCategoryCode.Decimal)
         {
             // change the cell value
             cell.CellValue = new CellValue(value);
@@ -343,7 +343,7 @@ public class ExcelCellValueApi: ExcelCellValueApiBase
 
         //--2/ cell exists, same value format: DateTime/DateShort
         // TODO: test pas complet!!
-        if (cellFormat != null && cellFormat.FormatValue.Code == ExcelCellFormatValueCode.DateTime)
+        if (cellFormat != null && cellFormat.FormatValue.Code == ExcelCellFormatValueCategoryCode.DateTime)
         {
             // change the cell value
             cell.CellValue = new CellValue(value.ToOADate());
